@@ -1,559 +1,1425 @@
-<!DOCTYPE html><html><head>
-      <title>システム部開発ルール</title>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      
-      <link rel="stylesheet" href="file:///c:\Users\kure\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.20\crossnote\dependencies\katex\katex.min.css">
-      
-      
-      
-      
-      
-      <style>
-      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
-/* Please visit the URL below for more information: */
-/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+<!DOCTYPE html>
+<html>
 
-      </style>
-      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
-  document.addEventListener("DOMContentLoaded", function () {
-    // your code here
-  });
-</script></head><body for="html-export">
-    
-    
-      <div class="crossnote markdown-preview  ">
-      
-<h1 id="近畿大学大学祭実行委員会システム部-開発ルール">近畿大学大学祭実行委員会システム部 開発ルール </h1>
-<hr>
-<h2 id="はじめに">はじめに </h2>
-<p>このドキュメントは、近畿大学大学祭実行委員会システム部の開発ルールをまとめたものです。<br>
-毎年メンバーが入れ替わる中で、一貫した品質を保ちながら開発を進めるために作成されました。</p>
-<hr>
-<h2 id="開発の流れ">開発の流れ </h2>
-<h3 id="1-プロジェクト仕様書を作成">1. プロジェクト仕様書を作成 </h3>
-<ul>
-<li><code>docs/プロジェクト仕様書.md</code>にプロジェクトの詳細を記載</li>
-<li>何を作るか、どう動くか、どんなデータベースを使うかを明確にする</li>
-<li>2〜3 人でレビューして内容を確定</li>
-</ul>
-<h3 id="2-リポジトリを作成">2. リポジトリを作成 </h3>
-<ul>
-<li>GitHub で新しいリポジトリを作成（命名規則に従う）</li>
-<li><code>main</code>ブランチと<code>develop</code>ブランチを作成</li>
-<li><code>docs/</code>フォルダに各種ドキュメントを配置</li>
-</ul>
-<h3 id="3-issue-を作成">3. Issue を作成 </h3>
-<ul>
-<li>仕様書を見ながら、大きな単位で Issue を作成</li>
-<li>例：「ログイン機能を実装」「イベント一覧画面を実装」</li>
-</ul>
-<h3 id="4-ブランチを切って開発">4. ブランチを切って開発 </h3>
-<ul>
-<li><code>develop</code>から<code>feature/○○</code>ブランチを作成</li>
-<li>コーディング規約に従って実装</li>
-<li>定期的にコミット・プッシュ</li>
-</ul>
-<h3 id="5-プルリクエストを作成">5. プルリクエストを作成 </h3>
-<ul>
-<li>実装が完了したら PR を作成</li>
-<li>Discord で連絡してレビューを依頼</li>
-<li>レビュー承認後にマージ</li>
-</ul>
-<h3 id="6-繰り返し">6. 繰り返し </h3>
-<ul>
-<li>全ての機能が完成するまで 3〜5 を繰り返す</li>
-<li>定期的にプロジェクト仕様書を更新</li>
-</ul>
-<hr>
-<h1 id="github-ルール">GitHub ルール </h1>
-<h2 id="用語解説">用語解説 </h2>
-<p>このドキュメントで使用する用語を初学者向けに解説します。</p>
-<h3 id="githubギットハブ">GitHub（ギットハブ） </h3>
-<ul>
-<li><strong>説明：</strong> コードを保存・共有・管理するための Web サービス</li>
-<li><strong>例え：</strong> コードの Google ドライブのようなもの</li>
-<li><strong>用途：</strong> チームでコードを共同開発するときに使う</li>
-</ul>
-<h3 id="gitギット">Git（ギット） </h3>
-<ul>
-<li><strong>説明：</strong> コードの変更履歴を記録・管理するツール</li>
-<li><strong>例え：</strong> ゲームのセーブデータのようなもの（いつでも過去に戻れる）</li>
-<li><strong>用途：</strong> 「誰が」「いつ」「何を」変更したかを記録</li>
-</ul>
-<h3 id="リポジトリrepository--repo">リポジトリ（Repository / repo） </h3>
-<ul>
-<li><strong>説明：</strong> プロジェクトのコードやファイルを保存する場所</li>
-<li><strong>例え：</strong> プロジェクト専用のフォルダ</li>
-<li><strong>用途：</strong> プロジェクト全体のコードを 1 つの場所で管理</li>
-</ul>
-<h3 id="ブランチbranch">ブランチ（Branch） </h3>
-<ul>
-<li><strong>説明：</strong> コードの開発を並行して進めるための「枝分かれ」</li>
-<li><strong>例え：</strong> 本の下書きを複数作るようなもの（最後に 1 つにまとめる）</li>
-<li><strong>用途：</strong> 複数人が同時に異なる機能を開発できる</li>
-</ul>
-<h3 id="コミットcommit">コミット（Commit） </h3>
-<ul>
-<li><strong>説明：</strong> コードの変更を記録（保存）すること</li>
-<li><strong>例え：</strong> ゲームのセーブポイントを作ること</li>
-<li><strong>用途：</strong> 作業の区切りで変更を保存し、後で戻れるようにする</li>
-</ul>
-<h3 id="プッシュpush">プッシュ（Push） </h3>
-<ul>
-<li><strong>説明：</strong> ローカル（自分の PC）の変更を GitHub にアップロードすること</li>
-<li><strong>例え：</strong> 自分の PC からクラウドにファイルをアップロード</li>
-<li><strong>用途：</strong> 自分の作業をチームメンバーと共有する</li>
-</ul>
-<h3 id="プルpull">プル（Pull） </h3>
-<ul>
-<li><strong>説明：</strong> GitHub から最新のコードを自分の PC にダウンロードすること</li>
-<li><strong>例え：</strong> クラウドから最新ファイルをダウンロード</li>
-<li><strong>用途：</strong> 他の人の変更を自分の PC に取り込む</li>
-</ul>
-<h3 id="issueイシュー">Issue（イシュー） </h3>
-<ul>
-<li><strong>説明：</strong> やるべきタスクやバグを記録する「課題管理チケット」</li>
-<li><strong>例え：</strong> TODO リストの 1 項目</li>
-<li><strong>用途：</strong> 「何を作るか」「何を修正するか」を明確にする</li>
-</ul>
-<h3 id="プルリクエストpull-request--pr">プルリクエスト（Pull Request / PR） </h3>
-<ul>
-<li><strong>説明：</strong> 自分の変更を本番コードに取り込んでもらうための「申請」</li>
-<li><strong>例え：</strong> 「このコード、本番に入れていいですか？」という確認依頼</li>
-<li><strong>用途：</strong> レビューを受けてから本番コードに反映する</li>
-</ul>
-<h3 id="マージmerge">マージ（Merge） </h3>
-<ul>
-<li><strong>説明：</strong> 別々のブランチを 1 つに統合すること</li>
-<li><strong>例え：</strong> 複数の下書きを 1 つの完成版にまとめる</li>
-<li><strong>用途：</strong> 開発したコードを本番コードに反映する</li>
-</ul>
-<h3 id="コンフリクトconflict">コンフリクト（Conflict） </h3>
-<ul>
-<li><strong>説明：</strong> 同じファイルの同じ箇所を複数人が変更したときに起こる衝突</li>
-<li><strong>例え：</strong> 2 人が同じ文章を別々に編集して、どちらを採用するか決められない状態</li>
-<li><strong>用途：</strong> 手動で「どちらの変更を残すか」を決める必要がある</li>
-</ul>
-<h3 id="レビューreview--code-review">レビュー（Review / Code Review） </h3>
-<ul>
-<li><strong>説明：</strong> 他の人のコードを確認して、問題がないかチェックすること</li>
-<li><strong>例え：</strong> 作文を友達に読んでもらって、誤字や改善点を指摘してもらう</li>
-<li><strong>用途：</strong> コードの品質を保ち、バグを減らす</li>
-</ul>
-<h3 id="クローンclone">クローン（Clone） </h3>
-<ul>
-<li><strong>説明：</strong> GitHub のリポジトリを自分の PC にコピーすること</li>
-<li><strong>例え：</strong> クラウドのフォルダを自分の PC にダウンロード</li>
-<li><strong>用途：</strong> 初めてプロジェクトに参加するときに行う</li>
-</ul>
-<h3 id="フォークfork">フォーク（Fork） </h3>
-<ul>
-<li><strong>説明：</strong> 他人のリポジトリを自分のアカウントにコピーすること</li>
-<li><strong>例え：</strong> 他人のプロジェクトを自分の場所に複製</li>
-<li><strong>用途：</strong> オープンソースプロジェクトに貢献するときなど（このプロジェクトでは基本的に使わない）</li>
-</ul>
-<h3 id="ローカルlocal">ローカル（Local） </h3>
-<ul>
-<li><strong>説明：</strong> 自分の PC 上のこと</li>
-<li><strong>対義語：</strong> リモート（Remote / GitHub サーバー上）</li>
-</ul>
-<h3 id="リモートremote">リモート（Remote） </h3>
-<ul>
-<li><strong>説明：</strong> GitHub サーバー上のこと</li>
-<li><strong>対義語：</strong> ローカル（自分の PC）</li>
-</ul>
-<h3 id="main-ブランチ">main ブランチ </h3>
-<ul>
-<li><strong>説明：</strong> 本番環境で動いているコードが入るブランチ</li>
-<li><strong>別名：</strong> master（古い名称）</li>
-<li><strong>用途：</strong> 実際にユーザーが使うコードを管理</li>
-</ul>
-<h3 id="develop-ブランチ">develop ブランチ </h3>
-<ul>
-<li><strong>説明：</strong> 開発中のコードが入るブランチ</li>
-<li><strong>用途：</strong> 開発者が動作確認するためのコードを管理</li>
-</ul>
-<hr>
-<h2 id="リポジトリ命名規則">リポジトリ命名規則 </h2>
-<h3 id="形式">形式 </h3>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>プロジェクト名-年度
-</code></pre><h3 id="ルール">ルール </h3>
-<ul>
-<li><strong>小文字のみ</strong></li>
-<li><strong>単語が続く場合はハイフン（-）で区切る</strong></li>
-<li><strong>年度を末尾に付ける</strong></li>
-<li><strong>分かりやすい名前</strong>（略語は避ける）</li>
-</ul>
-<h3 id="例">例 </h3>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>festival-app-2024
+<head>
+  <title>システム部開発ルール</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet"
+    href="file:///c:\Users\kure\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.8.20\crossnote\dependencies\katex\katex.min.css">
+
+
+
+
+
+  <style>
+    code[class*=language-],
+    pre[class*=language-] {
+      color: #333;
+      background: 0 0;
+      font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      text-align: left;
+      white-space: pre;
+      word-spacing: normal;
+      word-break: normal;
+      word-wrap: normal;
+      line-height: 1.4;
+      -moz-tab-size: 8;
+      -o-tab-size: 8;
+      tab-size: 8;
+      -webkit-hyphens: none;
+      -moz-hyphens: none;
+      -ms-hyphens: none;
+      hyphens: none
+    }
+
+    pre[class*=language-] {
+      padding: .8em;
+      overflow: auto;
+      border-radius: 3px;
+      background: #f5f5f5
+    }
+
+    :not(pre)>code[class*=language-] {
+      padding: .1em;
+      border-radius: .3em;
+      white-space: normal;
+      background: #f5f5f5
+    }
+
+    .token.blockquote,
+    .token.comment {
+      color: #969896
+    }
+
+    .token.cdata {
+      color: #183691
+    }
+
+    .token.doctype,
+    .token.macro.property,
+    .token.punctuation,
+    .token.variable {
+      color: #333
+    }
+
+    .token.builtin,
+    .token.important,
+    .token.keyword,
+    .token.operator,
+    .token.rule {
+      color: #a71d5d
+    }
+
+    .token.attr-value,
+    .token.regex,
+    .token.string,
+    .token.url {
+      color: #183691
+    }
+
+    .token.atrule,
+    .token.boolean,
+    .token.code,
+    .token.command,
+    .token.constant,
+    .token.entity,
+    .token.number,
+    .token.property,
+    .token.symbol {
+      color: #0086b3
+    }
+
+    .token.prolog,
+    .token.selector,
+    .token.tag {
+      color: #63a35c
+    }
+
+    .token.attr-name,
+    .token.class,
+    .token.class-name,
+    .token.function,
+    .token.id,
+    .token.namespace,
+    .token.pseudo-class,
+    .token.pseudo-element,
+    .token.url-reference .token.variable {
+      color: #795da3
+    }
+
+    .token.entity {
+      cursor: help
+    }
+
+    .token.title,
+    .token.title .token.punctuation {
+      font-weight: 700;
+      color: #1d3e81
+    }
+
+    .token.list {
+      color: #ed6a43
+    }
+
+    .token.inserted {
+      background-color: #eaffea;
+      color: #55a532
+    }
+
+    .token.deleted {
+      background-color: #ffecec;
+      color: #bd2c00
+    }
+
+    .token.bold {
+      font-weight: 700
+    }
+
+    .token.italic {
+      font-style: italic
+    }
+
+    .language-json .token.property {
+      color: #183691
+    }
+
+    .language-markup .token.tag .token.punctuation {
+      color: #333
+    }
+
+    .language-css .token.function,
+    code.language-css {
+      color: #0086b3
+    }
+
+    .language-yaml .token.atrule {
+      color: #63a35c
+    }
+
+    code.language-yaml {
+      color: #183691
+    }
+
+    .language-ruby .token.function {
+      color: #333
+    }
+
+    .language-markdown .token.url {
+      color: #795da3
+    }
+
+    .language-makefile .token.symbol {
+      color: #795da3
+    }
+
+    .language-makefile .token.variable {
+      color: #183691
+    }
+
+    .language-makefile .token.builtin {
+      color: #0086b3
+    }
+
+    .language-bash .token.keyword {
+      color: #0086b3
+    }
+
+    pre[data-line] {
+      position: relative;
+      padding: 1em 0 1em 3em
+    }
+
+    pre[data-line] .line-highlight-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: transparent;
+      display: block;
+      width: 100%
+    }
+
+    pre[data-line] .line-highlight {
+      position: absolute;
+      left: 0;
+      right: 0;
+      padding: inherit 0;
+      margin-top: 1em;
+      background: hsla(24, 20%, 50%, .08);
+      background: linear-gradient(to right, hsla(24, 20%, 50%, .1) 70%, hsla(24, 20%, 50%, 0));
+      pointer-events: none;
+      line-height: inherit;
+      white-space: pre
+    }
+
+    pre[data-line] .line-highlight:before,
+    pre[data-line] .line-highlight[data-end]:after {
+      content: attr(data-start);
+      position: absolute;
+      top: .4em;
+      left: .6em;
+      min-width: 1em;
+      padding: 0 .5em;
+      background-color: hsla(24, 20%, 50%, .4);
+      color: #f4f1ef;
+      font: bold 65%/1.5 sans-serif;
+      text-align: center;
+      vertical-align: .3em;
+      border-radius: 999px;
+      text-shadow: none;
+      box-shadow: 0 1px #fff
+    }
+
+    pre[data-line] .line-highlight[data-end]:after {
+      content: attr(data-end);
+      top: auto;
+      bottom: .4em
+    }
+
+    html body {
+      font-family: 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, freesans, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fff;
+      overflow: initial;
+      box-sizing: border-box;
+      word-wrap: break-word
+    }
+
+    html body>:first-child {
+      margin-top: 0
+    }
+
+    html body h1,
+    html body h2,
+    html body h3,
+    html body h4,
+    html body h5,
+    html body h6 {
+      line-height: 1.2;
+      margin-top: 1em;
+      margin-bottom: 16px;
+      color: #000
+    }
+
+    html body h1 {
+      font-size: 2.25em;
+      font-weight: 300;
+      padding-bottom: .3em
+    }
+
+    html body h2 {
+      font-size: 1.75em;
+      font-weight: 400;
+      padding-bottom: .3em
+    }
+
+    html body h3 {
+      font-size: 1.5em;
+      font-weight: 500
+    }
+
+    html body h4 {
+      font-size: 1.25em;
+      font-weight: 600
+    }
+
+    html body h5 {
+      font-size: 1.1em;
+      font-weight: 600
+    }
+
+    html body h6 {
+      font-size: 1em;
+      font-weight: 600
+    }
+
+    html body h1,
+    html body h2,
+    html body h3,
+    html body h4,
+    html body h5 {
+      font-weight: 600
+    }
+
+    html body h5 {
+      font-size: 1em
+    }
+
+    html body h6 {
+      color: #5c5c5c
+    }
+
+    html body strong {
+      color: #000
+    }
+
+    html body del {
+      color: #5c5c5c
+    }
+
+    html body a:not([href]) {
+      color: inherit;
+      text-decoration: none
+    }
+
+    html body a {
+      color: #08c;
+      text-decoration: none
+    }
+
+    html body a:hover {
+      color: #00a3f5;
+      text-decoration: none
+    }
+
+    html body img {
+      max-width: 100%
+    }
+
+    html body>p {
+      margin-top: 0;
+      margin-bottom: 16px;
+      word-wrap: break-word
+    }
+
+    html body>ol,
+    html body>ul {
+      margin-bottom: 16px
+    }
+
+    html body ol,
+    html body ul {
+      padding-left: 2em
+    }
+
+    html body ol.no-list,
+    html body ul.no-list {
+      padding: 0;
+      list-style-type: none
+    }
+
+    html body ol ol,
+    html body ol ul,
+    html body ul ol,
+    html body ul ul {
+      margin-top: 0;
+      margin-bottom: 0
+    }
+
+    html body li {
+      margin-bottom: 0
+    }
+
+    html body li.task-list-item {
+      list-style: none
+    }
+
+    html body li>p {
+      margin-top: 0;
+      margin-bottom: 0
+    }
+
+    html body .task-list-item-checkbox {
+      margin: 0 .2em .25em -1.8em;
+      vertical-align: middle
+    }
+
+    html body .task-list-item-checkbox:hover {
+      cursor: pointer
+    }
+
+    html body blockquote {
+      margin: 16px 0;
+      font-size: inherit;
+      padding: 0 15px;
+      color: #5c5c5c;
+      background-color: #f0f0f0;
+      border-left: 4px solid #d6d6d6
+    }
+
+    html body blockquote>:first-child {
+      margin-top: 0
+    }
+
+    html body blockquote>:last-child {
+      margin-bottom: 0
+    }
+
+    html body hr {
+      height: 4px;
+      margin: 32px 0;
+      background-color: #d6d6d6;
+      border: 0 none
+    }
+
+    html body table {
+      margin: 10px 0 15px 0;
+      border-collapse: collapse;
+      border-spacing: 0;
+      display: block;
+      width: 100%;
+      overflow: auto;
+      word-break: normal;
+      word-break: keep-all
+    }
+
+    html body table th {
+      font-weight: 700;
+      color: #000
+    }
+
+    html body table td,
+    html body table th {
+      border: 1px solid #d6d6d6;
+      padding: 6px 13px
+    }
+
+    html body dl {
+      padding: 0
+    }
+
+    html body dl dt {
+      padding: 0;
+      margin-top: 16px;
+      font-size: 1em;
+      font-style: italic;
+      font-weight: 700
+    }
+
+    html body dl dd {
+      padding: 0 16px;
+      margin-bottom: 16px
+    }
+
+    html body code {
+      font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+      font-size: .85em;
+      color: #000;
+      background-color: #f0f0f0;
+      border-radius: 3px;
+      padding: .2em 0
+    }
+
+    html body code::after,
+    html body code::before {
+      letter-spacing: -.2em;
+      content: '\00a0'
+    }
+
+    html body pre>code {
+      padding: 0;
+      margin: 0;
+      word-break: normal;
+      white-space: pre;
+      background: 0 0;
+      border: 0
+    }
+
+    html body .highlight {
+      margin-bottom: 16px
+    }
+
+    html body .highlight pre,
+    html body pre {
+      padding: 1em;
+      overflow: auto;
+      line-height: 1.45;
+      border: #d6d6d6;
+      border-radius: 3px
+    }
+
+    html body .highlight pre {
+      margin-bottom: 0;
+      word-break: normal
+    }
+
+    html body pre code,
+    html body pre tt {
+      display: inline;
+      max-width: initial;
+      padding: 0;
+      margin: 0;
+      overflow: initial;
+      line-height: inherit;
+      word-wrap: normal;
+      background-color: transparent;
+      border: 0
+    }
+
+    html body pre code:after,
+    html body pre code:before,
+    html body pre tt:after,
+    html body pre tt:before {
+      content: normal
+    }
+
+    html body blockquote,
+    html body dl,
+    html body ol,
+    html body p,
+    html body pre,
+    html body ul {
+      margin-top: 0;
+      margin-bottom: 16px
+    }
+
+    html body kbd {
+      color: #000;
+      border: 1px solid #d6d6d6;
+      border-bottom: 2px solid #c7c7c7;
+      padding: 2px 4px;
+      background-color: #f0f0f0;
+      border-radius: 3px
+    }
+
+    @media print {
+      html body {
+        background-color: #fff
+      }
+
+      html body h1,
+      html body h2,
+      html body h3,
+      html body h4,
+      html body h5,
+      html body h6 {
+        color: #000;
+        page-break-after: avoid
+      }
+
+      html body blockquote {
+        color: #5c5c5c
+      }
+
+      html body pre {
+        page-break-inside: avoid
+      }
+
+      html body table {
+        display: table
+      }
+
+      html body img {
+        display: block;
+        max-width: 100%;
+        max-height: 100%
+      }
+
+      html body code,
+      html body pre {
+        word-wrap: break-word;
+        white-space: pre
+      }
+    }
+
+    .markdown-preview {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box
+    }
+
+    .markdown-preview ul {
+      list-style: disc
+    }
+
+    .markdown-preview ul ul {
+      list-style: circle
+    }
+
+    .markdown-preview ul ul ul {
+      list-style: square
+    }
+
+    .markdown-preview ol {
+      list-style: decimal
+    }
+
+    .markdown-preview ol ol,
+    .markdown-preview ul ol {
+      list-style-type: lower-roman
+    }
+
+    .markdown-preview ol ol ol,
+    .markdown-preview ol ul ol,
+    .markdown-preview ul ol ol,
+    .markdown-preview ul ul ol {
+      list-style-type: lower-alpha
+    }
+
+    .markdown-preview .newpage,
+    .markdown-preview .pagebreak {
+      page-break-before: always
+    }
+
+    .markdown-preview pre.line-numbers {
+      position: relative;
+      padding-left: 3.8em;
+      counter-reset: linenumber
+    }
+
+    .markdown-preview pre.line-numbers>code {
+      position: relative
+    }
+
+    .markdown-preview pre.line-numbers .line-numbers-rows {
+      position: absolute;
+      pointer-events: none;
+      top: 1em;
+      font-size: 100%;
+      left: 0;
+      width: 3em;
+      letter-spacing: -1px;
+      border-right: 1px solid #999;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none
+    }
+
+    .markdown-preview pre.line-numbers .line-numbers-rows>span {
+      pointer-events: none;
+      display: block;
+      counter-increment: linenumber
+    }
+
+    .markdown-preview pre.line-numbers .line-numbers-rows>span:before {
+      content: counter(linenumber);
+      color: #999;
+      display: block;
+      padding-right: .8em;
+      text-align: right
+    }
+
+    .markdown-preview .mathjax-exps .MathJax_Display {
+      text-align: center !important
+    }
+
+    .markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group {
+      display: none
+    }
+
+    .markdown-preview:not([data-for=preview]) .code-chunk .status {
+      display: none
+    }
+
+    .markdown-preview:not([data-for=preview]) .code-chunk .output-div {
+      margin-bottom: 16px
+    }
+
+    .markdown-preview .md-toc {
+      padding: 0
+    }
+
+    .markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link {
+      display: inline;
+      padding: .25rem 0
+    }
+
+    .markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,
+    .markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p {
+      display: inline
+    }
+
+    .markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link {
+      font-weight: 800
+    }
+
+    .scrollbar-style::-webkit-scrollbar {
+      width: 8px
+    }
+
+    .scrollbar-style::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background-color: transparent
+    }
+
+    .scrollbar-style::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: rgba(150, 150, 150, .66);
+      border: 4px solid rgba(150, 150, 150, .66);
+      background-clip: content-box
+    }
+
+    html body[for=html-export]:not([data-presentation-mode]) {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      margin: 0;
+      padding: 0;
+      overflow: auto
+    }
+
+    html body[for=html-export]:not([data-presentation-mode]) .markdown-preview {
+      position: relative;
+      top: 0;
+      min-height: 100vh
+    }
+
+    @media screen and (min-width:914px) {
+      html body[for=html-export]:not([data-presentation-mode]) .markdown-preview {
+        padding: 2em calc(50% - 457px + 2em)
+      }
+    }
+
+    @media screen and (max-width:914px) {
+      html body[for=html-export]:not([data-presentation-mode]) .markdown-preview {
+        padding: 2em
+      }
+    }
+
+    @media screen and (max-width:450px) {
+      html body[for=html-export]:not([data-presentation-mode]) .markdown-preview {
+        font-size: 14px !important;
+        padding: 1em
+      }
+    }
+
+    @media print {
+      html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn {
+        display: none
+      }
+    }
+
+    html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn {
+      position: fixed;
+      bottom: 8px;
+      left: 8px;
+      font-size: 28px;
+      cursor: pointer;
+      color: inherit;
+      z-index: 99;
+      width: 32px;
+      text-align: center;
+      opacity: .4
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn {
+      opacity: 1
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 300px;
+      height: 100%;
+      padding: 32px 0 48px 0;
+      font-size: 14px;
+      box-shadow: 0 0 4px rgba(150, 150, 150, .33);
+      box-sizing: border-box;
+      overflow: auto;
+      background-color: inherit
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar {
+      width: 8px
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track {
+      border-radius: 10px;
+      background-color: transparent
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: rgba(150, 150, 150, .66);
+      border: 4px solid rgba(150, 150, 150, .66);
+      background-clip: content-box
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a {
+      text-decoration: none
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc {
+      padding: 0 16px
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link {
+      display: inline;
+      padding: .25rem 0
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p {
+      display: inline
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link {
+      font-weight: 800
+    }
+
+    html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
+      left: 300px;
+      width: calc(100% - 300px);
+      padding: 2em calc(50% - 457px - 300px / 2);
+      margin: 0;
+      box-sizing: border-box
+    }
+
+    @media screen and (max-width:1274px) {
+      html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
+        padding: 2em
+      }
+    }
+
+    @media screen and (max-width:450px) {
+      html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview {
+        width: 100%
+      }
+    }
+
+    html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview {
+      left: 50%;
+      transform: translateX(-50%)
+    }
+
+    html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc {
+      display: none
+    }
+
+    /* Please visit the URL below for more information: */
+    /*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+  </style>
+  <!-- The content below will be included at the end of the <head> element. -->
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+      // your code here
+    });
+  </script>
+</head>
+
+<body for="html-export">
+
+
+  <div class="crossnote markdown-preview  ">
+
+    <h1 id="近畿大学大学祭実行委員会システム部-開発ルール">近畿大学大学祭実行委員会システム部 開発ルール </h1>
+    <hr>
+    <h2 id="はじめに">はじめに </h2>
+    <p>このドキュメントは、近畿大学大学祭実行委員会システム部の開発ルールをまとめたものです。<br>
+      毎年メンバーが入れ替わる中で、一貫した品質を保ちながら開発を進めるために作成されました。</p>
+    <hr>
+    <h2 id="開発の流れ">開発の流れ </h2>
+    <h3 id="1-プロジェクト仕様書を作成">1. プロジェクト仕様書を作成 </h3>
+    <ul>
+      <li><code>docs/プロジェクト仕様書.md</code>にプロジェクトの詳細を記載</li>
+      <li>何を作るか、どう動くか、どんなデータベースを使うかを明確にする</li>
+      <li>2〜3 人でレビューして内容を確定</li>
+    </ul>
+    <h3 id="2-リポジトリを作成">2. リポジトリを作成 </h3>
+    <ul>
+      <li>GitHub で新しいリポジトリを作成（命名規則に従う）</li>
+      <li><code>main</code>ブランチと<code>develop</code>ブランチを作成</li>
+      <li><code>docs/</code>フォルダに各種ドキュメントを配置</li>
+    </ul>
+    <h3 id="3-issue-を作成">3. Issue を作成 </h3>
+    <ul>
+      <li>仕様書を見ながら、大きな単位で Issue を作成</li>
+      <li>例：「ログイン機能を実装」「イベント一覧画面を実装」</li>
+    </ul>
+    <h3 id="4-ブランチを切って開発">4. ブランチを切って開発 </h3>
+    <ul>
+      <li>Issue 画面の右側「Development」欄から「Create a branch」でブランチ作成</li>
+      <li>コーディング規約に従って実装</li>
+      <li>定期的にコミット・プッシュ</li>
+    </ul>
+    <h3 id="5-プルリクエストを作成">5. プルリクエストを作成 </h3>
+    <ul>
+      <li>実装が完了したら PR を作成</li>
+      <li>Discord で通知（レビュー依頼ではなく通知目的）</li>
+      <li>GitHub 上でレビューを実施</li>
+      <li>レビュー承認後にマージ</li>
+    </ul>
+    <h3 id="6-繰り返し">6. 繰り返し </h3>
+    <ul>
+      <li>全ての機能が完成するまで 3〜5 を繰り返す</li>
+      <li>定期的にプロジェクト仕様書を更新</li>
+    </ul>
+    <hr>
+    <h1 id="github-ルール">GitHub ルール </h1>
+    <h2 id="用語解説">用語解説 </h2>
+    <p>このドキュメントで使用する用語を初学者向けに解説します。</p>
+    <h3 id="githubギットハブ">GitHub（ギットハブ） </h3>
+    <ul>
+      <li><strong>説明：</strong> コードを保存・共有・管理するための Web サービス</li>
+      <li><strong>例え：</strong> コードの Google ドライブのようなもの</li>
+      <li><strong>用途：</strong> チームでコードを共同開発するときに使う</li>
+    </ul>
+    <h3 id="gitギット">Git（ギット） </h3>
+    <ul>
+      <li><strong>説明：</strong> コードの変更履歴を記録・管理するツール</li>
+      <li><strong>例え：</strong> ゲームのセーブデータのようなもの（いつでも過去に戻れる）</li>
+      <li><strong>用途：</strong> 「誰が」「いつ」「何を」変更したかを記録</li>
+    </ul>
+    <h3 id="リポジトリrepository--repo">リポジトリ（Repository / repo） </h3>
+    <ul>
+      <li><strong>説明：</strong> プロジェクトのコードやファイルを保存する場所</li>
+      <li><strong>例え：</strong> プロジェクト専用のフォルダ</li>
+      <li><strong>用途：</strong> プロジェクト全体のコードを 1 つの場所で管理</li>
+    </ul>
+    <h3 id="ブランチbranch">ブランチ（Branch） </h3>
+    <ul>
+      <li><strong>説明：</strong> コードの開発を並行して進めるための「枝分かれ」</li>
+      <li><strong>例え：</strong> 本の下書きを複数作るようなもの（最後に 1 つにまとめる）</li>
+      <li><strong>用途：</strong> 複数人が同時に異なる機能を開発できる</li>
+    </ul>
+    <h3 id="コミットcommit">コミット（Commit） </h3>
+    <ul>
+      <li><strong>説明：</strong> コードの変更を記録（保存）すること</li>
+      <li><strong>例え：</strong> ゲームのセーブポイントを作ること</li>
+      <li><strong>用途：</strong> 作業の区切りで変更を保存し、後で戻れるようにする</li>
+    </ul>
+    <h3 id="プッシュpush">プッシュ（Push） </h3>
+    <ul>
+      <li><strong>説明：</strong> ローカル（自分の PC）の変更を GitHub にアップロードすること</li>
+      <li><strong>例え：</strong> 自分の PC からクラウドにファイルをアップロード</li>
+      <li><strong>用途：</strong> 自分の作業をチームメンバーと共有する</li>
+    </ul>
+    <h3 id="プルpull">プル（Pull） </h3>
+    <ul>
+      <li><strong>説明：</strong> GitHub から最新のコードを自分の PC にダウンロードすること</li>
+      <li><strong>例え：</strong> クラウドから最新ファイルをダウンロード</li>
+      <li><strong>用途：</strong> 他の人の変更を自分の PC に取り込む</li>
+    </ul>
+    <h3 id="issueイシュー">Issue（イシュー） </h3>
+    <ul>
+      <li><strong>説明：</strong> やるべきタスクやバグを記録する「課題管理チケット」</li>
+      <li><strong>例え：</strong> TODO リストの 1 項目</li>
+      <li><strong>用途：</strong> 「何を作るか」「何を修正するか」を明確にする</li>
+    </ul>
+    <h3 id="プルリクエストpull-request--pr">プルリクエスト（Pull Request / PR） </h3>
+    <ul>
+      <li><strong>説明：</strong> 自分の変更を本番コードに取り込んでもらうための「申請」</li>
+      <li><strong>例え：</strong> 「このコード、本番に入れていいですか？」という確認依頼</li>
+      <li><strong>用途：</strong> レビューを受けてから本番コードに反映する</li>
+    </ul>
+    <h3 id="マージmerge">マージ（Merge） </h3>
+    <ul>
+      <li><strong>説明：</strong> 別々のブランチを 1 つに統合すること</li>
+      <li><strong>例え：</strong> 複数の下書きを 1 つの完成版にまとめる</li>
+      <li><strong>用途：</strong> 開発したコードを本番コードに反映する</li>
+    </ul>
+    <h3 id="コンフリクトconflict">コンフリクト（Conflict） </h3>
+    <ul>
+      <li><strong>説明：</strong> 同じファイルの同じ箇所を複数人が変更したときに起こる衝突</li>
+      <li><strong>例え：</strong> 2 人が同じ文章を別々に編集して、どちらを採用するか決められない状態</li>
+      <li><strong>用途：</strong> 手動で「どちらの変更を残すか」を決める必要がある</li>
+    </ul>
+    <h3 id="レビューreview--code-review">レビュー（Review / Code Review） </h3>
+    <ul>
+      <li><strong>説明：</strong> 他の人のコードを確認して、問題がないかチェックすること</li>
+      <li><strong>例え：</strong> 作文を友達に読んでもらって、誤字や改善点を指摘してもらう</li>
+      <li><strong>用途：</strong> コードの品質を保ち、バグを減らす</li>
+    </ul>
+    <h3 id="クローンclone">クローン（Clone） </h3>
+    <ul>
+      <li><strong>説明：</strong> GitHub のリポジトリを自分の PC にコピーすること</li>
+      <li><strong>例え：</strong> クラウドのフォルダを自分の PC にダウンロード</li>
+      <li><strong>用途：</strong> 初めてプロジェクトに参加するときに行う</li>
+    </ul>
+    <h3 id="フォークfork">フォーク（Fork） </h3>
+    <ul>
+      <li><strong>説明：</strong> 他人のリポジトリを自分のアカウントにコピーすること</li>
+      <li><strong>例え：</strong> 他人のプロジェクトを自分の場所に複製</li>
+      <li><strong>用途：</strong> オープンソースプロジェクトに貢献するときなど（このプロジェクトでは基本的に使わない）</li>
+    </ul>
+    <h3 id="ローカルlocal">ローカル（Local） </h3>
+    <ul>
+      <li><strong>説明：</strong> 自分の PC 上のこと</li>
+      <li><strong>対義語：</strong> リモート（Remote / GitHub サーバー上）</li>
+    </ul>
+    <h3 id="リモートremote">リモート（Remote） </h3>
+    <ul>
+      <li><strong>説明：</strong> GitHub サーバー上のこと</li>
+      <li><strong>対義語：</strong> ローカル（自分の PC）</li>
+    </ul>
+    <h3 id="main-ブランチ">main ブランチ </h3>
+    <ul>
+      <li><strong>説明：</strong> 本番環境で動いているコードが入るブランチ</li>
+      <li><strong>別名：</strong> master（古い名称）</li>
+      <li><strong>用途：</strong> 実際にユーザーが使うコードを管理</li>
+    </ul>
+    <h3 id="develop-ブランチ">develop ブランチ </h3>
+    <ul>
+      <li><strong>説明：</strong> 開発中のコードが入るブランチ</li>
+      <li><strong>用途：</strong> 開発者が動作確認するためのコードを管理</li>
+    </ul>
+    <hr>
+    <h2 id="リポジトリ命名規則">リポジトリ命名規則 </h2>
+    <h3 id="形式">形式 </h3>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>プロジェクト名-年度
+</code></pre>
+    <h3 id="ルール">ルール </h3>
+    <ul>
+      <li><strong>小文字のみ</strong></li>
+      <li><strong>単語が続く場合はハイフン（-）で区切る</strong></li>
+      <li><strong>年度を末尾に付ける</strong></li>
+      <li><strong>分かりやすい名前</strong>（略語は避ける）</li>
+    </ul>
+    <h3 id="例">例 </h3>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>festival-app-2024
 festival-admin-panel-2025
 event-management-api-2024
 qr-code-scanner-2025
-</code></pre><hr>
-<h2 id="ブランチ戦略">ブランチ戦略 </h2>
-<h3 id="ブランチ構成">ブランチ構成 </h3>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>main（本番環境）
+</code></pre>
+    <hr>
+    <h2 id="ブランチ戦略">ブランチ戦略 </h2>
+    <h3 id="ブランチ構成">ブランチ構成 </h3>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>main（本番環境）
 └── develop（開発環境）
     ├── feature/○○（機能追加・Issueベース）
     ├── fix/○○（バグ修正・Issueベース）
     └── docs/○○（ドキュメント更新）
-</code></pre><h3 id="各ブランチの役割">各ブランチの役割 </h3>
-<h4 id="main-ブランチ-1">main ブランチ </h4>
-<ul>
-<li>本番環境にデプロイされるコード</li>
-<li><strong>直接 push は禁止</strong></li>
-<li><code>develop</code>からのマージのみ許可</li>
-</ul>
-<h4 id="develop-ブランチ-1">develop ブランチ </h4>
-<ul>
-<li>開発環境のコード</li>
-<li><strong>直接 push は禁止</strong></li>
-<li>各機能ブランチからのマージを受け付ける</li>
-<li>動作確認後に<code>main</code>へマージ</li>
-</ul>
-<h4 id="feature-ブランチ">feature/○○ ブランチ </h4>
-<ul>
-<li>機能開発時に使用</li>
-<li><strong>必ず Issue を作成してから切る</strong></li>
-<li><code>develop</code>から切る</li>
-<li>例：<code>feature/ログイン機能</code>、<code>feature/イベント一覧表示</code></li>
-</ul>
-<h4 id="fix-ブランチ">fix/○○ ブランチ </h4>
-<ul>
-<li>バグ修正時に使用</li>
-<li><strong>必ず Issue を作成してから切る</strong></li>
-<li><code>develop</code>から切る</li>
-<li>例：<code>fix/ログインボタンが押せない</code>、<code>fix/画像が表示されない</code></li>
-</ul>
-<h4 id="docs-ブランチ">docs/○○ ブランチ </h4>
-<ul>
-<li>ドキュメント更新時に使用</li>
-<li><code>develop</code>から切る</li>
-<li>例：<code>docs/プロジェクト仕様書更新</code>、<code>docs/README更新</code></li>
-</ul>
-<hr>
-<h2 id="ブランチ命名規則">ブランチ命名規則 </h2>
-<h3 id="基本ルール">基本ルール </h3>
-<ul>
-<li><strong>形式：</strong> <code>種類/内容</code></li>
-<li><strong>言語：</strong> 日本語 OK</li>
-<li><strong>内容：</strong> 具体的に書く（誰が見ても分かるように）</li>
-</ul>
-<h3 id="良い例">良い例 </h3>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>feature/イベント管理画面
+</code></pre>
+    <h3 id="各ブランチの役割">各ブランチの役割 </h3>
+    <h4 id="main-ブランチ-1">main ブランチ </h4>
+    <ul>
+      <li>本番環境にデプロイされるコード</li>
+      <li><strong>直接 push は禁止</strong></li>
+      <li><code>develop</code>からのマージのみ許可</li>
+    </ul>
+    <h4 id="develop-ブランチ-1">develop ブランチ </h4>
+    <ul>
+      <li>開発環境のコード</li>
+      <li><strong>直接 push は禁止</strong></li>
+      <li>各機能ブランチからのマージを受け付ける</li>
+      <li>動作確認後に<code>main</code>へマージ</li>
+    </ul>
+    <h4 id="feature-ブランチ">feature/○○ ブランチ </h4>
+    <ul>
+      <li>機能開発時に使用</li>
+      <li><strong>必ず Issue を作成してから切る</strong></li>
+      <li><code>develop</code>から切る</li>
+      <li>例：<code>feature/ログイン機能</code>、<code>feature/イベント一覧表示</code></li>
+    </ul>
+    <h4 id="fix-ブランチ">fix/○○ ブランチ </h4>
+    <ul>
+      <li>バグ修正時に使用</li>
+      <li><strong>必ず Issue を作成してから切る</strong></li>
+      <li><code>develop</code>から切る</li>
+      <li>例：<code>fix/ログインボタンが押せない</code>、<code>fix/画像が表示されない</code></li>
+    </ul>
+    <h4 id="docs-ブランチ">docs/○○ ブランチ </h4>
+    <ul>
+      <li>ドキュメント更新時に使用</li>
+      <li><code>develop</code>から切る</li>
+      <li>例：<code>docs/プロジェクト仕様書更新</code>、<code>docs/README更新</code></li>
+    </ul>
+    <hr>
+    <h2 id="ブランチ命名規則">ブランチ命名規則 </h2>
+    <h3 id="基本ルール">基本ルール </h3>
+    <ul>
+      <li><strong>形式：</strong> <code>種類/内容</code></li>
+      <li><strong>言語：</strong> 日本語 OK</li>
+      <li><strong>内容：</strong> 具体的に書く（誰が見ても分かるように）</li>
+    </ul>
+    <h3 id="良い例">良い例 </h3>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>feature/イベント管理画面
 feature/QRコード読み取り機能
 fix/画像が表示されないバグ
 docs/API仕様書追加
-</code></pre><h3 id="悪い例">悪い例 </h3>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>feature/new-feature（何の機能か不明）
+</code></pre>
+    <h3 id="悪い例">悪い例 </h3>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>feature/new-feature（何の機能か不明）
 fix/bug（何のバグか不明）
 feature/test（テストではない）
-</code></pre><hr>
-<h2 id="issue-管理">Issue 管理 </h2>
-<h3 id="issue-とは">Issue とは？ </h3>
-<ul>
-<li>やるべきタスクやバグを記録するための「課題管理チケット」</li>
-<li>GitHub 上で管理される</li>
-<li>チーム全員が「今何をやっているか」を把握できる</li>
-</ul>
-<h3 id="issue-ルール">Issue ルール </h3>
-<ul>
-<li><strong>作業を始める前に必ず Issue を作成</strong></li>
-<li>初期開発でも追加開発でも<strong>必須</strong></li>
-<li>全員が Issue を作成できる</li>
-<li>大きな単位で Issue を作る（例：「ログイン機能を実装」）</li>
-</ul>
-<h3 id="issue-テンプレート">Issue テンプレート </h3>
-<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">##</span> やりたいこと</span>
+</code></pre>
+    <hr>
+    <h2 id="issue-管理">Issue 管理 </h2>
+    <h3 id="issue-とは">Issue とは？ </h3>
+    <ul>
+      <li>やるべきタスクやバグを記録するための「課題管理チケット」</li>
+      <li>GitHub 上で管理される</li>
+      <li>チーム全員が「今何をやっているか」を把握できる</li>
+    </ul>
+    <h3 id="issue-ルール">Issue ルール </h3>
+    <ul>
+      <li><strong>作業を始める前に必ず Issue を作成</strong></li>
+      <li>初期開発でも追加開発でも<strong>必須</strong></li>
+      <li>全員が Issue を作成できる</li>
+      <li>大きな単位で Issue を作る（例：「ログイン機能を実装」）</li>
+    </ul>
+    <h3 id="issue-テンプレート">Issue テンプレート </h3>
+    <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">##</span> やりたいこと</span>
 
 （何を実装・修正したいか）
 
 <span class="token title important"><span class="token punctuation">##</span> 詳細</span>
 
 （具体的な内容や背景）
-</code></pre><h3 id="issue-ラベル">Issue ラベル </h3>
-<table>
-<thead>
-<tr>
-<th>ラベル</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>bug</code></td>
-<td>バグ修正</td>
-</tr>
-<tr>
-<td><code>enhancement</code></td>
-<td>機能追加</td>
-</tr>
-<tr>
-<td><code>documentation</code></td>
-<td>ドキュメント</td>
-</tr>
-<tr>
-<td><code>good first issue</code></td>
-<td>初学者向け</td>
-</tr>
-<tr>
-<td><code>help wanted</code></td>
-<td>助けが欲しい</td>
-</tr>
-<tr>
-<td><code>wontfix</code></td>
-<td>対応しない</td>
-</tr>
-</tbody>
-</table>
-<h3 id="issue-作成からクローズまでの流れ">Issue 作成からクローズまでの流れ </h3>
-<ol>
-<li>
-<p><strong>Issue を作成</strong></p>
-<ul>
-<li>テンプレートに沿って記入</li>
-<li>適切なラベルを付ける</li>
-<li>担当者をアサイン（自分または他のメンバー）</li>
-</ul>
-</li>
-<li>
-<p><strong>ブランチを切る</strong></p>
-<ul>
-<li>Issue を見ながら<code>feature/○○</code>または<code>fix/○○</code>を作成</li>
-</ul>
-</li>
-<li>
-<p><strong>作業・コミット</strong></p>
-<ul>
-<li>コミットメッセージに Issue 番号を含める（任意）</li>
-<li>例：<code>[add] ログイン画面を追加 #12</code></li>
-</ul>
-</li>
-<li>
-<p><strong>PR を出す</strong></p>
-<ul>
-<li>関連 Issue を PR に記載</li>
-<li><strong>Discord に連絡</strong>（後述）</li>
-</ul>
-</li>
-<li>
-<p><strong>マージ後に Issue をクローズ</strong></p>
-<ul>
-<li>自動でクローズされない場合は手動でクローズ</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="コミットメッセージ">コミットメッセージ </h2>
-<h3 id="コミットとは">コミットとは？ </h3>
-<ul>
-<li>コードの変更を記録（保存）すること</li>
-<li>「誰が」「いつ」「何を」変更したかが分かる</li>
-<li>後で過去のコードに戻ることができる</li>
-</ul>
-<h3 id="形式-1">形式 </h3>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>[種類] 変更内容
-</code></pre><h3 id="種類一覧">種類一覧 </h3>
-<table>
-<thead>
-<tr>
-<th>種類</th>
-<th>用途</th>
-<th>例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>add</code></td>
-<td>新規追加</td>
-<td><code>[add] ログイン画面を追加</code></td>
-</tr>
-<tr>
-<td><code>fix</code></td>
-<td>修正</td>
-<td><code>[fix] ログインボタンのバグを修正</code></td>
-</tr>
-<tr>
-<td><code>update</code></td>
-<td>更新</td>
-<td><code>[update] APIエンドポイントを変更</code></td>
-</tr>
-<tr>
-<td><code>remove</code></td>
-<td>削除</td>
-<td><code>[remove] 不要なファイルを削除</code></td>
-</tr>
-<tr>
-<td><code>docs</code></td>
-<td>ドキュメント</td>
-<td><code>[docs] READMEを更新</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="良い例-1">良い例 </h3>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>[add] イベント一覧画面を追加
+</code></pre>
+    <h3 id="issue-ラベル">Issue ラベル </h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ラベル</th>
+          <th>用途</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>bug</code></td>
+          <td>バグ修正</td>
+        </tr>
+        <tr>
+          <td><code>enhancement</code></td>
+          <td>機能追加</td>
+        </tr>
+        <tr>
+          <td><code>documentation</code></td>
+          <td>ドキュメント</td>
+        </tr>
+        <tr>
+          <td><code>good first issue</code></td>
+          <td>初学者向け</td>
+        </tr>
+        <tr>
+          <td><code>help wanted</code></td>
+          <td>助けが欲しい</td>
+        </tr>
+        <tr>
+          <td><code>wontfix</code></td>
+          <td>対応しない</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="issue-作成からクローズまでの流れ">Issue 作成からクローズまでの流れ </h3>
+    <ol>
+      <li>
+        <p><strong>Issue を作成</strong></p>
+        <ul>
+          <li>テンプレートに沿って記入</li>
+          <li>適切なラベルを付ける</li>
+          <li>担当者をアサイン（自分または他のメンバー）</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>ブランチを切る（GitHub 上で）</strong></p>
+        <ul>
+          <li>Issue 画面の右側にある「Development」欄を確認</li>
+          <li>「Create a branch」ボタンをクリック</li>
+          <li>ブランチ名は自動で<code>Issue番号-タイトル</code>形式で提案される</li>
+          <li>Branch source（どこから切るか）を<code>develop</code>に設定</li>
+          <li>「Create branch」をクリック</li>
+          <li><strong>このやり方で Issue とブランチが自動的に関連付けられる</strong></li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>ローカルでブランチをチェックアウト</strong></p>
+      </li>
+    </ol>
+    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">git</span> fetch origin
+<span class="token function">git</span> checkout 作成されたブランチ名
+</code></pre>
+    <ol start="4">
+      <li>
+        <p><strong>作業・コミット</strong></p>
+        <ul>
+          <li>コミットメッセージに Issue 番号を含める（任意）</li>
+          <li>例：<code>[add] ログイン画面を追加 #12</code></li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>PR を出す</strong></p>
+        <ul>
+          <li>関連 Issue を PR に記載</li>
+          <li><strong>Discord に通知</strong>（後述）</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>マージ後に Issue をクローズ</strong></p>
+        <ul>
+          <li>PR がマージされると自動でクローズ</li>
+          <li>自動でクローズされない場合は手動でクローズ</li>
+        </ul>
+      </li>
+    </ol>
+    <hr>
+    <h2 id="コミットメッセージ">コミットメッセージ </h2>
+    <h3 id="コミットとは">コミットとは？ </h3>
+    <ul>
+      <li>コードの変更を記録（保存）すること</li>
+      <li>「誰が」「いつ」「何を」変更したかが分かる</li>
+      <li>後で過去のコードに戻ることができる</li>
+    </ul>
+    <h3 id="形式-1">形式 </h3>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>[種類] 変更内容
+</code></pre>
+    <h3 id="種類一覧">種類一覧 </h3>
+    <table>
+      <thead>
+        <tr>
+          <th>種類</th>
+          <th>用途</th>
+          <th>例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>add</code></td>
+          <td>新規追加</td>
+          <td><code>[add] ログイン画面を追加</code></td>
+        </tr>
+        <tr>
+          <td><code>fix</code></td>
+          <td>修正</td>
+          <td><code>[fix] ログインボタンのバグを修正</code></td>
+        </tr>
+        <tr>
+          <td><code>update</code></td>
+          <td>更新</td>
+          <td><code>[update] APIエンドポイントを変更</code></td>
+        </tr>
+        <tr>
+          <td><code>remove</code></td>
+          <td>削除</td>
+          <td><code>[remove] 不要なファイルを削除</code></td>
+        </tr>
+        <tr>
+          <td><code>docs</code></td>
+          <td>ドキュメント</td>
+          <td><code>[docs] READMEを更新</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="良い例-1">良い例 </h3>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>[add] イベント一覧画面を追加
 [fix] 画像が表示されないバグを修正
 [update] Supabaseの認証処理を改善
 [docs] プロジェクト仕様書にAPI設計を追加
-</code></pre><h3 id="悪い例-1">悪い例 </h3>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>update（何を更新したか不明）
+</code></pre>
+    <h3 id="悪い例-1">悪い例 </h3>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>update（何を更新したか不明）
 バグ修正（種類が書かれていない）
 [add] いろいろ追加（具体性がない）
-</code></pre><h3 id="補足">補足 </h3>
-<ul>
-<li>Issue 番号を含めることもできる（任意）
-<ul>
-<li>例：<code>[add] ログイン画面を追加 #12</code></li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="プルリクエストpr">プルリクエスト（PR） </h2>
-<h3 id="プルリクエストとは">プルリクエストとは？ </h3>
-<ul>
-<li>自分の変更を本番コードに取り込んでもらうための「申請」</li>
-<li>他のメンバーにレビューしてもらう</li>
-<li>承認されたらマージ（統合）される</li>
-</ul>
-<h3 id="pr-テンプレート">PR テンプレート </h3>
-<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">##</span> 変更内容</span>
+</code></pre>
+    <h3 id="補足">補足 </h3>
+    <ul>
+      <li>Issue 番号を含めることもできる（任意）
+        <ul>
+          <li>例：<code>[add] ログイン画面を追加 #12</code></li>
+        </ul>
+      </li>
+    </ul>
+    <hr>
+    <h2 id="プルリクエストpr">プルリクエスト（PR） </h2>
+    <h3 id="プルリクエストとは">プルリクエストとは？ </h3>
+    <ul>
+      <li>自分の変更を本番コードに取り込んでもらうための「申請」</li>
+      <li>他のメンバーにレビューしてもらう</li>
+      <li>承認されたらマージ（統合）される</li>
+    </ul>
+    <h3 id="pr-テンプレート">PR テンプレート </h3>
+    <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">##</span> 変更内容</span>
 
 （何を変更したか）
 
 <span class="token title important"><span class="token punctuation">##</span> 関連 Issue</span>
 
 <span class="token title important"><span class="token punctuation">#</span>123</span>
-</code></pre><h3 id="pr-作成ルール">PR 作成ルール </h3>
-<ol>
-<li>
-<p><strong>タイトルは分かりやすく</strong></p>
-<ul>
-<li>例：「ログイン機能を実装」「画像表示バグを修正」</li>
-</ul>
-</li>
-<li>
-<p><strong>変更内容を簡潔に書く</strong></p>
-<ul>
-<li>何をしたのか</li>
-<li>なぜその変更が必要だったのか（任意）</li>
-</ul>
-</li>
-<li>
-<p><strong>関連 Issue を必ず記載</strong></p>
-<ul>
-<li><code>#123</code>のように番号で記載</li>
-<li>複数ある場合は<code>#123, #456</code></li>
-</ul>
-</li>
-<li>
-<p><strong>スクリーンショットを添付（推奨）</strong></p>
-<ul>
-<li>UI 変更がある場合は画面キャプチャを貼る</li>
-</ul>
-</li>
-<li>
-<p><strong>PR を作成したら Discord に連絡</strong></p>
-<ul>
-<li>専用チャンネル（例：<code>#code-review</code>）に投稿</li>
-<li>投稿内容：</li>
-</ul>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>PRを作成しました🙏
+</code></pre>
+    <h3 id="pr-作成ルール">PR 作成ルール </h3>
+    <ol>
+      <li>
+        <p><strong>タイトルは分かりやすく</strong></p>
+        <ul>
+          <li>例：「ログイン機能を実装」「画像表示バグを修正」</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>変更内容を簡潔に書く</strong></p>
+        <ul>
+          <li>何をしたのか</li>
+          <li>なぜその変更が必要だったのか（任意）</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>関連 Issue を必ず記載</strong></p>
+        <ul>
+          <li><code>#123</code>のように番号で記載</li>
+          <li>複数ある場合は<code>#123, #456</code></li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>スクリーンショットを添付（推奨）</strong></p>
+        <ul>
+          <li>UI 変更がある場合は画面キャプチャを貼る</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>PR を作成したら Discord に通知</strong></p>
+        <ul>
+          <li>専用チャンネル（例：<code>#code-review</code>）に投稿</li>
+          <li><strong>通知目的</strong>（レビューは GitHub 上で実施）</li>
+          <li>投稿内容：</li>
+        </ul>
+        <pre data-role="codeBlock" data-info="" class="language-text"><code>PRを作成しました
 【タイトル】ログイン機能を実装
 【URL】https://github.com/.../pull/123
-レビューお願いします！
-</code></pre></li>
-</ol>
-<h3 id="マージ条件">マージ条件 </h3>
-<ol>
-<li><strong>最低 1 人の承認が必要</strong></li>
-<li><strong>コンフリクトが解消されていること</strong></li>
-<li><strong>レビュアーがマージする</strong>（自分でマージしない）</li>
-</ol>
-<hr>
-<h2 id="コードレビュー">コードレビュー </h2>
-<h3 id="コードレビューとは">コードレビューとは？ </h3>
-<ul>
-<li>他の人のコードを確認して、問題がないかチェックすること</li>
-<li>コードの品質を保ち、バグを減らすために行う</li>
-<li>お互いに学び合う機会でもある</li>
-</ul>
-<h3 id="レビュールール">レビュールール </h3>
-<ul>
-<li>コードレビューは<strong>必須</strong></li>
-<li>主に以下を確認：
-<ul>
-<li>動作確認（実際に動くか）</li>
-<li>コードの可読性</li>
-<li>コメントが適切か</li>
-<li>命名規則に沿っているか</li>
-</ul>
-</li>
-</ul>
-<h3 id="レビュー開始時の連絡">レビュー開始時の連絡 </h3>
-<p>レビューを開始したら Discord に連絡：</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>レビュー開始します👀
+</code></pre>
+      </li>
+    </ol>
+    <h3 id="マージ条件">マージ条件 </h3>
+    <ol>
+      <li><strong>最低 1 人の承認が必要</strong></li>
+      <li><strong>コンフリクトが解消されていること</strong></li>
+      <li><strong>レビュアーがマージする</strong>（自分でマージしない）</li>
+    </ol>
+    <hr>
+    <h2 id="コードレビュー">コードレビュー </h2>
+    <h3 id="コードレビューとは">コードレビューとは？ </h3>
+    <ul>
+      <li>他の人のコードを確認して、問題がないかチェックすること</li>
+      <li>コードの品質を保ち、バグを減らすために行う</li>
+      <li>お互いに学び合う機会でもある</li>
+    </ul>
+    <h3 id="レビュールール">レビュールール </h3>
+    <ul>
+      <li>コードレビューは<strong>必須</strong></li>
+      <li><strong>GitHub 上で実施</strong></li>
+      <li>主に以下を確認：
+        <ul>
+          <li>動作確認（実際に動くか）</li>
+          <li>コードの可読性</li>
+          <li>コメントが適切か</li>
+          <li>命名規則に沿っているか</li>
+        </ul>
+      </li>
+    </ul>
+    <h3 id="レビュー開始時の連絡">レビュー開始時の連絡 </h3>
+    <p>レビューを開始したら Discord に通知：</p>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>レビュー開始します
 【PR】ログイン機能を実装
 【URL】https://github.com/.../pull/123
-</code></pre><h3 id="レビューコメントの書き方">レビューコメントの書き方 </h3>
-<ul>
-<li><strong>建設的に</strong>（「〜した方が良い」など）</li>
-<li><strong>理由を添える</strong></li>
-<li>例：</li>
-</ul>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>この関数は少し長いので、分割した方が読みやすくなると思います。
+</code></pre>
+    <h3 id="レビューコメントの書き方github-上">レビューコメントの書き方（GitHub 上） </h3>
+    <ul>
+      <li><strong>建設的に</strong>（「〜した方が良い」など）</li>
+      <li><strong>理由を添える</strong></li>
+      <li>GitHub 上のコメント機能を使用</li>
+      <li>例：</li>
+    </ul>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>この関数は少し長いので、分割した方が読みやすくなると思います。
 例えば、バリデーション部分を別関数にするなど。
-</code></pre><h3 id="レビュー完了時の連絡">レビュー完了時の連絡 </h3>
-<p>承認したら Discord に連絡：</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>レビュー完了しました✅
+</code></pre>
+    <h3 id="レビュー完了時の連絡">レビュー完了時の連絡 </h3>
+    <p>承認したら Discord に通知：</p>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>レビュー完了しました
 【PR】ログイン機能を実装
 【URL】https://github.com/.../pull/123
-問題なくLGTMです！
-</code></pre><p><strong>LGTM（エルジーティーエム）とは？</strong></p>
-<ul>
-<li>"Looks Good To Me"の略</li>
-<li>「問題なさそうです」という意味</li>
-<li>レビューで承認するときに使う</li>
-</ul>
-<hr>
-<h2 id="プッシュのタイミング">プッシュのタイミング </h2>
-<h3 id="プッシュとは">プッシュとは？ </h3>
-<ul>
-<li>自分の PC（ローカル）の変更を GitHub（リモート）にアップロードすること</li>
-<li>チームメンバーと変更を共有する</li>
-</ul>
-<h3 id="推奨タイミング">推奨タイミング </h3>
-<ol>
-<li><strong>作業終了時</strong>（その日の作業が終わったら）</li>
-<li><strong>一つの機能が完成したとき</strong></li>
-<li><strong>大きな変更をしたとき</strong>（バックアップ目的）</li>
-</ol>
-<h3 id="ルール-1">ルール </h3>
-<ul>
-<li>自分のブランチには自由に push OK</li>
-<li><code>develop</code>、<code>main</code>への直接 push は<strong>禁止</strong></li>
-<li>push する前に：
-<ol>
-<li>エラーが出ないか確認</li>
-<li><code>npm start</code>で動作確認</li>
-</ol>
-</li>
-</ul>
-<hr>
-<h2 id="ドキュメント更新ルール">ドキュメント更新ルール </h2>
-<h3 id="プロジェクト仕様書の更新">プロジェクト仕様書の更新 </h3>
-<h4 id="更新が必要なタイミング">更新が必要なタイミング </h4>
-<ul>
-<li>機能仕様が変更されたとき</li>
-<li>新しい API・テーブルが追加されたとき</li>
-<li>データベース設計が変更されたとき</li>
-<li>画面設計が変更されたとき</li>
-</ul>
-<h4 id="更新手順">更新手順 </h4>
-<ol>
-<li><strong>Issue を作成</strong></li>
-</ol>
-<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">##</span> やりたいこと</span>
+LGTMです
+</code></pre>
+    <p><strong>LGTM（エルジーティーエム）とは？</strong></p>
+    <ul>
+      <li>"Looks Good To Me"の略</li>
+      <li>「問題なさそうです」という意味</li>
+      <li>レビューで承認するときに使う</li>
+    </ul>
+    <hr>
+    <h2 id="プッシュのタイミング">プッシュのタイミング </h2>
+    <h3 id="プッシュとは">プッシュとは？ </h3>
+    <ul>
+      <li>自分の PC（ローカル）の変更を GitHub（リモート）にアップロードすること</li>
+      <li>チームメンバーと変更を共有する</li>
+    </ul>
+    <h3 id="推奨タイミング">推奨タイミング </h3>
+    <ol>
+      <li><strong>作業終了時</strong>（その日の作業が終わったら）</li>
+      <li><strong>一つの機能が完成したとき</strong></li>
+      <li><strong>大きな変更をしたとき</strong>（バックアップ目的）</li>
+    </ol>
+    <h3 id="ルール-1">ルール </h3>
+    <ul>
+      <li>自分のブランチには自由に push OK</li>
+      <li><code>develop</code>、<code>main</code>への直接 push は<strong>禁止</strong></li>
+      <li>push する前に：
+        <ol>
+          <li>エラーが出ないか確認</li>
+          <li><code>npm start</code>で動作確認</li>
+        </ol>
+      </li>
+    </ul>
+    <hr>
+    <h2 id="ドキュメント更新ルール">ドキュメント更新ルール </h2>
+    <h3 id="プロジェクト仕様書の更新">プロジェクト仕様書の更新 </h3>
+    <h4 id="更新が必要なタイミング">更新が必要なタイミング </h4>
+    <ul>
+      <li>機能仕様が変更されたとき</li>
+      <li>新しい API・テーブルが追加されたとき</li>
+      <li>データベース設計が変更されたとき</li>
+      <li>画面設計が変更されたとき</li>
+    </ul>
+    <h4 id="更新手順">更新手順 </h4>
+    <ol>
+      <li><strong>Issue を作成</strong></li>
+    </ol>
+    <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">##</span> やりたいこと</span>
 
 プロジェクト仕様書の API 設計を更新
 
@@ -561,94 +1427,220 @@ feature/test（テストではない）
 
 新しいエンドポイント<span class="token code-snippet code keyword">`GET /api/notifications`</span>を追加したため、
 仕様書に反映する
-</code></pre><ol start="2">
-<li><strong><code>docs/</code>ブランチを切る</strong></li>
-</ol>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">git</span> checkout develop
-<span class="token function">git</span> pull origin develop
-<span class="token function">git</span> checkout <span class="token parameter variable">-b</span> docs/API設計更新
-</code></pre><ol start="3">
-<li>
-<p><strong>プロジェクト仕様書を編集</strong></p>
-<ul>
-<li><code>docs/プロジェクト仕様書.md</code>を編集</li>
-<li>変更箇所を明確に</li>
-</ul>
-</li>
-<li>
-<p><strong>コミット</strong></p>
-</li>
-</ol>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">git</span> <span class="token function">add</span> docs/プロジェクト仕様書.md
+</code></pre>
+    <ol start="2">
+      <li>
+        <p><strong>GitHub 上でブランチを切る</strong></p>
+        <ul>
+          <li>Issue 画面の「Development」欄から「Create a branch」</li>
+          <li>ブランチ名：<code>docs/API設計更新</code></li>
+          <li>Branch source：<code>develop</code></li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>ローカルでチェックアウト</strong></p>
+      </li>
+    </ol>
+    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">git</span> fetch origin
+<span class="token function">git</span> checkout 作成されたブランチ名
+</code></pre>
+    <ol start="4">
+      <li>
+        <p><strong>プロジェクト仕様書を編集</strong></p>
+        <ul>
+          <li><code>docs/プロジェクト仕様書.md</code>を編集</li>
+          <li>変更箇所を明確に</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>コミット・プッシュ</strong></p>
+      </li>
+    </ol>
+    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">git</span> <span class="token function">add</span> docs/プロジェクト仕様書.md
 <span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"[docs] API設計に通知取得エンドポイントを追加"</span>
-<span class="token function">git</span> push origin docs/API設計更新
-</code></pre><ol start="5">
-<li><strong>PR を出す</strong></li>
-</ol>
-<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">##</span> 変更内容</span>
+<span class="token function">git</span> push origin 作成されたブランチ名
+</code></pre>
+    <ol start="6">
+      <li><strong>PR を出す</strong></li>
+    </ol>
+    <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">##</span> 変更内容</span>
 
 API 設計に通知取得エンドポイント（GET /api/notifications）を追加
 
 <span class="token title important"><span class="token punctuation">##</span> 関連 Issue</span>
 
 <span class="token title important"><span class="token punctuation">#</span>67</span>
-</code></pre><ol start="6">
-<li>
-<p><strong>Discord に連絡</strong></p>
-</li>
-<li>
-<p><strong>レビュー・マージ</strong></p>
-</li>
-</ol>
-<h3 id="その他のドキュメント更新">その他のドキュメント更新 </h3>
-<ul>
-<li><a href="http://README.md">README.md</a></li>
-<li><a href="http://xn--feka4cw065beq6a.md">開発ルール.md</a></li>
-<li>AI 用プロンプト</li>
-</ul>
-<p>も同様に<code>docs/</code>ブランチで更新</p>
-<hr>
-<h2 id="禁止事項">禁止事項 </h2>
-<h3 id="絶対にやってはいけないこと">絶対にやってはいけないこと </h3>
-<ol>
-<li><strong><code>main</code>へ直接 push</strong></li>
-<li><strong><code>develop</code>へ直接 push</strong></li>
-<li><strong>Issue を作らずに作業開始</strong></li>
-<li><strong>レビューなしでマージ</strong></li>
-<li><strong>他人のブランチに勝手に push</strong></li>
-<li><strong>コンフリクトを放置してマージ</strong></li>
-<li><strong>動作確認せずに PR</strong></li>
-</ol>
-<h3 id="推奨しないこと">推奨しないこと </h3>
-<ol>
-<li>一つのブランチで複数の機能を実装</li>
-<li>コミットメッセージを適当に書く</li>
-<li>巨大な PR（500 行以上の変更）</li>
-</ol>
-<hr>
-<h1 id="ai-ルール">AI ルール </h1>
-<h2 id="最初に必ず読むこと">最初に必ず読むこと </h2>
-<h3 id="プロジェクト仕様書最優先">プロジェクト仕様書（最優先） </h3>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>docs/プロジェクト仕様書.md
-</code></pre><p><strong>コードを書く前に必ず確認してください。</strong></p>
-<ul>
-<li>プロジェクト概要</li>
-<li>機能要件</li>
-<li>画面設計</li>
-<li>データベース設計</li>
-<li>API 設計</li>
-</ul>
-<hr>
-<h2 id="基本情報">基本情報 </h2>
-<ul>
-<li><strong>使用言語：</strong> JavaScript（TypeScript ではない）</li>
-<li><strong>フロントエンド：</strong> React Native (Expo)</li>
-<li><strong>バックエンド：</strong> Supabase</li>
-<li><strong>その他：</strong> Google Apps Script</li>
-</ul>
-<hr>
-<h2 id="ファイル構造">ファイル構造 </h2>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>project-root/
+</code></pre>
+    <ol start="7">
+      <li>
+        <p><strong>Discord に通知</strong></p>
+      </li>
+      <li>
+        <p><strong>レビュー・マージ</strong></p>
+      </li>
+    </ol>
+    <h3 id="その他のドキュメント更新">その他のドキュメント更新 </h3>
+    <ul>
+      <li><a href="http://README.md">README.md</a></li>
+      <li><a href="http://xn--feka4cw065beq6a.md">開発ルール.md</a></li>
+      <li>AI 用プロンプト</li>
+    </ul>
+    <p>も同様に<code>docs/</code>ブランチで更新</p>
+    <hr>
+    <h2 id="環境変数ルール">環境変数ルール </h2>
+    <h3 id="環境変数とは">環境変数とは？ </h3>
+    <ul>
+      <li>API キーやデータベースの URL など、秘密にすべき情報を管理するための仕組み</li>
+      <li>コードに直接書かず、別ファイル（<code>.env</code>）で管理する</li>
+      <li><strong>絶対に GitHub にアップロードしてはいけない</strong></li>
+    </ul>
+    <h3 id="env実際の値">.env（実際の値） </h3>
+    <p><strong>このファイルには実際の API キーなど秘密情報が入る</strong></p>
+    <ul>
+      <li><strong>絶対にコミットしない</strong></li>
+      <li><code>.gitignore</code>に必ず含める</li>
+      <li>各開発者がローカルで作成</li>
+      <li>チームメンバー間で共有する場合は Slack や Discord の DM で</li>
+    </ul>
+    <p><strong>例：</strong></p>
+    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># .env</span>
+<span class="token assign-left variable">EXPO_PUBLIC_SUPABASE_URL</span><span class="token operator">=</span>https://abcdefg.supabase.co
+<span class="token assign-left variable">EXPO_PUBLIC_SUPABASE_ANON_KEY</span><span class="token operator">=</span>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9<span class="token punctuation">..</span>.
+<span class="token assign-left variable">EXPO_PUBLIC_GAS_API_KEY</span><span class="token operator">=</span>your-secret-api-key-here
+<span class="token assign-left variable">EXPO_PUBLIC_GAS_ENDPOINT</span><span class="token operator">=</span>https://script.google.com/macros/s/ABC123<span class="token punctuation">..</span>./exec
+</code></pre>
+    <h3 id="envexampleサンプル">.env.example（サンプル） </h3>
+    <p><strong>このファイルは GitHub にコミットする</strong></p>
+    <ul>
+      <li>値は空かダミー値にする</li>
+      <li>コミット必須</li>
+      <li>新しい環境変数追加時は必ず更新</li>
+      <li>他の開発者が<code>.env</code>を作るときの参考になる</li>
+    </ul>
+    <p><strong>例：</strong></p>
+    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># .env.example</span>
+<span class="token assign-left variable">EXPO_PUBLIC_SUPABASE_URL</span><span class="token operator">=</span>your_supabase_url_here
+<span class="token assign-left variable">EXPO_PUBLIC_SUPABASE_ANON_KEY</span><span class="token operator">=</span>your_anon_key_here
+<span class="token assign-left variable">EXPO_PUBLIC_GAS_API_KEY</span><span class="token operator">=</span>your_gas_api_key_here
+<span class="token assign-left variable">EXPO_PUBLIC_GAS_ENDPOINT</span><span class="token operator">=</span>your_gas_endpoint_here
+</code></pre>
+    <h3 id="gitignore">.gitignore </h3>
+    <p><strong>必ず<code>.env</code>を含める</strong></p>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code># .gitignore
+.env
+node_modules/
+.expo/
+</code></pre>
+    <h3 id="環境変数の使い方">環境変数の使い方 </h3>
+    <h4 id="設定ファイルで読み込む">設定ファイルで読み込む </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token comment">// src/shared/constants/config.js</span>
+<span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token constant">SUPABASE_URL</span> <span class="token operator">=</span> process<span class="token punctuation">.</span><span class="token property-access">env</span><span class="token punctuation">.</span><span class="token constant">EXPO_PUBLIC_SUPABASE_URL</span><span class="token punctuation">;</span>
+<span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token constant">SUPABASE_ANON_KEY</span> <span class="token operator">=</span> process<span class="token punctuation">.</span><span class="token property-access">env</span><span class="token punctuation">.</span><span class="token constant">EXPO_PUBLIC_SUPABASE_ANON_KEY</span><span class="token punctuation">;</span>
+<span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token constant">GAS_API_KEY</span> <span class="token operator">=</span> process<span class="token punctuation">.</span><span class="token property-access">env</span><span class="token punctuation">.</span><span class="token constant">EXPO_PUBLIC_GAS_API_KEY</span><span class="token punctuation">;</span>
+<span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token constant">GAS_ENDPOINT</span> <span class="token operator">=</span> process<span class="token punctuation">.</span><span class="token property-access">env</span><span class="token punctuation">.</span><span class="token constant">EXPO_PUBLIC_GAS_ENDPOINT</span><span class="token punctuation">;</span>
+</code></pre>
+    <h4 id="コードで使用">コードで使用 </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword module keyword-import">import</span> <span class="token punctuation">{</span> <span class="token constant">SUPABASE_URL</span><span class="token punctuation">,</span> <span class="token constant">SUPABASE_ANON_KEY</span> <span class="token punctuation">}</span> <span class="token keyword module keyword-from">from</span> <span class="token string">"@/shared/constants/config"</span><span class="token punctuation">;</span>
+<span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token punctuation">{</span> createClient <span class="token punctuation">}</span></span> <span class="token keyword module keyword-from">from</span> <span class="token string">"@supabase/supabase-js"</span><span class="token punctuation">;</span>
+
+<span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> supabase <span class="token operator">=</span> <span class="token function">createClient</span><span class="token punctuation">(</span><span class="token constant">SUPABASE_URL</span><span class="token punctuation">,</span> <span class="token constant">SUPABASE_ANON_KEY</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+    <h3 id="新メンバーが参加したとき">新メンバーが参加したとき </h3>
+    <ol>
+      <li>リポジトリをクローン</li>
+    </ol>
+    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">git</span> clone https://github.com/organization/festival-app-2024.git
+<span class="token builtin class-name">cd</span> festival-app-2024
+</code></pre>
+    <ol start="2">
+      <li><code>.env.example</code>をコピーして<code>.env</code>を作成</li>
+    </ol>
+    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">cp</span> .env.example .env
+</code></pre>
+    <ol start="3">
+      <li>
+        <p><code>.env</code>に実際の値を入力</p>
+        <ul>
+          <li>チームリーダーやメンバーから実際の値を教えてもらう</li>
+          <li>Slack や Discord の DM で共有</li>
+        </ul>
+      </li>
+      <li>
+        <p>動作確認</p>
+      </li>
+    </ol>
+    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">npm</span> <span class="token function">install</span>
+<span class="token function">npm</span> start
+</code></pre>
+    <h3 id="重要な注意事項">重要な注意事項 </h3>
+    <ol>
+      <li>
+        <p><strong>絶対に<code>.env</code>をコミットしない</strong></p>
+        <ul>
+          <li>API キーが漏れると悪用される危険がある</li>
+          <li>もしコミットしてしまったら、すぐに API キーを再発行</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>新しい環境変数を追加したら<code>.env.example</code>も更新</strong></p>
+        <ul>
+          <li>他のメンバーが困らないように</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>環境変数の値をコードに直接書かない</strong></p>
+        <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token comment">// ❌ 悪い例</span>
+<span class="token keyword keyword-const">const</span> <span class="token constant">API_KEY</span> <span class="token operator">=</span> <span class="token string">"abc123secret"</span><span class="token punctuation">;</span>
+
+<span class="token comment">// ✅ 良い例</span>
+<span class="token keyword keyword-const">const</span> <span class="token constant">API_KEY</span> <span class="token operator">=</span> process<span class="token punctuation">.</span><span class="token property-access">env</span><span class="token punctuation">.</span><span class="token constant">EXPO_PUBLIC_GAS_API_KEY</span><span class="token punctuation">;</span>
+</code></pre>
+      </li>
+    </ol>
+    <hr>
+    <h2 id="禁止事項">禁止事項 </h2>
+    <h3 id="絶対にやってはいけないこと">絶対にやってはいけないこと </h3>
+    <ol>
+      <li><strong><code>main</code>へ直接 push</strong></li>
+      <li><strong><code>develop</code>へ直接 push</strong></li>
+      <li><strong>Issue を作らずに作業開始</strong></li>
+      <li><strong>レビューなしでマージ</strong></li>
+      <li><strong>他人のブランチに勝手に push</strong></li>
+      <li><strong>コンフリクトを放置してマージ</strong></li>
+      <li><strong>動作確認せずに PR</strong></li>
+      <li><strong><code>.env</code>をコミット</strong></li>
+    </ol>
+    <h3 id="推奨しないこと">推奨しないこと </h3>
+    <ol>
+      <li>一つのブランチで複数の機能を実装</li>
+      <li>コミットメッセージを適当に書く</li>
+      <li>巨大な PR（500 行以上の変更）</li>
+    </ol>
+    <hr>
+    <h1 id="ai-ルール">AI ルール </h1>
+    <h2 id="最初に必ず読むこと">最初に必ず読むこと </h2>
+    <h3 id="プロジェクト仕様書最優先">プロジェクト仕様書（最優先） </h3>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>docs/プロジェクト仕様書.md
+</code></pre>
+    <p><strong>コードを書く前に必ず確認してください。</strong></p>
+    <ul>
+      <li>プロジェクト概要</li>
+      <li>機能要件</li>
+      <li>画面設計</li>
+      <li>データベース設計</li>
+      <li>API 設計</li>
+    </ul>
+    <hr>
+    <h2 id="基本情報">基本情報 </h2>
+    <ul>
+      <li><strong>使用言語：</strong> JavaScript（TypeScript ではない）</li>
+      <li><strong>フロントエンド：</strong> React Native (Expo)</li>
+      <li><strong>バックエンド：</strong> Supabase</li>
+      <li><strong>その他：</strong> Google Apps Script</li>
+    </ul>
+    <hr>
+    <h2 id="ファイル構造">ファイル構造 </h2>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>project-root/
 ├── docs/
 │   ├── プロジェクト仕様書.md
 │   ├── 開発ルール.md
@@ -683,389 +1675,390 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
 ├── .gitignore
 ├── app.json
 └── package.json
-</code></pre><hr>
-<h2 id="コーディング規約">コーディング規約 </h2>
-<h3 id="ファイル命名">ファイル命名 </h3>
-<table>
-<thead>
-<tr>
-<th>種類</th>
-<th>形式</th>
-<th>拡張子</th>
-<th>例</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>コンポーネント</td>
-<td>PascalCase</td>
-<td>.jsx</td>
-<td><code>EventCard.jsx</code></td>
-</tr>
-<tr>
-<td>サービス</td>
-<td>camelCase</td>
-<td>.js</td>
-<td><code>eventService.js</code></td>
-</tr>
-<tr>
-<td>フック</td>
-<td>useCamelCase</td>
-<td>.js</td>
-<td><code>useEvents.js</code></td>
-</tr>
-<tr>
-<td>ユーティリティ</td>
-<td>camelCase</td>
-<td>.js</td>
-<td><code>validation.js</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="コメント規則">コメント規則 </h3>
-<p><strong>全ての関数に JSDoc 形式の日本語コメントを書く</strong></p>
-<p><strong>変数にもコメントを書く</strong></p>
-<h3 id="命名規則">命名規則 </h3>
-<p><strong>Supabase API に合わせる：</strong></p>
-<ul>
-<li>データ取得：<code>selectEvents</code>, <code>selectEventById</code></li>
-<li>データ挿入：<code>insertEvent</code></li>
-<li>データ更新：<code>updateUser</code></li>
-<li>データ削除：<code>deleteEvent</code></li>
-</ul>
-<p><strong>変数：</strong></p>
-<ul>
-<li>通常の変数：camelCase（例：<code>userName</code>, <code>eventList</code>）</li>
-<li>定数：UPPER_SNAKE_CASE（例：<code>MAX_RETRY_COUNT</code>）</li>
-<li>ブール：is, has, can, should で始める（例：<code>isLoading</code>, <code>hasError</code>）</li>
-</ul>
-<hr>
-<h2 id="開発の基本原則">開発の基本原則 </h2>
-<h3 id="コード品質">コード品質 </h3>
-<ul>
-<li>DRY 原則：重複を避ける</li>
-<li>意味のある変数名・関数名を使う</li>
-<li>小さな問題も放置せず、発見次第修正</li>
-<li>コメントは「なぜ」を説明、「何を」はコードで表現</li>
-<li>ボーイスカウトルール：コードを見つけた時よりも良い状態で残す</li>
-</ul>
-<h3 id="エラーハンドリング">エラーハンドリング </h3>
-<ul>
-<li>エラーは必ず解決する（抑制しない）</li>
-<li>早期にエラーを検出し、明確なエラーメッセージを提供</li>
-<li>外部 API やネットワーク通信は必ず失敗する可能性を考慮</li>
-<li>try-catch でエラーを握りつぶさない</li>
-</ul>
-<h3 id="セキュリティ">セキュリティ </h3>
-<ul>
-<li>API キー、パスワードは環境変数で管理（ハードコード禁止）</li>
-<li>すべての外部入力を検証</li>
-<li>必要最小限の権限で動作</li>
-<li>不要な依存関係を避ける</li>
-</ul>
-<h3 id="パフォーマンス">パフォーマンス </h3>
-<ul>
-<li>推測ではなく計測に基づいて最適化</li>
-<li>必要になるまでリソースの読み込みを遅延</li>
-<li>N+1 問題やオーバーフェッチを避ける</li>
-</ul>
-<h3 id="保守性">保守性 </h3>
-<ul>
-<li>機能追加と同時に既存コードの改善を検討</li>
-<li>使用されていないコードは積極的に削除</li>
-<li>技術的負債は明示的にコメントに記録</li>
-</ul>
-<hr>
-<h2 id="git-運用">Git 運用 </h2>
-<h3 id="コミットメッセージ-1">コミットメッセージ </h3>
-<ul>
-<li>コンベンショナルコミット形式を使用</li>
-<li>形式：<code>[種類] 変更内容</code></li>
-<li>種類：<code>add</code>, <code>fix</code>, <code>update</code>, <code>remove</code>, <code>docs</code></li>
-</ul>
-<h3 id="コミットの原則">コミットの原則 </h3>
-<ul>
-<li>コミットは原子的で、単一の変更に焦点を当てる</li>
-<li>明確で説明的なメッセージを書く</li>
-<li>main/develop ブランチへの直接コミットは避ける</li>
-</ul>
-<hr>
-<h2 id="禁止事項-1">禁止事項 </h2>
-<ol>
-<li>コメントなしのコード</li>
-<li>命名規則を無視</li>
-<li>仕様書を読まずに実装</li>
-<li>エラーハンドリング省略</li>
-<li><code>var</code>の使用（<code>const</code>/<code>let</code>を使う）</li>
-<li>マジックナンバー（定数化する）</li>
-<li>TypeScript で書く（JavaScript のみ）</li>
-<li>API キーやパスワードのハードコード</li>
-<li>エラーの抑制（@ts-ignore や try-catch で握りつぶす）</li>
-<li>使用されていないコードの放置</li>
-</ol>
-<hr>
-<h2 id="依存関係の管理">依存関係の管理 </h2>
-<ul>
-<li>本当に必要な依存関係のみを追加</li>
-<li>package-lock.json を必ずコミット</li>
-<li>新しい依存関係追加前にライセンス、サイズ、メンテナンス状況を確認</li>
-<li>セキュリティパッチのため定期的に更新</li>
-</ul>
-<hr>
-<h2 id="デバッグ">デバッグ </h2>
-<ul>
-<li>問題を確実に再現できる手順を確立</li>
-<li>最近の変更から調査を開始</li>
-<li>適切なツールを活用</li>
-<li>調査結果と解決策を記録</li>
-</ul>
-<hr>
-<p><strong>必ずプロジェクト仕様書を読んでから実装してください。</strong></p>
-<hr>
-<h2 id="ai-用プロンプトファイルの配置">AI 用プロンプトファイルの配置 </h2>
-<p>この AI ルールを以下のファイル名・配置場所でコピーして使用してください：</p>
-<h3 id="claude-code">Claude Code </h3>
-<ul>
-<li><strong>ファイル名：</strong> <code>claude.md</code></li>
-<li><strong>配置場所：</strong> <code>docs/AI用プロンプト/claude.md</code></li>
-</ul>
-<h3 id="cursor">Cursor </h3>
-<ul>
-<li><strong>ファイル名：</strong> <code>AGENTS.md</code></li>
-<li><strong>配置場所：</strong> プロジェクトルート <code>/AGENTS.md</code></li>
-</ul>
-<h3 id="gemini">Gemini </h3>
-<ul>
-<li><strong>ファイル名：</strong> <code>Gemini.md</code></li>
-<li><strong>配置場所：</strong> <code>docs/AI用プロンプト/Gemini.md</code></li>
-</ul>
-<h3 id="github-copilot">GitHub Copilot </h3>
-<ul>
-<li><strong>ファイル名：</strong> <code>copilot-instructions.md</code></li>
-<li><strong>配置場所：</strong> <code>.github/copilot-instructions.md</code></li>
-</ul>
-<p><strong>全て同じ内容をコピペして、ファイル名と配置場所だけ変えれば OK です！</strong></p>
-<hr>
-<h1 id="開発ルール">開発ルール </h1>
-<h2 id="用語解説-1">用語解説 </h2>
-<p>開発で使用する専門用語を初学者向けに解説します。</p>
-<h3 id="javascript-ジャバスクリプト">JavaScript (ジャバスクリプト) </h3>
-<ul>
-<li><strong>説明：</strong> プログラミング言語の一つ。Web 開発やアプリ開発で広く使われる</li>
-<li><strong>用途：</strong> このプロジェクトのメインの開発言語</li>
-</ul>
-<h3 id="react-native-リアクトネイティブ">React Native (リアクトネイティブ) </h3>
-<ul>
-<li><strong>説明：</strong> JavaScript でスマホアプリ（iOS/Android）を作るためのフレームワーク</li>
-<li><strong>例え：</strong> 1 つのコードで 2 種類のアプリが作れる魔法のツール</li>
-</ul>
-<h3 id="expo-エクスポ">Expo (エクスポ) </h3>
-<ul>
-<li><strong>説明：</strong> React Native の開発を簡単にするツール</li>
-<li><strong>用途：</strong> スマホで QR コードを読み取るだけでアプリを確認できる</li>
-</ul>
-<h3 id="supabase-スパベース">Supabase (スパベース) </h3>
-<ul>
-<li><strong>説明：</strong> バックエンド（サーバー側）をコード不要で作れるサービス</li>
-<li><strong>機能：</strong> データベース、認証、ストレージなど</li>
-</ul>
-<h3 id="gas-google-apps-script--ジーエーエス--ガス">GAS (Google Apps Script / ジーエーエス / ガス) </h3>
-<ul>
-<li><strong>説明：</strong> Google のサービス（スプレッドシート、Gmail など）を操作できるプログラミング言語</li>
-<li><strong>用途：</strong> Google スプレッドシートからデータを取得するなど</li>
-</ul>
-<h3 id="コンポーネント-component">コンポーネント (Component) </h3>
-<ul>
-<li><strong>説明：</strong> UI の部品。ボタン、カード、画面などの再利用可能なパーツ</li>
-<li><strong>例え：</strong> レゴブロックのようなもの。小さな部品を組み合わせてアプリを作る</li>
-<li><strong>具体例：</strong> 「イベントカード」というコンポーネントを作れば、イベント一覧で何度も使える</li>
-</ul>
-<h3 id="hook-フック">Hook (フック) </h3>
-<ul>
-<li><strong>説明：</strong> React の機能で、コンポーネントに「機能」を追加する仕組み</li>
-<li><strong>例：</strong>
-<ul>
-<li><code>useState</code>：データを保存する機能</li>
-<li><code>useEffect</code>：画面が表示されたときに何かする機能</li>
-<li><code>useAuth</code>：ログイン状態を管理する機能（カスタムフック）</li>
-</ul>
-</li>
-<li><strong>例え：</strong> 部品（コンポーネント）に「電池」や「モーター」を付けるようなもの</li>
-</ul>
-<h3 id="カスタムフック-custom-hook">カスタムフック (Custom Hook) </h3>
-<ul>
-<li><strong>説明：</strong> 自分で作った Hook。複雑な処理をまとめて、色々な場所で再利用できるようにする</li>
-<li><strong>例：</strong> <code>useAuth</code>を作れば、どの画面でもログイン状態を簡単に使える</li>
-<li><strong>利点：</strong> 同じコードを何度も書かなくて済む</li>
-</ul>
-<h3 id="ヘルパー関数-helper-function">ヘルパー関数 (Helper Function) </h3>
-<ul>
-<li><strong>説明：</strong> よく使う処理をまとめた関数。「お助け関数」のこと</li>
-<li><strong>例：</strong>
-<ul>
-<li>日付を「2024 年 1 月 1 日」に変換する関数</li>
-<li>メールアドレスが正しいかチェックする関数</li>
-</ul>
-</li>
-<li><strong>利点：</strong> 同じ処理を色々な場所で使える</li>
-</ul>
-<h3 id="props-プロップス">Props (プロップス) </h3>
-<ul>
-<li><strong>説明：</strong> 親コンポーネントから子コンポーネントにデータを渡す仕組み</li>
-<li><strong>例え：</strong> 関数の引数のようなもの</li>
-<li><strong>具体例：</strong> イベントカードに「イベント情報」を渡す</li>
-</ul>
-<h3 id="state-ステート">State (ステート) </h3>
-<ul>
-<li><strong>説明：</strong> コンポーネント内で管理するデータ（状態）</li>
-<li><strong>例：</strong>
-<ul>
-<li>ログイン中かどうか</li>
-<li>読み込み中かどうか</li>
-<li>取得したイベント一覧</li>
-</ul>
-</li>
-<li><strong>特徴：</strong> State が変わると、画面が自動で更新される</li>
-</ul>
-<h3 id="context-コンテキスト">Context (コンテキスト) </h3>
-<ul>
-<li><strong>説明：</strong> アプリ全体でデータを共有する仕組み</li>
-<li><strong>用途：</strong> ログイン情報やテーマ設定など、複数の画面で使うデータ</li>
-<li><strong>例え：</strong> みんなが見られる「掲示板」のようなもの</li>
-</ul>
-<h3 id="api-エーピーアイ">API (エーピーアイ) </h3>
-<ul>
-<li><strong>説明：</strong> Application Programming Interface の略。アプリ同士がデータをやり取りする仕組み</li>
-<li><strong>例：</strong> アプリからサーバーに「ユーザー情報をください」とお願いする</li>
-</ul>
-<h3 id="非同期処理-asynchronous--ひどうきしょり">非同期処理 (Asynchronous / ひどうきしょり) </h3>
-<ul>
-<li><strong>説明：</strong> 時間がかかる処理を待たずに次の処理を進めること</li>
-<li><strong>キーワード：</strong> <code>async</code>, <code>await</code></li>
-<li><strong>例：</strong> サーバーからデータを取得する間、画面を固まらせない</li>
-<li><strong>例え：</strong> 料理を作りながら、お湯が沸くのを待つ（同時進行）</li>
-</ul>
-<h3 id="rls-row-level-security--アールエルエス">RLS (Row Level Security / アールエルエス) </h3>
-<ul>
-<li><strong>説明：</strong> Supabase のセキュリティ機能。データベースの行レベルでアクセス制限</li>
-<li><strong>例：</strong> ユーザーは自分のデータのみ閲覧・更新可能</li>
-</ul>
-<hr>
-<h2 id="開発フロー">開発フロー </h2>
-<h3 id="1-仕様書作成">1. 仕様書作成 </h3>
-<ol>
-<li>
-<p><strong>プロジェクト仕様書を作成</strong></p>
-<ul>
-<li><code>docs/プロジェクト仕様書.md</code>に記載</li>
-<li>テンプレートに沿って記入</li>
-<li>プロジェクト概要、機能要件、画面設計、DB 設計、API 設計などを記載</li>
-</ul>
-</li>
-<li>
-<p><strong>仕様書のレビュー</strong></p>
-<ul>
-<li>2〜3 人で内容を確認</li>
-<li>不明点や懸念点があれば議論</li>
-<li>全員が納得するまで修正</li>
-</ul>
-</li>
-</ol>
-<h3 id="2-リポジトリ作成">2. リポジトリ作成 </h3>
-<ol>
-<li>
-<p><strong>GitHub 上でリポジトリを作成</strong></p>
-<ul>
-<li>リポジトリ命名規則に従う（例：<code>festival-app-2024</code>）</li>
-<li>README テンプレートを配置</li>
-<li><code>.gitignore</code>を設定</li>
-</ul>
-</li>
-<li>
-<p><strong>初期セットアップ</strong></p>
-<ul>
-<li>React Native (Expo)プロジェクトを初期化</li>
-<li>必要なパッケージをインストール</li>
-<li>環境変数のサンプル（<code>.env.example</code>）を作成</li>
-</ul>
-</li>
-<li>
-<p><strong>ブランチ作成</strong></p>
-<ul>
-<li><code>main</code>ブランチ（本番）</li>
-<li><code>develop</code>ブランチ（開発）を作成</li>
-</ul>
-</li>
-<li>
-<p><strong>ドキュメント配置</strong></p>
-<ul>
-<li><code>docs/</code>フォルダを作成</li>
-<li>プロジェクト仕様書を配置</li>
-<li>開発ルール、GitHub ルールを配置</li>
-</ul>
-</li>
-</ol>
-<h3 id="3-issue-作成とブランチ作成">3. Issue 作成とブランチ作成 </h3>
-<ol>
-<li>
-<p><strong>Issue を作成</strong></p>
-<ul>
-<li>仕様書を見ながら、大きな単位で Issue を作成</li>
-<li>例：「ログイン機能を実装」「イベント一覧画面を実装」</li>
-<li>ラベルと担当者をアサイン</li>
-</ul>
-</li>
-<li>
-<p><strong>ブランチを切る</strong></p>
-<ul>
-<li><code>develop</code>から<code>feature/○○</code>ブランチを作成</li>
-<li>ブランチ名は Issue の内容に合わせる</li>
-</ul>
-</li>
-</ol>
-<h3 id="4-開発">4. 開発 </h3>
-<ol>
-<li>
-<p><strong>実装</strong></p>
-<ul>
-<li>仕様書に沿って実装</li>
-<li>コメント規則、命名規則に従う</li>
-<li>定期的にコミット</li>
-</ul>
-</li>
-<li>
-<p><strong>動作確認</strong></p>
-<ul>
-<li>ローカルで動作確認</li>
-<li>エラーが出ないか確認</li>
-</ul>
-</li>
-<li>
-<p><strong>プッシュ</strong></p>
-<ul>
-<li>作業終了時またはキリの良いところで push</li>
-</ul>
-</li>
-<li>
-<p><strong>PR 作成</strong></p>
-<ul>
-<li>実装が完了したら PR を作成</li>
-<li>Discord で連絡</li>
-</ul>
-</li>
-<li>
-<p><strong>レビュー・マージ</strong></p>
-<ul>
-<li>レビューを受ける</li>
-<li>修正が必要なら対応</li>
-<li>承認されたらマージ</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="ディレクトリ構成機能ごと">ディレクトリ構成（機能ごと） </h2>
-<h3 id="全体構成">全体構成 </h3>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>project-root/
+</code></pre>
+    <hr>
+    <h2 id="コーディング規約">コーディング規約 </h2>
+    <h3 id="ファイル命名">ファイル命名 </h3>
+    <table>
+      <thead>
+        <tr>
+          <th>種類</th>
+          <th>形式</th>
+          <th>拡張子</th>
+          <th>例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>コンポーネント</td>
+          <td>PascalCase</td>
+          <td>.jsx</td>
+          <td><code>EventCard.jsx</code></td>
+        </tr>
+        <tr>
+          <td>サービス</td>
+          <td>camelCase</td>
+          <td>.js</td>
+          <td><code>eventService.js</code></td>
+        </tr>
+        <tr>
+          <td>フック</td>
+          <td>useCamelCase</td>
+          <td>.js</td>
+          <td><code>useEvents.js</code></td>
+        </tr>
+        <tr>
+          <td>ユーティリティ</td>
+          <td>camelCase</td>
+          <td>.js</td>
+          <td><code>validation.js</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="コメント規則">コメント規則 </h3>
+    <p><strong>全ての関数に JSDoc 形式の日本語コメントを書く</strong></p>
+    <p><strong>変数にもコメントを書く</strong></p>
+    <h3 id="命名規則">命名規則 </h3>
+    <p><strong>Supabase API に合わせる：</strong></p>
+    <ul>
+      <li>データ取得：<code>selectEvents</code>, <code>selectEventById</code></li>
+      <li>データ挿入：<code>insertEvent</code></li>
+      <li>データ更新：<code>updateUser</code></li>
+      <li>データ削除：<code>deleteEvent</code></li>
+    </ul>
+    <p><strong>変数：</strong></p>
+    <ul>
+      <li>通常の変数：camelCase（例：<code>userName</code>, <code>eventList</code>）</li>
+      <li>定数：UPPER_SNAKE_CASE（例：<code>MAX_RETRY_COUNT</code>）</li>
+      <li>ブール：is, has, can, should で始める（例：<code>isLoading</code>, <code>hasError</code>）</li>
+    </ul>
+    <hr>
+    <h2 id="開発の基本原則">開発の基本原則 </h2>
+    <h3 id="コード品質">コード品質 </h3>
+    <ul>
+      <li>DRY 原則：重複を避ける</li>
+      <li>意味のある変数名・関数名を使う</li>
+      <li>小さな問題も放置せず、発見次第修正</li>
+      <li>コメントは「なぜ」を説明、「何を」はコードで表現</li>
+      <li>ボーイスカウトルール：コードを見つけた時よりも良い状態で残す</li>
+    </ul>
+    <h3 id="エラーハンドリング">エラーハンドリング </h3>
+    <ul>
+      <li>エラーは必ず解決する（抑制しない）</li>
+      <li>早期にエラーを検出し、明確なエラーメッセージを提供</li>
+      <li>外部 API やネットワーク通信は必ず失敗する可能性を考慮</li>
+      <li>try-catch でエラーを握りつぶさない</li>
+    </ul>
+    <h3 id="セキュリティ">セキュリティ </h3>
+    <ul>
+      <li>API キー、パスワードは環境変数で管理（ハードコード禁止）</li>
+      <li>すべての外部入力を検証</li>
+      <li>必要最小限の権限で動作</li>
+      <li>不要な依存関係を避ける</li>
+    </ul>
+    <h3 id="パフォーマンス">パフォーマンス </h3>
+    <ul>
+      <li>推測ではなく計測に基づいて最適化</li>
+      <li>必要になるまでリソースの読み込みを遅延</li>
+      <li>N+1 問題やオーバーフェッチを避ける</li>
+    </ul>
+    <h3 id="保守性">保守性 </h3>
+    <ul>
+      <li>機能追加と同時に既存コードの改善を検討</li>
+      <li>使用されていないコードは積極的に削除</li>
+      <li>技術的負債は明示的にコメントに記録</li>
+    </ul>
+    <hr>
+    <h2 id="git-運用">Git 運用 </h2>
+    <h3 id="コミットメッセージ-1">コミットメッセージ </h3>
+    <ul>
+      <li>コンベンショナルコミット形式を使用</li>
+      <li>形式：<code>[種類] 変更内容</code></li>
+      <li>種類：<code>add</code>, <code>fix</code>, <code>update</code>, <code>remove</code>, <code>docs</code></li>
+    </ul>
+    <h3 id="コミットの原則">コミットの原則 </h3>
+    <ul>
+      <li>コミットは原子的で、単一の変更に焦点を当てる</li>
+      <li>明確で説明的なメッセージを書く</li>
+      <li>main/develop ブランチへの直接コミットは避ける</li>
+    </ul>
+    <hr>
+    <h2 id="禁止事項-1">禁止事項 </h2>
+    <ol>
+      <li>コメントなしのコード</li>
+      <li>命名規則を無視</li>
+      <li>仕様書を読まずに実装</li>
+      <li>エラーハンドリング省略</li>
+      <li><code>var</code>の使用（<code>const</code>/<code>let</code>を使う）</li>
+      <li>マジックナンバー（定数化する）</li>
+      <li>TypeScript で書く（JavaScript のみ）</li>
+      <li>API キーやパスワードのハードコード</li>
+      <li>エラーの抑制（@ts-ignore や try-catch で握りつぶす）</li>
+      <li>使用されていないコードの放置</li>
+    </ol>
+    <hr>
+    <h2 id="依存関係の管理">依存関係の管理 </h2>
+    <ul>
+      <li>本当に必要な依存関係のみを追加</li>
+      <li>package-lock.json を必ずコミット</li>
+      <li>新しい依存関係追加前にライセンス、サイズ、メンテナンス状況を確認</li>
+      <li>セキュリティパッチのため定期的に更新</li>
+    </ul>
+    <hr>
+    <h2 id="デバッグ">デバッグ </h2>
+    <ul>
+      <li>問題を確実に再現できる手順を確立</li>
+      <li>最近の変更から調査を開始</li>
+      <li>適切なツールを活用</li>
+      <li>調査結果と解決策を記録</li>
+    </ul>
+    <hr>
+    <p><strong>必ずプロジェクト仕様書を読んでから実装してください。</strong></p>
+    <hr>
+    <h2 id="ai-用プロンプトファイルの配置">AI 用プロンプトファイルの配置 </h2>
+    <p>この AI ルールを以下のファイル名・配置場所でコピーして使用してください：</p>
+    <h3 id="claude-code">Claude Code </h3>
+    <ul>
+      <li><strong>ファイル名：</strong> <code>claude.md</code></li>
+      <li><strong>配置場所：</strong> <code>docs/AI用プロンプト/claude.md</code></li>
+    </ul>
+    <h3 id="cursor">Cursor </h3>
+    <ul>
+      <li><strong>ファイル名：</strong> <code>AGENTS.md</code></li>
+      <li><strong>配置場所：</strong> プロジェクトルート <code>/AGENTS.md</code></li>
+    </ul>
+    <h3 id="gemini">Gemini </h3>
+    <ul>
+      <li><strong>ファイル名：</strong> <code>Gemini.md</code></li>
+      <li><strong>配置場所：</strong> <code>docs/AI用プロンプト/Gemini.md</code></li>
+    </ul>
+    <h3 id="github-copilot">GitHub Copilot </h3>
+    <ul>
+      <li><strong>ファイル名：</strong> <code>copilot-instructions.md</code></li>
+      <li><strong>配置場所：</strong> <code>.github/copilot-instructions.md</code></li>
+    </ul>
+    <p><strong>全て同じ内容をコピペして、ファイル名と配置場所だけ変えれば OK です！</strong></p>
+    <hr>
+    <h1 id="開発ルール">開発ルール </h1>
+    <h2 id="用語解説-1">用語解説 </h2>
+    <p>開発で使用する専門用語を初学者向けに解説します。</p>
+    <h3 id="javascript-ジャバスクリプト">JavaScript (ジャバスクリプト) </h3>
+    <ul>
+      <li><strong>説明：</strong> プログラミング言語の一つ。Web 開発やアプリ開発で広く使われる</li>
+      <li><strong>用途：</strong> このプロジェクトのメインの開発言語</li>
+    </ul>
+    <h3 id="react-native-リアクトネイティブ">React Native (リアクトネイティブ) </h3>
+    <ul>
+      <li><strong>説明：</strong> JavaScript でスマホアプリ（iOS/Android）を作るためのフレームワーク</li>
+      <li><strong>例え：</strong> 1 つのコードで 2 種類のアプリが作れる魔法のツール</li>
+    </ul>
+    <h3 id="expo-エクスポ">Expo (エクスポ) </h3>
+    <ul>
+      <li><strong>説明：</strong> React Native の開発を簡単にするツール</li>
+      <li><strong>用途：</strong> スマホで QR コードを読み取るだけでアプリを確認できる</li>
+    </ul>
+    <h3 id="supabase-スパベース">Supabase (スパベース) </h3>
+    <ul>
+      <li><strong>説明：</strong> バックエンド（サーバー側）をコード不要で作れるサービス</li>
+      <li><strong>機能：</strong> データベース、認証、ストレージなど</li>
+    </ul>
+    <h3 id="gas-google-apps-script--ジーエーエス--ガス">GAS (Google Apps Script / ジーエーエス / ガス) </h3>
+    <ul>
+      <li><strong>説明：</strong> Google のサービス（スプレッドシート、Gmail など）を操作できるプログラミング言語</li>
+      <li><strong>用途：</strong> Google スプレッドシートからデータを取得するなど</li>
+    </ul>
+    <h3 id="コンポーネント-component">コンポーネント (Component) </h3>
+    <ul>
+      <li><strong>説明：</strong> UI の部品。ボタン、カード、画面などの再利用可能なパーツ</li>
+      <li><strong>例え：</strong> レゴブロックのようなもの。小さな部品を組み合わせてアプリを作る</li>
+      <li><strong>具体例：</strong> 「イベントカード」というコンポーネントを作れば、イベント一覧で何度も使える</li>
+    </ul>
+    <h3 id="hook-フック">Hook (フック) </h3>
+    <ul>
+      <li><strong>説明：</strong> React の機能で、コンポーネントに「機能」を追加する仕組み</li>
+      <li><strong>例：</strong>
+        <ul>
+          <li><code>useState</code>：データを保存する機能</li>
+          <li><code>useEffect</code>：画面が表示されたときに何かする機能</li>
+          <li><code>useAuth</code>：ログイン状態を管理する機能（カスタムフック）</li>
+        </ul>
+      </li>
+      <li><strong>例え：</strong> 部品（コンポーネント）に「電池」や「モーター」を付けるようなもの</li>
+    </ul>
+    <h3 id="カスタムフック-custom-hook">カスタムフック (Custom Hook) </h3>
+    <ul>
+      <li><strong>説明：</strong> 自分で作った Hook。複雑な処理をまとめて、色々な場所で再利用できるようにする</li>
+      <li><strong>例：</strong> <code>useAuth</code>を作れば、どの画面でもログイン状態を簡単に使える</li>
+      <li><strong>利点：</strong> 同じコードを何度も書かなくて済む</li>
+    </ul>
+    <h3 id="ヘルパー関数-helper-function">ヘルパー関数 (Helper Function) </h3>
+    <ul>
+      <li><strong>説明：</strong> よく使う処理をまとめた関数。「お助け関数」のこと</li>
+      <li><strong>例：</strong>
+        <ul>
+          <li>日付を「2024 年 1 月 1 日」に変換する関数</li>
+          <li>メールアドレスが正しいかチェックする関数</li>
+        </ul>
+      </li>
+      <li><strong>利点：</strong> 同じ処理を色々な場所で使える</li>
+    </ul>
+    <h3 id="props-プロップス">Props (プロップス) </h3>
+    <ul>
+      <li><strong>説明：</strong> 親コンポーネントから子コンポーネントにデータを渡す仕組み</li>
+      <li><strong>例え：</strong> 関数の引数のようなもの</li>
+      <li><strong>具体例：</strong> イベントカードに「イベント情報」を渡す</li>
+    </ul>
+    <h3 id="state-ステート">State (ステート) </h3>
+    <ul>
+      <li><strong>説明：</strong> コンポーネント内で管理するデータ（状態）</li>
+      <li><strong>例：</strong>
+        <ul>
+          <li>ログイン中かどうか</li>
+          <li>読み込み中かどうか</li>
+          <li>取得したイベント一覧</li>
+        </ul>
+      </li>
+      <li><strong>特徴：</strong> State が変わると、画面が自動で更新される</li>
+    </ul>
+    <h3 id="context-コンテキスト">Context (コンテキスト) </h3>
+    <ul>
+      <li><strong>説明：</strong> アプリ全体でデータを共有する仕組み</li>
+      <li><strong>用途：</strong> ログイン情報やテーマ設定など、複数の画面で使うデータ</li>
+      <li><strong>例え：</strong> みんなが見られる「掲示板」のようなもの</li>
+    </ul>
+    <h3 id="api-エーピーアイ">API (エーピーアイ) </h3>
+    <ul>
+      <li><strong>説明：</strong> Application Programming Interface の略。アプリ同士がデータをやり取りする仕組み</li>
+      <li><strong>例：</strong> アプリからサーバーに「ユーザー情報をください」とお願いする</li>
+    </ul>
+    <h3 id="非同期処理-asynchronous--ひどうきしょり">非同期処理 (Asynchronous / ひどうきしょり) </h3>
+    <ul>
+      <li><strong>説明：</strong> 時間がかかる処理を待たずに次の処理を進めること</li>
+      <li><strong>キーワード：</strong> <code>async</code>, <code>await</code></li>
+      <li><strong>例：</strong> サーバーからデータを取得する間、画面を固まらせない</li>
+      <li><strong>例え：</strong> 料理を作りながら、お湯が沸くのを待つ（同時進行）</li>
+    </ul>
+    <h3 id="rls-row-level-security--アールエルエス">RLS (Row Level Security / アールエルエス) </h3>
+    <ul>
+      <li><strong>説明：</strong> Supabase のセキュリティ機能。データベースの行レベルでアクセス制限</li>
+      <li><strong>例：</strong> ユーザーは自分のデータのみ閲覧・更新可能</li>
+    </ul>
+    <hr>
+    <h2 id="開発フロー">開発フロー </h2>
+    <h3 id="1-仕様書作成">1. 仕様書作成 </h3>
+    <ol>
+      <li>
+        <p><strong>プロジェクト仕様書を作成</strong></p>
+        <ul>
+          <li><code>docs/プロジェクト仕様書.md</code>に記載</li>
+          <li>テンプレートに沿って記入</li>
+          <li>プロジェクト概要、機能要件、画面設計、DB 設計、API 設計などを記載</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>仕様書のレビュー</strong></p>
+        <ul>
+          <li>2〜3 人で内容を確認</li>
+          <li>不明点や懸念点があれば議論</li>
+          <li>全員が納得するまで修正</li>
+        </ul>
+      </li>
+    </ol>
+    <h3 id="2-リポジトリ作成">2. リポジトリ作成 </h3>
+    <ol>
+      <li>
+        <p><strong>GitHub 上でリポジトリを作成</strong></p>
+        <ul>
+          <li>リポジトリ命名規則に従う（例：<code>festival-app-2024</code>）</li>
+          <li>README テンプレートを配置</li>
+          <li><code>.gitignore</code>を設定</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>初期セットアップ</strong></p>
+        <ul>
+          <li>React Native (Expo)プロジェクトを初期化</li>
+          <li>必要なパッケージをインストール</li>
+          <li>環境変数のサンプル（<code>.env.example</code>）を作成</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>ブランチ作成</strong></p>
+        <ul>
+          <li><code>main</code>ブランチ（本番）</li>
+          <li><code>develop</code>ブランチ（開発）を作成</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>ドキュメント配置</strong></p>
+        <ul>
+          <li><code>docs/</code>フォルダを作成</li>
+          <li>プロジェクト仕様書を配置</li>
+          <li>開発ルール、GitHub ルールを配置</li>
+        </ul>
+      </li>
+    </ol>
+    <h3 id="3-issue-作成とブランチ作成">3. Issue 作成とブランチ作成 </h3>
+    <ol>
+      <li>
+        <p><strong>Issue を作成</strong></p>
+        <ul>
+          <li>仕様書を見ながら、大きな単位で Issue を作成</li>
+          <li>例：「ログイン機能を実装」「イベント一覧画面を実装」</li>
+          <li>ラベルと担当者をアサイン</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>GitHub 上でブランチを切る</strong></p>
+        <ul>
+          <li>Issue 画面の「Development」欄から「Create a branch」</li>
+          <li>Branch source（どこから切るか）を<code>develop</code>に設定</li>
+        </ul>
+      </li>
+    </ol>
+    <h3 id="4-開発">4. 開発 </h3>
+    <ol>
+      <li>
+        <p><strong>実装</strong></p>
+        <ul>
+          <li>仕様書に沿って実装</li>
+          <li>コメント規則、命名規則に従う</li>
+          <li>定期的にコミット</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>動作確認</strong></p>
+        <ul>
+          <li>ローカルで動作確認</li>
+          <li>エラーが出ないか確認</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>プッシュ</strong></p>
+        <ul>
+          <li>作業終了時またはキリの良いところで push</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>PR 作成</strong></p>
+        <ul>
+          <li>実装が完了したら PR を作成</li>
+          <li>Discord で通知</li>
+        </ul>
+      </li>
+      <li>
+        <p><strong>レビュー・マージ</strong></p>
+        <ul>
+          <li>GitHub 上でレビューを受ける</li>
+          <li>修正が必要なら対応</li>
+          <li>承認されたらマージ</li>
+        </ul>
+      </li>
+    </ol>
+    <hr>
+    <h2 id="ディレクトリ構成機能ごと">ディレクトリ構成（機能ごと） </h2>
+    <h3 id="全体構成">全体構成 </h3>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>project-root/
 ├── docs/                                # ドキュメント
 │   ├── プロジェクト仕様書.md
 │   ├── 開発ルール.md
@@ -1108,11 +2101,12 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
 ├── app.json
 ├── package.json
 └── README.md
-</code></pre><hr>
-<h2 id="features機能フォルダの詳細">features/（機能フォルダ）の詳細 </h2>
-<p>機能ごとにフォルダを作り、その機能に関連するコードを全てまとめます。</p>
-<h3 id="featuresevent-の構成例">features/event/ の構成例 </h3>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>features/event/
+</code></pre>
+    <hr>
+    <h2 id="features機能フォルダの詳細">features/（機能フォルダ）の詳細 </h2>
+    <p>機能ごとにフォルダを作り、その機能に関連するコードを全てまとめます。</p>
+    <h3 id="featuresevent-の構成例">features/event/ の構成例 </h3>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>features/event/
 ├── components/          # この機能で使うUI部品
 │   └── EventCard.jsx
 ├── screens/            # この機能の画面
@@ -1122,11 +2116,12 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
 ├── hooks/              # この機能のカスタムフック
 │   └── useEvents.js
 └── constants.js        # この機能で使う定数
-</code></pre><hr>
-<h3 id="1-components-コンポーネント">1. components/ （コンポーネント） </h3>
-<p><strong>役割：</strong> UI 部品を作る場所。小さな部品を作って、色々な場所で再利用する</p>
-<h4 id="eventcardjsx-の例">EventCard.jsx の例 </h4>
-<pre data-role="codeBlock" data-info="jsx" class="language-jsx jsx"><code><span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token maybe-class-name">React</span></span> <span class="token keyword module keyword-from">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
+</code></pre>
+    <hr>
+    <h3 id="1-components-コンポーネント">1. components/ （コンポーネント） </h3>
+    <p><strong>役割：</strong> UI 部品を作る場所。小さな部品を作って、色々な場所で再利用する</p>
+    <h4 id="eventcardjsx-の例">EventCard.jsx の例 </h4>
+    <pre data-role="codeBlock" data-info="jsx" class="language-jsx jsx"><code><span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token maybe-class-name">React</span></span> <span class="token keyword module keyword-from">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
 <span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token punctuation">{</span> <span class="token maybe-class-name">View</span><span class="token punctuation">,</span> <span class="token maybe-class-name">Text</span><span class="token punctuation">,</span> <span class="token maybe-class-name">TouchableOpacity</span> <span class="token punctuation">}</span></span> <span class="token keyword module keyword-from">from</span> <span class="token string">"react-native"</span><span class="token punctuation">;</span>
 
 <span class="token comment">/**
@@ -1164,17 +2159,18 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
 <span class="token punctuation">}</span>
 
 <span class="token keyword module keyword-export">export</span> <span class="token keyword module keyword-default">default</span> <span class="token maybe-class-name">EventCard</span><span class="token punctuation">;</span>
-</code></pre><p><strong>ポイント：</strong></p>
-<ul>
-<li><strong>再利用できる</strong>：このカードを色々な画面で使える</li>
-<li><strong>小さく作る</strong>：1 つのコンポーネントは 1 つの役割だけ</li>
-<li><strong>Props で柔軟に</strong>：渡すデータを変えれば、表示内容が変わる</li>
-</ul>
-<hr>
-<h3 id="2-screens-画面">2. screens/ （画面） </h3>
-<p><strong>役割：</strong> アプリの 1 画面を作る場所。複数のコンポーネントを組み合わせて、1 つの画面を作る</p>
-<h4 id="eventlistscreenjsx-の例">EventListScreen.jsx の例 </h4>
-<pre data-role="codeBlock" data-info="jsx" class="language-jsx jsx"><code><span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token maybe-class-name">React</span></span> <span class="token keyword module keyword-from">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
+</code></pre>
+    <p><strong>ポイント：</strong></p>
+    <ul>
+      <li><strong>再利用できる</strong>：このカードを色々な画面で使える</li>
+      <li><strong>小さく作る</strong>：1 つのコンポーネントは 1 つの役割だけ</li>
+      <li><strong>Props で柔軟に</strong>：渡すデータを変えれば、表示内容が変わる</li>
+    </ul>
+    <hr>
+    <h3 id="2-screens-画面">2. screens/ （画面） </h3>
+    <p><strong>役割：</strong> アプリの 1 画面を作る場所。複数のコンポーネントを組み合わせて、1 つの画面を作る</p>
+    <h4 id="eventlistscreenjsx-の例">EventListScreen.jsx の例 </h4>
+    <pre data-role="codeBlock" data-info="jsx" class="language-jsx jsx"><code><span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token maybe-class-name">React</span></span> <span class="token keyword module keyword-from">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
 <span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token punctuation">{</span> <span class="token maybe-class-name">View</span><span class="token punctuation">,</span> <span class="token maybe-class-name">FlatList</span><span class="token punctuation">,</span> <span class="token maybe-class-name">Text</span> <span class="token punctuation">}</span></span> <span class="token keyword module keyword-from">from</span> <span class="token string">"react-native"</span><span class="token punctuation">;</span>
 <span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token maybe-class-name">EventCard</span></span> <span class="token keyword module keyword-from">from</span> <span class="token string">"../components/EventCard"</span><span class="token punctuation">;</span>
 <span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token punctuation">{</span> useEvents <span class="token punctuation">}</span></span> <span class="token keyword module keyword-from">from</span> <span class="token string">"../hooks/useEvents"</span><span class="token punctuation">;</span>
@@ -1243,17 +2239,18 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
 <span class="token punctuation">}</span>
 
 <span class="token keyword module keyword-export">export</span> <span class="token keyword module keyword-default">default</span> <span class="token maybe-class-name">EventListScreen</span><span class="token punctuation">;</span>
-</code></pre><p><strong>ポイント：</strong></p>
-<ul>
-<li><strong>画面全体を作る</strong>：コンポーネントを組み合わせて 1 つの画面を作る</li>
-<li><strong>データ取得は Hook で</strong>：<code>useEvents()</code>を使って簡単にデータ取得</li>
-<li><strong>状態に応じて表示を変える</strong>：読み込み中、エラー、成功でそれぞれ違う画面を表示</li>
-</ul>
-<hr>
-<h3 id="3-services-サービス">3. services/ （サービス） </h3>
-<p><strong>役割：</strong> Supabase との通信を行う場所。「データをください」「データを保存して」というお願いをする</p>
-<h4 id="eventservicejs-の例">eventService.js の例 </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token punctuation">{</span> supabase <span class="token punctuation">}</span></span> <span class="token keyword module keyword-from">from</span> <span class="token string">"@/services/supabase/client"</span><span class="token punctuation">;</span>
+</code></pre>
+    <p><strong>ポイント：</strong></p>
+    <ul>
+      <li><strong>画面全体を作る</strong>：コンポーネントを組み合わせて 1 つの画面を作る</li>
+      <li><strong>データ取得は Hook で</strong>：<code>useEvents()</code>を使って簡単にデータ取得</li>
+      <li><strong>状態に応じて表示を変える</strong>：読み込み中、エラー、成功でそれぞれ違う画面を表示</li>
+    </ul>
+    <hr>
+    <h3 id="3-services-サービス">3. services/ （サービス） </h3>
+    <p><strong>役割：</strong> Supabase との通信を行う場所。「データをください」「データを保存して」というお願いをする</p>
+    <h4 id="eventservicejs-の例">eventService.js の例 </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token punctuation">{</span> supabase <span class="token punctuation">}</span></span> <span class="token keyword module keyword-from">from</span> <span class="token string">"@/services/supabase/client"</span><span class="token punctuation">;</span>
 
 <span class="token doc-comment comment">/**
  * イベント一覧をSupabaseから取得する
@@ -1313,23 +2310,25 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
 
   <span class="token keyword control-flow keyword-return">return</span> data<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p><strong>ポイント：</strong></p>
-<ul>
-<li><strong>Supabase との通信を担当</strong>：画面から直接 Supabase を呼ばず、service を経由する</li>
-<li><strong>エラーハンドリング</strong>：エラーが起きたらコンソールに表示して、エラーを投げる</li>
-<li><strong>Supabase の命名に合わせる</strong>：<code>select</code>, <code>insert</code>, <code>update</code>, <code>delete</code>を使う</li>
-</ul>
-<hr>
-<h3 id="4-hooks-カスタムフック">4. hooks/ （カスタムフック） </h3>
-<p><strong>役割：</strong> 複雑な処理をまとめて、どの画面でも簡単に使えるようにする</p>
-<p><strong>カスタムフックとは？</strong></p>
-<ul>
-<li>データ取得や状態管理などの「よく使う処理」をまとめたもの</li>
-<li>複数の画面で同じ処理を使いたいときに便利</li>
-<li>必ず<code>use</code>から始まる名前にする（例：<code>useAuth</code>, <code>useEvents</code>）</li>
-</ul>
-<h4 id="useeventsjs-の例">useEvents.js の例 </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token punctuation">{</span> useState<span class="token punctuation">,</span> useEffect <span class="token punctuation">}</span></span> <span class="token keyword module keyword-from">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
+</code></pre>
+    <p><strong>ポイント：</strong></p>
+    <ul>
+      <li><strong>Supabase との通信を担当</strong>：画面から直接 Supabase を呼ばず、service を経由する</li>
+      <li><strong>エラーハンドリング</strong>：エラーが起きたらコンソールに表示して、エラーを投げる</li>
+      <li><strong>Supabase の命名に合わせる</strong>：<code>select</code>, <code>insert</code>, <code>update</code>,
+        <code>delete</code>を使う</li>
+    </ul>
+    <hr>
+    <h3 id="4-hooks-カスタムフック">4. hooks/ （カスタムフック） </h3>
+    <p><strong>役割：</strong> 複雑な処理をまとめて、どの画面でも簡単に使えるようにする</p>
+    <p><strong>カスタムフックとは？</strong></p>
+    <ul>
+      <li>データ取得や状態管理などの「よく使う処理」をまとめたもの</li>
+      <li>複数の画面で同じ処理を使いたいときに便利</li>
+      <li>必ず<code>use</code>から始まる名前にする（例：<code>useAuth</code>, <code>useEvents</code>）</li>
+    </ul>
+    <h4 id="useeventsjs-の例">useEvents.js の例 </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token punctuation">{</span> useState<span class="token punctuation">,</span> useEffect <span class="token punctuation">}</span></span> <span class="token keyword module keyword-from">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
 <span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token operator">*</span> <span class="token keyword module keyword-as">as</span> eventService</span> <span class="token keyword module keyword-from">from</span> <span class="token string">"../services/eventService"</span><span class="token punctuation">;</span>
 
 <span class="token doc-comment comment">/**
@@ -1407,25 +2406,26 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
     error<span class="token punctuation">,</span> <span class="token comment">// エラーメッセージ</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p><strong>ポイント：</strong></p>
-<ul>
-<li><strong>画面で簡単に使える</strong>：<code>useEvents()</code>を呼ぶだけで、データ取得から状態管理まで全部やってくれる</li>
-<li><strong>useEffect で自動実行</strong>：画面が表示されたら自動でデータを取得</li>
-<li><strong>useState で状態管理</strong>：イベント一覧、読み込み状態、エラーを保存</li>
-<li><strong>再利用できる</strong>：どの画面でも<code>useEvents()</code>を使えば、同じようにデータを取得できる</li>
-</ul>
-<hr>
-<h2 id="shared共通フォルダの詳細">shared/（共通フォルダ）の詳細 </h2>
-<h3 id="sharedutils-ヘルパー関数">shared/utils/ （ヘルパー関数） </h3>
-<p><strong>役割：</strong> よく使う処理をまとめた「お助け関数」を置く場所</p>
-<p><strong>ヘルパー関数とは？</strong></p>
-<ul>
-<li>小さくて便利な関数のこと</li>
-<li>「日付をフォーマットする」「メールアドレスをチェックする」など</li>
-<li>色々な場所で使える汎用的な関数</li>
-</ul>
-<h4 id="validationjs-の例">validation.js の例 </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
+</code></pre>
+    <p><strong>ポイント：</strong></p>
+    <ul>
+      <li><strong>画面で簡単に使える</strong>：<code>useEvents()</code>を呼ぶだけで、データ取得から状態管理まで全部やってくれる</li>
+      <li><strong>useEffect で自動実行</strong>：画面が表示されたら自動でデータを取得</li>
+      <li><strong>useState で状態管理</strong>：イベント一覧、読み込み状態、エラーを保存</li>
+      <li><strong>再利用できる</strong>：どの画面でも<code>useEvents()</code>を使えば、同じようにデータを取得できる</li>
+    </ul>
+    <hr>
+    <h2 id="shared共通フォルダの詳細">shared/（共通フォルダ）の詳細 </h2>
+    <h3 id="sharedutils-ヘルパー関数">shared/utils/ （ヘルパー関数） </h3>
+    <p><strong>役割：</strong> よく使う処理をまとめた「お助け関数」を置く場所</p>
+    <p><strong>ヘルパー関数とは？</strong></p>
+    <ul>
+      <li>小さくて便利な関数のこと</li>
+      <li>「日付をフォーマットする」「メールアドレスをチェックする」など</li>
+      <li>色々な場所で使える汎用的な関数</li>
+    </ul>
+    <h4 id="validationjs-の例">validation.js の例 </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
  * メールアドレスの形式が正しいかチェックする
  *
  * 【やっていること】
@@ -1461,8 +2461,9 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
 <span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token function-variable function">isValidPassword</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">password<span class="token punctuation">,</span> minLength <span class="token operator">=</span> <span class="token number">6</span></span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
   <span class="token keyword control-flow keyword-return">return</span> password<span class="token punctuation">.</span><span class="token property-access">length</span> <span class="token operator">&gt;=</span> minLength<span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><h4 id="formatdatejs-の例">formatDate.js の例 </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
+</code></pre>
+    <h4 id="formatdatejs-の例">formatDate.js の例 </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
  * 日付を「2024年11月1日」形式に変換する
  *
  * 【やっていること】
@@ -1503,17 +2504,18 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
   <span class="token keyword keyword-const">const</span> day <span class="token operator">=</span> date<span class="token punctuation">.</span><span class="token method function property-access">getDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword control-flow keyword-return">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>month<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>day<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><p><strong>ポイント：</strong></p>
-<ul>
-<li><strong>1 つのファイルに関連する関数をまとめる</strong>：バリデーション関連、日付関連など</li>
-<li><strong>どこからでも使える</strong>：<code>import { formatDate } from '@/shared/utils/formatDate'</code></li>
-<li><strong>テストしやすい</strong>：入力と出力が明確なので、テストが書きやすい</li>
-</ul>
-<hr>
-<h3 id="sharedconstants-定数">shared/constants/ （定数） </h3>
-<p><strong>役割：</strong> アプリ全体で使う「変わらない値」を置く場所</p>
-<h4 id="colorsjs-の例">colors.js の例 </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
+</code></pre>
+    <p><strong>ポイント：</strong></p>
+    <ul>
+      <li><strong>1 つのファイルに関連する関数をまとめる</strong>：バリデーション関連、日付関連など</li>
+      <li><strong>どこからでも使える</strong>：<code>import { formatDate } from '@/shared/utils/formatDate'</code></li>
+      <li><strong>テストしやすい</strong>：入力と出力が明確なので、テストが書きやすい</li>
+    </ul>
+    <hr>
+    <h3 id="sharedconstants-定数">shared/constants/ （定数） </h3>
+    <p><strong>役割：</strong> アプリ全体で使う「変わらない値」を置く場所</p>
+    <h4 id="colorsjs-の例">colors.js の例 </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
  * アプリ全体で使うカラーテーマ
  *
  * 【使い方】
@@ -1545,8 +2547,9 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
   <span class="token comment">// 白</span>
   <span class="token constant">WHITE</span><span class="token operator">:</span> <span class="token string">"#FFFFFF"</span><span class="token punctuation">,</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><h4 id="configjs-の例">config.js の例 </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
+</code></pre>
+    <h4 id="configjs-の例">config.js の例 </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
  * アプリの設定（環境変数など）
  */</span>
 
@@ -1561,10 +2564,11 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
 <span class="token comment">// ページネーション設定</span>
 <span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token constant">DEFAULT_PAGE_SIZE</span> <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span> <span class="token comment">// 1ページに表示する件数</span>
 <span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token constant">MAX_PAGE_SIZE</span> <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span> <span class="token comment">// 最大取得件数</span>
-</code></pre><hr>
-<h3 id="servicessupabaseclientjs">services/supabase/client.js </h3>
-<p><strong>役割：</strong> Supabase クライアントを作る場所（アプリ全体で 1 つだけ作る）</p>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token punctuation">{</span> createClient <span class="token punctuation">}</span></span> <span class="token keyword module keyword-from">from</span> <span class="token string">"@supabase/supabase-js"</span><span class="token punctuation">;</span>
+</code></pre>
+    <hr>
+    <h3 id="servicessupabaseclientjs">services/supabase/client.js </h3>
+    <p><strong>役割：</strong> Supabase クライアントを作る場所（アプリ全体で 1 つだけ作る）</p>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword module keyword-import">import</span> <span class="token imports"><span class="token punctuation">{</span> createClient <span class="token punctuation">}</span></span> <span class="token keyword module keyword-from">from</span> <span class="token string">"@supabase/supabase-js"</span><span class="token punctuation">;</span>
 <span class="token keyword module keyword-import">import</span> <span class="token punctuation">{</span> <span class="token constant">SUPABASE_URL</span><span class="token punctuation">,</span> <span class="token constant">SUPABASE_ANON_KEY</span> <span class="token punctuation">}</span> <span class="token keyword module keyword-from">from</span> <span class="token string">"@/shared/constants/config"</span><span class="token punctuation">;</span>
 
 <span class="token doc-comment comment">/**
@@ -1579,25 +2583,27 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
  * const <span class="token punctuation">{</span> data <span class="token punctuation">}</span> = await supabase.from('events').select('*');
  */</span>
 <span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> supabase <span class="token operator">=</span> <span class="token function">createClient</span><span class="token punctuation">(</span><span class="token constant">SUPABASE_URL</span><span class="token punctuation">,</span> <span class="token constant">SUPABASE_ANON_KEY</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre><hr>
-<h2 id="コメント規則-1">コメント規則 </h2>
-<h3 id="基本方針">基本方針 </h3>
-<ul>
-<li><strong>必要十分なコメントを書く</strong></li>
-<li><strong>「何をしているか」より「なぜそうしているか」を書く</strong></li>
-<li><strong>自明なコードにはコメント不要</strong></li>
-<li><strong>複雑なロジックには必ずコメントを書く</strong></li>
-</ul>
-<h3 id="関数のコメントjsdoc-形式">関数のコメント（JSDoc 形式） </h3>
-<p>すべての関数には<strong>JSDoc 形式</strong>で日本語コメントを書く。</p>
-<h4 id="基本形式">基本形式 </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
+</code></pre>
+    <hr>
+    <h2 id="コメント規則-1">コメント規則 </h2>
+    <h3 id="基本方針">基本方針 </h3>
+    <ul>
+      <li><strong>必要十分なコメントを書く</strong></li>
+      <li><strong>「何をしているか」より「なぜそうしているか」を書く</strong></li>
+      <li><strong>自明なコードにはコメント不要</strong></li>
+      <li><strong>複雑なロジックには必ずコメントを書く</strong></li>
+    </ul>
+    <h3 id="関数のコメントjsdoc-形式">関数のコメント（JSDoc 形式） </h3>
+    <p>すべての関数には<strong>JSDoc 形式</strong>で日本語コメントを書く。</p>
+    <h4 id="基本形式">基本形式 </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
  * 関数の説明
  * <span class="token keyword keyword-@param">@param</span> <span class="token class-name"><span class="token punctuation">{</span>型<span class="token punctuation">}</span></span> <span class="token parameter">パラメータ名</span> - パラメータの説明
  * <span class="token keyword keyword-@returns">@returns</span> <span class="token class-name"><span class="token punctuation">{</span>型<span class="token punctuation">}</span></span> 戻り値の説明
  */</span>
-</code></pre><h4 id="型の書き方">型の書き方 </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code>@param <span class="token punctuation">{</span>string<span class="token punctuation">}</span> <span class="token operator">-</span> 文字列
+</code></pre>
+    <h4 id="型の書き方">型の書き方 </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code>@param <span class="token punctuation">{</span>string<span class="token punctuation">}</span> <span class="token operator">-</span> 文字列
 @param <span class="token punctuation">{</span>number<span class="token punctuation">}</span> <span class="token operator">-</span> 数値
 @param <span class="token punctuation">{</span>boolean<span class="token punctuation">}</span> <span class="token operator">-</span> 真偽値
 @param <span class="token punctuation">{</span><span class="token known-class-name class-name">Array</span><span class="token punctuation">}</span> <span class="token operator">-</span> 配列
@@ -1605,8 +2611,9 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
 @param <span class="token punctuation">{</span><span class="token known-class-name class-name">Function</span><span class="token punctuation">}</span> <span class="token operator">-</span> 関数
 @param <span class="token punctuation">{</span><span class="token known-class-name class-name">Promise</span><span class="token operator">&lt;</span>型<span class="token operator">&gt;</span><span class="token punctuation">}</span> <span class="token operator">-</span> <span class="token known-class-name class-name">Promise</span>（非同期処理）
 @param <span class="token punctuation">{</span>型<span class="token operator">|</span><span class="token keyword null nil keyword-null">null</span><span class="token punctuation">}</span> <span class="token operator">-</span> <span class="token keyword null nil keyword-null">null</span>の可能性がある
-</code></pre><h4 id="例-1シンプルな関数">例 1：シンプルな関数 </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
+</code></pre>
+    <h4 id="例-1シンプルな関数">例 1：シンプルな関数 </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
  * 2つの数値を足し算する
  * <span class="token keyword keyword-@param">@param</span> <span class="token class-name"><span class="token punctuation">{</span>number<span class="token punctuation">}</span></span> <span class="token parameter">a</span> - 1つ目の数値
  * <span class="token keyword keyword-@param">@param</span> <span class="token class-name"><span class="token punctuation">{</span>number<span class="token punctuation">}</span></span> <span class="token parameter">b</span> - 2つ目の数値
@@ -1615,8 +2622,9 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
 <span class="token keyword keyword-function">function</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword control-flow keyword-return">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre><h4 id="例-2非同期関数">例 2：非同期関数 </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
+</code></pre>
+    <h4 id="例-2非同期関数">例 2：非同期関数 </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
  * ユーザー情報を取得する
  * <span class="token keyword keyword-@param">@param</span> <span class="token class-name"><span class="token punctuation">{</span>string<span class="token punctuation">}</span></span> <span class="token parameter">userId</span> - ユーザーID
  * <span class="token keyword keyword-@returns">@returns</span> <span class="token class-name"><span class="token punctuation">{</span>Promise<span class="token punctuation">&lt;</span>Object<span class="token punctuation">&gt;</span><span class="token punctuation">}</span></span> ユーザー情報
@@ -1631,10 +2639,11 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
   <span class="token keyword control-flow keyword-if">if</span> <span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token keyword control-flow keyword-throw">throw</span> error<span class="token punctuation">;</span>
   <span class="token keyword control-flow keyword-return">return</span> data<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre><hr>
-<h3 id="変数のコメント">変数のコメント </h3>
-<p>関数以外の変数には、<strong>何の値か</strong>をコメントで書く。</p>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token comment">// APIのベースURL</span>
+</code></pre>
+    <hr>
+    <h3 id="変数のコメント">変数のコメント </h3>
+    <p>関数以外の変数には、<strong>何の値か</strong>をコメントで書く。</p>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token comment">// APIのベースURL</span>
 <span class="token keyword keyword-const">const</span> <span class="token constant">API_BASE_URL</span> <span class="token operator">=</span> <span class="token string">"https://api.example.com"</span><span class="token punctuation">;</span>
 
 <span class="token comment">// リトライの最大回数</span>
@@ -1645,9 +2654,10 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
 
 <span class="token comment">// 取得したイベント一覧</span>
 <span class="token keyword keyword-const">const</span> <span class="token punctuation">[</span>events<span class="token punctuation">,</span> setEvents<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">useState</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre><hr>
-<h3 id="複雑なロジックのコメント">複雑なロジックのコメント </h3>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
+</code></pre>
+    <hr>
+    <h3 id="複雑なロジックのコメント">複雑なロジックのコメント </h3>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token doc-comment comment">/**
  * イベント開催日までの残り日数を計算する
  * <span class="token keyword keyword-@param">@param</span> <span class="token class-name"><span class="token punctuation">{</span>string<span class="token punctuation">}</span></span> <span class="token parameter">eventDate</span> - イベント開催日（ISO形式）
  * <span class="token keyword keyword-@returns">@returns</span> <span class="token class-name"><span class="token punctuation">{</span>number<span class="token punctuation">}</span></span> 残り日数
@@ -1662,133 +2672,144 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
 
   <span class="token keyword control-flow keyword-return">return</span> diffInDays<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
-</code></pre><hr>
-<h2 id="命名規則-1">命名規則 </h2>
-<h3 id="ファイル名の命名規則と説明">ファイル名の命名規則と説明 </h3>
-<h4 id="コンポーネントファイルjsx">コンポーネントファイル（.jsx） </h4>
-<ul>
-<li><strong>形式：</strong> PascalCase</li>
-<li><strong>拡張子：</strong> <code>.jsx</code></li>
-<li><strong>説明：</strong> UI を表示する React コンポーネント。画面や UI 部品を作る</li>
-<li><strong>例：</strong>
-<ul>
-<li><code>LoginScreen.jsx</code> - ログイン画面</li>
-<li><code>EventCard.jsx</code> - イベントカード部品</li>
-<li><code>Button.jsx</code> - ボタン部品</li>
-</ul>
-</li>
-</ul>
-<h4 id="サービスファイルjs">サービスファイル（.js） </h4>
-<ul>
-<li><strong>形式：</strong> camelCase + Service</li>
-<li><strong>拡張子：</strong> <code>.js</code></li>
-<li><strong>説明：</strong> API 通信を行うファイル。Supabase やその他の API とやり取りする</li>
-<li><strong>例：</strong>
-<ul>
-<li><code>authService.js</code> - 認証関連の API 通信</li>
-<li><code>eventService.js</code> - イベント関連の API 通信</li>
-<li><code>userService.js</code> - ユーザー関連の API 通信</li>
-</ul>
-</li>
-</ul>
-<h4 id="ユーティリティファイルjs">ユーティリティファイル（.js） </h4>
-<ul>
-<li><strong>形式：</strong> camelCase</li>
-<li><strong>拡張子：</strong> <code>.js</code></li>
-<li><strong>説明：</strong> ヘルパー関数をまとめたファイル。よく使う処理を再利用可能にする</li>
-<li><strong>例：</strong>
-<ul>
-<li><code>validation.js</code> - バリデーション関数（メールチェックなど）</li>
-<li><code>formatDate.js</code> - 日付フォーマット関数</li>
-<li><code>errorHandler.js</code> - エラー処理関数</li>
-</ul>
-</li>
-</ul>
-<h4 id="フックファイルjs">フックファイル（.js） </h4>
-<ul>
-<li><strong>形式：</strong> camelCase（use から始まる）</li>
-<li><strong>拡張子：</strong> <code>.js</code></li>
-<li><strong>説明：</strong> カスタムフック。複雑な処理をまとめて再利用可能にする</li>
-<li><strong>例：</strong>
-<ul>
-<li><code>useAuth.js</code> - 認証状態を管理するフック</li>
-<li><code>useEvents.js</code> - イベント一覧を取得するフック</li>
-<li><code>useFetch.js</code> - データ取得の汎用フック</li>
-</ul>
-</li>
-</ul>
-<h4 id="定数ファイルjs">定数ファイル（.js） </h4>
-<ul>
-<li><strong>形式：</strong> camelCase</li>
-<li><strong>拡張子：</strong> <code>.js</code></li>
-<li><strong>説明：</strong> 定数をまとめたファイル。変わらない値を一箇所で管理</li>
-<li><strong>例：</strong>
-<ul>
-<li><code>colors.js</code> - カラー定数</li>
-<li><code>config.js</code> - アプリ設定</li>
-<li><code>constants.js</code> - その他の定数</li>
-</ul>
-</li>
-</ul>
-<h4 id="ディレクトリ">ディレクトリ </h4>
-<ul>
-<li><strong>形式：</strong> camelCase（小文字始まり）</li>
-<li><strong>説明：</strong> 関連するファイルをまとめるフォルダ</li>
-<li><strong>例：</strong>
-<ul>
-<li><code>components/</code> - コンポーネントをまとめる</li>
-<li><code>services/</code> - サービスファイルをまとめる</li>
-<li><code>hooks/</code> - カスタムフックをまとめる</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h3 id="supabase-api-に合わせた命名">Supabase API に合わせた命名 </h3>
-<p>Supabase のメソッド名に合わせて命名します。</p>
-<h4 id="データ取得select">データ取得：select </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token comment">// ✅ 良い例</span>
+</code></pre>
+    <hr>
+    <h2 id="命名規則-1">命名規則 </h2>
+    <h3 id="ファイル名の命名規則と説明">ファイル名の命名規則と説明 </h3>
+    <h4 id="コンポーネントファイルjsx">コンポーネントファイル（.jsx） </h4>
+    <ul>
+      <li><strong>形式：</strong> PascalCase</li>
+      <li><strong>拡張子：</strong> <code>.jsx</code></li>
+      <li><strong>説明：</strong> UI を表示する React コンポーネント。画面や UI 部品を作る</li>
+      <li><strong>例：</strong>
+        <ul>
+          <li><code>LoginScreen.jsx</code> - ログイン画面</li>
+          <li><code>EventCard.jsx</code> - イベントカード部品</li>
+          <li><code>Button.jsx</code> - ボタン部品</li>
+        </ul>
+      </li>
+    </ul>
+    <h4 id="サービスファイルjs">サービスファイル（.js） </h4>
+    <ul>
+      <li><strong>形式：</strong> camelCase + Service</li>
+      <li><strong>拡張子：</strong> <code>.js</code></li>
+      <li><strong>説明：</strong> API 通信を行うファイル。Supabase やその他の API とやり取りする</li>
+      <li><strong>例：</strong>
+        <ul>
+          <li><code>authService.js</code> - 認証関連の API 通信</li>
+          <li><code>eventService.js</code> - イベント関連の API 通信</li>
+          <li><code>userService.js</code> - ユーザー関連の API 通信</li>
+        </ul>
+      </li>
+    </ul>
+    <h4 id="ユーティリティファイルjs">ユーティリティファイル（.js） </h4>
+    <ul>
+      <li><strong>形式：</strong> camelCase</li>
+      <li><strong>拡張子：</strong> <code>.js</code></li>
+      <li><strong>説明：</strong> ヘルパー関数をまとめたファイル。よく使う処理を再利用可能にする</li>
+      <li><strong>例：</strong>
+        <ul>
+          <li><code>validation.js</code> - バリデーション関数（メールチェックなど）</li>
+          <li><code>formatDate.js</code> - 日付フォーマット関数</li>
+          <li><code>errorHandler.js</code> - エラー処理関数</li>
+        </ul>
+      </li>
+    </ul>
+    <h4 id="フックファイルjs">フックファイル（.js） </h4>
+    <ul>
+      <li><strong>形式：</strong> camelCase（use から始まる）</li>
+      <li><strong>拡張子：</strong> <code>.js</code></li>
+      <li><strong>説明：</strong> カスタムフック。複雑な処理をまとめて再利用可能にする</li>
+      <li><strong>例：</strong>
+        <ul>
+          <li><code>useAuth.js</code> - 認証状態を管理するフック</li>
+          <li><code>useEvents.js</code> - イベント一覧を取得するフック</li>
+          <li><code>useFetch.js</code> - データ取得の汎用フック</li>
+        </ul>
+      </li>
+    </ul>
+    <h4 id="定数ファイルjs">定数ファイル（.js） </h4>
+    <ul>
+      <li><strong>形式：</strong> camelCase</li>
+      <li><strong>拡張子：</strong> <code>.js</code></li>
+      <li><strong>説明：</strong> 定数をまとめたファイル。変わらない値を一箇所で管理</li>
+      <li><strong>例：</strong>
+        <ul>
+          <li><code>colors.js</code> - カラー定数</li>
+          <li><code>config.js</code> - アプリ設定</li>
+          <li><code>constants.js</code> - その他の定数</li>
+        </ul>
+      </li>
+    </ul>
+    <h4 id="ディレクトリ">ディレクトリ </h4>
+    <ul>
+      <li><strong>形式：</strong> camelCase（小文字始まり）</li>
+      <li><strong>説明：</strong> 関連するファイルをまとめるフォルダ</li>
+      <li><strong>例：</strong>
+        <ul>
+          <li><code>components/</code> - コンポーネントをまとめる</li>
+          <li><code>services/</code> - サービスファイルをまとめる</li>
+          <li><code>hooks/</code> - カスタムフックをまとめる</li>
+        </ul>
+      </li>
+    </ul>
+    <hr>
+    <h3 id="supabase-api-に合わせた命名">Supabase API に合わせた命名 </h3>
+    <p>Supabase のメソッド名に合わせて命名します。</p>
+    <h4 id="データ取得select">データ取得：select </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token comment">// ✅ 良い例</span>
 <span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token function-variable function">selectEvents</span> <span class="token operator">=</span> <span class="token keyword keyword-async">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token spread operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token function-variable function">selectEventById</span> <span class="token operator">=</span> <span class="token keyword keyword-async">async</span> <span class="token punctuation">(</span><span class="token parameter">id</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token spread operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token function-variable function">selectUserBookmarks</span> <span class="token operator">=</span> <span class="token keyword keyword-async">async</span> <span class="token punctuation">(</span><span class="token parameter">userId</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token spread operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><h4 id="データ挿入insert">データ挿入：insert </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token comment">// ✅ 良い例</span>
+</code></pre>
+    <h4 id="データ挿入insert">データ挿入：insert </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token comment">// ✅ 良い例</span>
 <span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token function-variable function">insertEvent</span> <span class="token operator">=</span> <span class="token keyword keyword-async">async</span> <span class="token punctuation">(</span><span class="token parameter">eventData</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token spread operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token function-variable function">insertBookmark</span> <span class="token operator">=</span> <span class="token keyword keyword-async">async</span> <span class="token punctuation">(</span><span class="token parameter">bookmark</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token spread operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><h4 id="データ更新update">データ更新：update </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token comment">// ✅ 良い例</span>
+</code></pre>
+    <h4 id="データ更新update">データ更新：update </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token comment">// ✅ 良い例</span>
 <span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token function-variable function">updateUser</span> <span class="token operator">=</span> <span class="token keyword keyword-async">async</span> <span class="token punctuation">(</span><span class="token parameter">userId<span class="token punctuation">,</span> updates</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token spread operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token function-variable function">updateEvent</span> <span class="token operator">=</span> <span class="token keyword keyword-async">async</span> <span class="token punctuation">(</span><span class="token parameter">eventId<span class="token punctuation">,</span> updates</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token spread operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><h4 id="データ削除delete">データ削除：delete </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token comment">// ✅ 良い例</span>
+</code></pre>
+    <h4 id="データ削除delete">データ削除：delete </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token comment">// ✅ 良い例</span>
 <span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token function-variable function">deleteEvent</span> <span class="token operator">=</span> <span class="token keyword keyword-async">async</span> <span class="token punctuation">(</span><span class="token parameter">eventId</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token spread operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token keyword module keyword-export">export</span> <span class="token keyword keyword-const">const</span> <span class="token function-variable function">deleteBookmark</span> <span class="token operator">=</span> <span class="token keyword keyword-async">async</span> <span class="token punctuation">(</span><span class="token parameter">bookmarkId</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token spread operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-</code></pre><hr>
-<h3 id="コード内の命名">コード内の命名 </h3>
-<h4 id="変数camelcase">変数（camelCase） </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword keyword-const">const</span> userName <span class="token operator">=</span> <span class="token string">"太郎"</span><span class="token punctuation">;</span>
+</code></pre>
+    <hr>
+    <h3 id="コード内の命名">コード内の命名 </h3>
+    <h4 id="変数camelcase">変数（camelCase） </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword keyword-const">const</span> userName <span class="token operator">=</span> <span class="token string">"太郎"</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-const">const</span> eventList <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-const">const</span> isLoading <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-</code></pre><h4 id="定数upper_snake_case">定数（UPPER_SNAKE_CASE） </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword keyword-const">const</span> <span class="token constant">API_BASE_URL</span> <span class="token operator">=</span> <span class="token string">"https://api.example.com"</span><span class="token punctuation">;</span>
+</code></pre>
+    <h4 id="定数upper_snake_case">定数（UPPER_SNAKE_CASE） </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword keyword-const">const</span> <span class="token constant">API_BASE_URL</span> <span class="token operator">=</span> <span class="token string">"https://api.example.com"</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-const">const</span> <span class="token constant">MAX_RETRY_COUNT</span> <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
-</code></pre><h4 id="関数camelcase-動詞から始める">関数（camelCase、動詞から始める） </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword keyword-function">function</span> <span class="token function">fetchUserData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre>
+    <h4 id="関数camelcase-動詞から始める">関数（camelCase、動詞から始める） </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword keyword-function">function</span> <span class="token function">fetchUserData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token keyword keyword-function">function</span> <span class="token function">handleSubmit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token keyword keyword-function">function</span> <span class="token function">validateEmail</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-</code></pre><h4 id="react-コンポーネントpascalcase">React コンポーネント（PascalCase） </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword keyword-function">function</span> <span class="token function"><span class="token maybe-class-name">LoginScreen</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre>
+    <h4 id="react-コンポーネントpascalcase">React コンポーネント（PascalCase） </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword keyword-function">function</span> <span class="token function"><span class="token maybe-class-name">LoginScreen</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token keyword keyword-function">function</span> <span class="token function"><span class="token maybe-class-name">EventCard</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-</code></pre><h4 id="カスタムフックcamelcase-use-で始める">カスタムフック（camelCase、use で始める） </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword keyword-function">function</span> <span class="token function">useAuth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre>
+    <h4 id="カスタムフックcamelcase-use-で始める">カスタムフック（camelCase、use で始める） </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword keyword-function">function</span> <span class="token function">useAuth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token keyword keyword-function">function</span> <span class="token function">useEvents</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-</code></pre><h4 id="ブール型の変数is-has-can-should-で始める">ブール型の変数（is, has, can, should で始める） </h4>
-<pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword keyword-const">const</span> isLoading <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+</code></pre>
+    <h4 id="ブール型の変数is-has-can-should-で始める">ブール型の変数（is, has, can, should で始める） </h4>
+    <pre data-role="codeBlock" data-info="javascript" class="language-javascript javascript"><code><span class="token keyword keyword-const">const</span> isLoading <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-const">const</span> hasError <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-const">const</span> canEdit <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-const">const</span> shouldShowModal <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-</code></pre><hr>
-<h1 id="プロジェクト仕様書テンプレート">プロジェクト仕様書（テンプレート） </h1>
-<pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">#</span> プロジェクト仕様書</span>
+</code></pre>
+    <hr>
+    <h1 id="プロジェクト仕様書テンプレート">プロジェクト仕様書（テンプレート） </h1>
+    <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">#</span> プロジェクト仕様書</span>
 
 最終更新日: YYYY/MM/DD
 
@@ -1940,14 +2961,16 @@ API 設計に通知取得エンドポイント（GET /api/notifications）を追
 ERP や外部システムが Supabase に直接アクセスする場合
 
 <span class="token bold"><span class="token punctuation">**</span><span class="token content">ベース URL:</span><span class="token punctuation">**</span></span>
-</code></pre><p>https://{PROJECT_ID}.supabase.co/rest/v1</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>**認証方法:**
+</code></pre>
+    <p>https://{PROJECT_ID}.supabase.co/rest/v1</p>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>**認証方法:**
 
 以下のHTTPヘッダーを付ける
-</code></pre><p>apikey: {SUPABASE_ANON_KEY}<br>
-Authorization: Bearer {SUPABASE_ANON_KEY}<br>
-Content-Type: application/json</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>**必要な情報:**
+</code></pre>
+    <p>apikey: {SUPABASE_ANON_KEY}<br>
+      Authorization: Bearer {SUPABASE_ANON_KEY}<br>
+      Content-Type: application/json</p>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>**必要な情報:**
 - `PROJECT_ID`: Supabaseプロジェクト設定から取得
 - `SUPABASE_ANON_KEY`: Supabaseプロジェクト設定 &gt; API &gt; Project API keys から取得
 
@@ -1955,14 +2978,16 @@ Content-Type: application/json</p>
 
 #### イベント一覧取得
 
-</code></pre><p>GET /events?select=*</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>**リクエスト例:**
+</code></pre>
+    <p>GET /events?select=*</p>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>**リクエスト例:**
 ```bash
 curl -X GET 'https://abcdefg.supabase.co/rest/v1/events?select=*' \
   -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-</code></pre><p><strong>レスポンス:</strong></p>
-<pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">[</span>
+</code></pre>
+    <p><strong>レスポンス:</strong></p>
+    <pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">[</span>
   <span class="token punctuation">{</span>
     <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
     <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"模擬店"</span><span class="token punctuation">,</span>
@@ -1971,15 +2996,18 @@ curl -X GET 'https://abcdefg.supabase.co/rest/v1/events?select=*' \
     <span class="token property">"created_at"</span><span class="token operator">:</span> <span class="token string">"2024-01-01T00:00:00Z"</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">]</span>
-</code></pre><hr>
-<h4 id="特定イベント取得">特定イベント取得 </h4>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>GET /events?id=eq.{EVENT_ID}&amp;select=*
-</code></pre><p><strong>リクエスト例:</strong></p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">curl</span> <span class="token parameter variable">-X</span> GET <span class="token string">'https://abcdefg.supabase.co/rest/v1/events?id=eq.1&amp;select=*'</span> <span class="token punctuation">\</span>
+</code></pre>
+    <hr>
+    <h4 id="特定イベント取得">特定イベント取得 </h4>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>GET /events?id=eq.{EVENT_ID}&amp;select=*
+</code></pre>
+    <p><strong>リクエスト例:</strong></p>
+    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">curl</span> <span class="token parameter variable">-X</span> GET <span class="token string">'https://abcdefg.supabase.co/rest/v1/events?id=eq.1&amp;select=*'</span> <span class="token punctuation">\</span>
   <span class="token parameter variable">-H</span> <span class="token string">"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</span> <span class="token punctuation">\</span>
   <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</span>
-</code></pre><p><strong>レスポンス:</strong></p>
-<pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">[</span>
+</code></pre>
+    <p><strong>レスポンス:</strong></p>
+    <pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">[</span>
   <span class="token punctuation">{</span>
     <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
     <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"模擬店"</span><span class="token punctuation">,</span>
@@ -1987,11 +3015,13 @@ curl -X GET 'https://abcdefg.supabase.co/rest/v1/events?select=*' \
     <span class="token property">"location"</span><span class="token operator">:</span> <span class="token string">"A棟"</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">]</span>
-</code></pre><hr>
-<h4 id="イベント作成">イベント作成 </h4>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>POST /events
-</code></pre><p><strong>リクエスト例:</strong></p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token string">'https://abcdefg.supabase.co/rest/v1/events'</span> <span class="token punctuation">\</span>
+</code></pre>
+    <hr>
+    <h4 id="イベント作成">イベント作成 </h4>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>POST /events
+</code></pre>
+    <p><strong>リクエスト例:</strong></p>
+    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token string">'https://abcdefg.supabase.co/rest/v1/events'</span> <span class="token punctuation">\</span>
   <span class="token parameter variable">-H</span> <span class="token string">"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</span> <span class="token punctuation">\</span>
   <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</span> <span class="token punctuation">\</span>
   <span class="token parameter variable">-H</span> <span class="token string">"Content-Type: application/json"</span> <span class="token punctuation">\</span>
@@ -2000,75 +3030,81 @@ curl -X GET 'https://abcdefg.supabase.co/rest/v1/events?select=*' \
     "event_date": "2024-11-01",
     "location": "B棟"
   }'</span>
-</code></pre><p><strong>レスポンス:</strong></p>
-<pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
+</code></pre>
+    <p><strong>レスポンス:</strong></p>
+    <pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
   <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
   <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"新しいイベント"</span><span class="token punctuation">,</span>
   <span class="token property">"event_date"</span><span class="token operator">:</span> <span class="token string">"2024-11-01"</span><span class="token punctuation">,</span>
   <span class="token property">"location"</span><span class="token operator">:</span> <span class="token string">"B棟"</span><span class="token punctuation">,</span>
   <span class="token property">"created_at"</span><span class="token operator">:</span> <span class="token string">"2024-01-01T00:00:00Z"</span>
 <span class="token punctuation">}</span>
-</code></pre><hr>
-<h3 id="2-gas-api">2. GAS API </h3>
-<p><strong>アクセス方法:</strong></p>
-<p>GAS（Google Apps Script）がデータを加工して ERP や外部システムに提供する場合</p>
-<p><strong>ベース URL:</strong></p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>https://script.google.com/macros/s/{DEPLOY_ID}/exec
-</code></pre><p><strong>認証方法:</strong></p>
-<p>クエリパラメータ<code>key</code>に API キーを指定</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>?key={API_KEY}
-</code></pre><p><strong>必要な情報:</strong></p>
-<ul>
-<li><code>DEPLOY_ID</code>: GAS をデプロイした後に発行される ID</li>
-<li><code>API_KEY</code>: GAS のスクリプトプロパティで設定した API キー</li>
-</ul>
-<p><strong>GAS のデプロイ方法:</strong></p>
-<ol>
-<li>Google Apps Script エディタで「デプロイ」→「新しいデプロイ」</li>
-<li>種類：「ウェブアプリ」</li>
-<li>アクセス権限：「全員」</li>
-<li>デプロイ後に表示される「ウェブアプリの URL」が<code>DEPLOY_ID</code>を含む URL</li>
-</ol>
-<hr>
-<h4 id="鍵の貸し出し状況取得">鍵の貸し出し状況取得 </h4>
-<p><strong>説明:</strong><br>
-Google スプレッドシートから鍵の貸し出し状況を取得</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>GET /exec?key={API_KEY}&amp;action=getKeys&amp;date={YYYY-MM-DD}
-</code></pre><p><strong>パラメータ:</strong></p>
-<table>
-<thead>
-<tr>
-<th>名前</th>
-<th>型</th>
-<th>必須</th>
-<th>説明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>key</td>
-<td>string</td>
-<td>Yes</td>
-<td>API キー</td>
-</tr>
-<tr>
-<td>action</td>
-<td>string</td>
-<td>Yes</td>
-<td><code>getKeys</code>固定</td>
-</tr>
-<tr>
-<td>date</td>
-<td>string</td>
-<td>Yes</td>
-<td>取得する日付（YYYY-MM-DD 形式）</td>
-</tr>
-</tbody>
-</table>
-<p><strong>リクエスト例:</strong></p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">curl</span> <span class="token string">'https://script.google.com/macros/s/ABC123.../exec?key=your-api-key&amp;action=getKeys&amp;date=2024-11-01'</span>
-</code></pre><p><strong>レスポンス（成功時）:</strong></p>
-<pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
+</code></pre>
+    <hr>
+    <h3 id="2-gas-api">2. GAS API </h3>
+    <p><strong>アクセス方法:</strong></p>
+    <p>GAS（Google Apps Script）がデータを加工して ERP や外部システムに提供する場合</p>
+    <p><strong>ベース URL:</strong></p>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>https://script.google.com/macros/s/{DEPLOY_ID}/exec
+</code></pre>
+    <p><strong>認証方法:</strong></p>
+    <p>クエリパラメータ<code>key</code>に API キーを指定</p>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>?key={API_KEY}
+</code></pre>
+    <p><strong>必要な情報:</strong></p>
+    <ul>
+      <li><code>DEPLOY_ID</code>: GAS をデプロイした後に発行される ID</li>
+      <li><code>API_KEY</code>: GAS のスクリプトプロパティで設定した API キー</li>
+    </ul>
+    <p><strong>GAS のデプロイ方法:</strong></p>
+    <ol>
+      <li>Google Apps Script エディタで「デプロイ」→「新しいデプロイ」</li>
+      <li>種類：「ウェブアプリ」</li>
+      <li>アクセス権限：「全員」</li>
+      <li>デプロイ後に表示される「ウェブアプリの URL」が<code>DEPLOY_ID</code>を含む URL</li>
+    </ol>
+    <hr>
+    <h4 id="鍵の貸し出し状況取得">鍵の貸し出し状況取得 </h4>
+    <p><strong>説明:</strong><br>
+      Google スプレッドシートから鍵の貸し出し状況を取得</p>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>GET /exec?key={API_KEY}&amp;action=getKeys&amp;date={YYYY-MM-DD}
+</code></pre>
+    <p><strong>パラメータ:</strong></p>
+    <table>
+      <thead>
+        <tr>
+          <th>名前</th>
+          <th>型</th>
+          <th>必須</th>
+          <th>説明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>key</td>
+          <td>string</td>
+          <td>Yes</td>
+          <td>API キー</td>
+        </tr>
+        <tr>
+          <td>action</td>
+          <td>string</td>
+          <td>Yes</td>
+          <td><code>getKeys</code>固定</td>
+        </tr>
+        <tr>
+          <td>date</td>
+          <td>string</td>
+          <td>Yes</td>
+          <td>取得する日付（YYYY-MM-DD 形式）</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>リクエスト例:</strong></p>
+    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">curl</span> <span class="token string">'https://script.google.com/macros/s/ABC123.../exec?key=your-api-key&amp;action=getKeys&amp;date=2024-11-01'</span>
+</code></pre>
+    <p><strong>レスポンス（成功時）:</strong></p>
+    <pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
   <span class="token property">"data"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
       <span class="token property">"date"</span><span class="token operator">:</span> <span class="token string">"2024-11-01"</span><span class="token punctuation">,</span>
@@ -2079,50 +3115,54 @@ Google スプレッドシートから鍵の貸し出し状況を取得</p>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
-</code></pre><p><strong>レスポンス（エラー時）:</strong></p>
-<pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
+</code></pre>
+    <p><strong>レスポンス（エラー時）:</strong></p>
+    <pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
   <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Invalid API key"</span>
 <span class="token punctuation">}</span>
-</code></pre><hr>
-<h4 id="イベント集計データ取得">イベント集計データ取得 </h4>
-<p><strong>説明:</strong><br>
-Supabase と Google スプレッドシートのデータを集計して提供</p>
-<pre data-role="codeBlock" data-info="" class="language-text"><code>GET /exec?key={API_KEY}&amp;action=getEventSummary&amp;date={YYYY-MM-DD}
-</code></pre><p><strong>パラメータ:</strong></p>
-<table>
-<thead>
-<tr>
-<th>名前</th>
-<th>型</th>
-<th>必須</th>
-<th>説明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>key</td>
-<td>string</td>
-<td>Yes</td>
-<td>API キー</td>
-</tr>
-<tr>
-<td>action</td>
-<td>string</td>
-<td>Yes</td>
-<td><code>getEventSummary</code>固定</td>
-</tr>
-<tr>
-<td>date</td>
-<td>string</td>
-<td>Yes</td>
-<td>集計する日付（YYYY-MM-DD 形式）</td>
-</tr>
-</tbody>
-</table>
-<p><strong>リクエスト例:</strong></p>
-<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">curl</span> <span class="token string">'https://script.google.com/macros/s/ABC123.../exec?key=your-api-key&amp;action=getEventSummary&amp;date=2024-11-01'</span>
-</code></pre><p><strong>レスポンス（成功時）:</strong></p>
-<pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
+</code></pre>
+    <hr>
+    <h4 id="イベント集計データ取得">イベント集計データ取得 </h4>
+    <p><strong>説明:</strong><br>
+      Supabase と Google スプレッドシートのデータを集計して提供</p>
+    <pre data-role="codeBlock" data-info="" class="language-text"><code>GET /exec?key={API_KEY}&amp;action=getEventSummary&amp;date={YYYY-MM-DD}
+</code></pre>
+    <p><strong>パラメータ:</strong></p>
+    <table>
+      <thead>
+        <tr>
+          <th>名前</th>
+          <th>型</th>
+          <th>必須</th>
+          <th>説明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>key</td>
+          <td>string</td>
+          <td>Yes</td>
+          <td>API キー</td>
+        </tr>
+        <tr>
+          <td>action</td>
+          <td>string</td>
+          <td>Yes</td>
+          <td><code>getEventSummary</code>固定</td>
+        </tr>
+        <tr>
+          <td>date</td>
+          <td>string</td>
+          <td>Yes</td>
+          <td>集計する日付（YYYY-MM-DD 形式）</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>リクエスト例:</strong></p>
+    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">curl</span> <span class="token string">'https://script.google.com/macros/s/ABC123.../exec?key=your-api-key&amp;action=getEventSummary&amp;date=2024-11-01'</span>
+</code></pre>
+    <p><strong>レスポンス（成功時）:</strong></p>
+    <pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
   <span class="token property">"data"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"date"</span><span class="token operator">:</span> <span class="token string">"2024-11-01"</span><span class="token punctuation">,</span>
     <span class="token property">"total_events"</span><span class="token operator">:</span> <span class="token number">15</span><span class="token punctuation">,</span>
@@ -2135,102 +3175,106 @@ Supabase と Google スプレッドシートのデータを集計して提供</p
     <span class="token punctuation">]</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-</code></pre><hr>
-<h2 id="非機能要件">非機能要件 </h2>
-<h3 id="パフォーマンス-1">パフォーマンス </h3>
-<ul>
-<li>画面遷移は 3 秒以内</li>
-<li>API 応答時間は 1 秒以内</li>
-</ul>
-<h3 id="可用性">可用性 </h3>
-<ul>
-<li>イベント期間中は稼働率 99%以上</li>
-</ul>
-<h3 id="スケーラビリティ">スケーラビリティ </h3>
-<ul>
-<li>同時アクセス数：○○ 人程度を想定</li>
-</ul>
-<h3 id="対応環境">対応環境 </h3>
-<ul>
-<li><strong>iOS:</strong> 15.0 以上</li>
-<li><strong>Android:</strong> Android 10 以上</li>
-</ul>
-<hr>
-<h2 id="使用技術">使用技術 </h2>
-<h3 id="フロントエンド">フロントエンド </h3>
-<ul>
-<li><strong>React Native (Expo SDK XX)</strong>
-<ul>
-<li>理由：iOS/Android アプリを一つのコードで開発</li>
-</ul>
-</li>
-</ul>
-<h3 id="バックエンド">バックエンド </h3>
-<ul>
-<li><strong>Supabase</strong>
-<ul>
-<li>PostgreSQL データベース</li>
-<li>認証機能</li>
-<li>ストレージ</li>
-</ul>
-</li>
-</ul>
-<h3 id="その他">その他 </h3>
-<ul>
-<li><strong>GAS (Google Apps Script)</strong>
-<ul>
-<li>用途：外部システム（ERP）との連携、Google スプレッドシートとの連携</li>
-</ul>
-</li>
-</ul>
-<h3 id="開発ツール">開発ツール </h3>
-<ul>
-<li>Git/GitHub</li>
-<li>Visual Studio Code</li>
-<li>Expo Go</li>
-</ul>
-<hr>
-<h2 id="セキュリティ設計">セキュリティ設計 </h2>
-<h3 id="認証認可">認証・認可 </h3>
-<ul>
-<li><strong>認証方式:</strong> Supabase Auth（JWT）</li>
-<li><strong>セッション管理:</strong> トークンベース</li>
-</ul>
-<h3 id="データ保護">データ保護 </h3>
-<ul>
-<li><strong>通信:</strong> HTTPS 通信のみ</li>
-<li><strong>API キー管理:</strong> 環境変数で管理（<code>.env</code>）</li>
-<li><strong>Supabase RLS:</strong> Row Level Security (RLS)を設定し、ユーザーは自分のデータのみ閲覧・更新可能</li>
-</ul>
-<hr>
-<h2 id="更新履歴">更新履歴 </h2>
-<table>
-<thead>
-<tr>
-<th>日付</th>
-<th>バージョン</th>
-<th>更新内容</th>
-<th>更新者</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2024/01/01</td>
-<td>1.0</td>
-<td>初版作成</td>
-<td>名前</td>
-</tr>
-</tbody>
-</table>
+</code></pre>
+    <hr>
+    <h2 id="非機能要件">非機能要件 </h2>
+    <h3 id="パフォーマンス-1">パフォーマンス </h3>
+    <ul>
+      <li>画面遷移は 3 秒以内</li>
+      <li>API 応答時間は 1 秒以内</li>
+    </ul>
+    <h3 id="可用性">可用性 </h3>
+    <ul>
+      <li>イベント期間中は稼働率 99%以上</li>
+    </ul>
+    <h3 id="スケーラビリティ">スケーラビリティ </h3>
+    <ul>
+      <li>同時アクセス数：○○ 人程度を想定</li>
+    </ul>
+    <h3 id="対応環境">対応環境 </h3>
+    <ul>
+      <li><strong>iOS:</strong> 15.0 以上</li>
+      <li><strong>Android:</strong> Android 10 以上</li>
+    </ul>
+    <hr>
+    <h2 id="使用技術">使用技術 </h2>
+    <h3 id="フロントエンド">フロントエンド </h3>
+    <ul>
+      <li><strong>React Native (Expo SDK XX)</strong>
+        <ul>
+          <li>理由：iOS/Android アプリを一つのコードで開発</li>
+        </ul>
+      </li>
+    </ul>
+    <h3 id="バックエンド">バックエンド </h3>
+    <ul>
+      <li><strong>Supabase</strong>
+        <ul>
+          <li>PostgreSQL データベース</li>
+          <li>認証機能</li>
+          <li>ストレージ</li>
+        </ul>
+      </li>
+    </ul>
+    <h3 id="その他">その他 </h3>
+    <ul>
+      <li><strong>GAS (Google Apps Script)</strong>
+        <ul>
+          <li>用途：外部システム（ERP）との連携、Google スプレッドシートとの連携</li>
+        </ul>
+      </li>
+    </ul>
+    <h3 id="開発ツール">開発ツール </h3>
+    <ul>
+      <li>Git/GitHub</li>
+      <li>Visual Studio Code</li>
+      <li>Expo Go</li>
+    </ul>
+    <hr>
+    <h2 id="セキュリティ設計">セキュリティ設計 </h2>
+    <h3 id="認証認可">認証・認可 </h3>
+    <ul>
+      <li><strong>認証方式:</strong> Supabase Auth（JWT）</li>
+      <li><strong>セッション管理:</strong> トークンベース</li>
+    </ul>
+    <h3 id="データ保護">データ保護 </h3>
+    <ul>
+      <li><strong>通信:</strong> HTTPS 通信のみ</li>
+      <li><strong>API キー管理:</strong> 環境変数で管理（<code>.env</code>）</li>
+      <li><strong>Supabase RLS:</strong> Row Level Security (RLS)を設定し、ユーザーは自分のデータのみ閲覧・更新可能</li>
+    </ul>
+    <hr>
+    <h2 id="更新履歴">更新履歴 </h2>
+    <table>
+      <thead>
+        <tr>
+          <th>日付</th>
+          <th>バージョン</th>
+          <th>更新内容</th>
+          <th>更新者</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2024/01/01</td>
+          <td>1.0</td>
+          <td>初版作成</td>
+          <td>名前</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
 
-      </div>
-      
-      
-    
-    
-    
-    
-    
-    
-  
-    </body></html>
+  </div>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
