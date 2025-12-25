@@ -861,44 +861,60 @@
 
     <h1 id="近畿大学大学祭実行委員会システム部-開発ルール">近畿大学大学祭実行委員会システム部 開発ルール </h1>
     <hr>
+    <h2 id="目次">📑 目次 </h2>
+    <ul>
+      <li><a href="#はじめに">はじめに</a></li>
+      <li><a href="#開発の流れ">開発の流れ</a></li>
+      <li><a href="#github-ルール">GitHub ルール</a></li>
+      <li><a href="#ai-ルール">AI 開発について</a></li>
+      <li><a href="#開発ルール">開発ルール（用語解説）</a></li>
+    </ul>
+    <hr>
     <h2 id="はじめに">はじめに </h2>
     <p>このドキュメントは、近畿大学大学祭実行委員会システム部の開発ルールをまとめたものです。<br>
       毎年メンバーが入れ替わる中で、一貫した品質を保ちながら開発を進めるために作成されました。</p>
     <hr>
     <h2 id="開発の流れ">開発の流れ </h2>
-    <h3 id="1-プロジェクト仕様書を作成">1. プロジェクト仕様書を作成 </h3>
+    <h3 id="1-テンプレートをフォーク">1. テンプレートをフォーク </h3>
+    <ul>
+      <li>GitHub でテンプレートリポジトリをフォーク</li>
+      <li>リポジトリ名を新しいプロジェクト名に変更</li>
+      <li>ローカルにクローンして依存関係をインストール</li>
+    </ul>
+    <h3 id="2-プロジェクト仕様書を作成">2. プロジェクト仕様書を作成 </h3>
     <ul>
       <li><code>docs/プロジェクト仕様書.md</code>にプロジェクトの詳細を記載</li>
       <li>何を作るか、どう動くか、どんなデータベースを使うかを明確にする</li>
       <li>2〜3 人でレビューして内容を確定</li>
+      <li>完成したら Discord のフォーラム「pj管理」に新しく投稿を作成し、タグとタイトルを適切に設定して仕様書を貼る</li>
     </ul>
-    <h3 id="2-リポジトリを作成">2. リポジトリを作成 </h3>
+    <h3 id="3-develop-ブランチを作成">3. develop ブランチを作成 </h3>
     <ul>
-      <li>GitHub で新しいリポジトリを作成（命名規則に従う）</li>
-      <li><code>main</code>ブランチと<code>develop</code>ブランチを作成</li>
-      <li><code>docs/</code>フォルダに各種ドキュメントを配置</li>
+      <li>main ブランチから develop ブランチを作成</li>
+      <li>以降の開発作業は全て develop ブランチから派生させる</li>
     </ul>
-    <h3 id="3-issue-を作成">3. Issue を作成 </h3>
+    <h3 id="4-issue-を作成">4. Issue を作成 </h3>
     <ul>
       <li>仕様書を見ながら、大きな単位で Issue を作成</li>
       <li>例：「ログイン機能を実装」「イベント一覧画面を実装」</li>
     </ul>
-    <h3 id="4-ブランチを切って開発">4. ブランチを切って開発 </h3>
+    <h3 id="5-ブランチを切って開発">5. ブランチを切って開発 </h3>
     <ul>
-      <li>Issue 画面の右側「Development」欄から「Create a branch」でブランチ作成</li>
+      <li>develop ブランチから作業ブランチを作成</li>
+      <li>Issue 画面の右側「Development」欄から「Create a branch」でブランチ作成（base branch を develop に設定）</li>
       <li>コーディング規約に従って実装</li>
       <li>定期的にコミット・プッシュ</li>
     </ul>
-    <h3 id="5-プルリクエストを作成">5. プルリクエストを作成 </h3>
+    <h3 id="6-プルリクエストを作成">6. プルリクエストを作成 </h3>
     <ul>
-      <li>実装が完了したら PR を作成</li>
+      <li>実装が完了したら PR を作成（develop ブランチへマージ）</li>
       <li>Discord で通知（レビュー依頼ではなく通知目的）</li>
-      <li>GitHub 上でレビューを実施</li>
+      <li>GitHub 上でレビューを実施（<strong>48時間以内にレビューを完了</strong>）</li>
       <li>レビュー承認後にマージ</li>
     </ul>
-    <h3 id="6-繰り返し">6. 繰り返し </h3>
+    <h3 id="7-繰り返し">7. 繰り返し </h3>
     <ul>
-      <li>全ての機能が完成するまで 3〜5 を繰り返す</li>
+      <li>全ての機能が完成するまで 4〜6 を繰り返す</li>
       <li>定期的にプロジェクト仕様書を更新</li>
     </ul>
     <hr>
@@ -1617,227 +1633,14 @@ node_modules/
       <li>巨大な PR（500 行以上の変更）</li>
     </ol>
     <hr>
-    <h1 id="ai-ルール">AI ルール </h1>
-    <h2 id="最初に必ず読むこと">最初に必ず読むこと </h2>
-    <h3 id="プロジェクト仕様書最優先">プロジェクト仕様書（最優先） </h3>
-    <pre data-role="codeBlock" data-info="" class="language-text"><code>docs/プロジェクト仕様書.md
-</code></pre>
-    <p><strong>コードを書く前に必ず確認してください。</strong></p>
-    <ul>
-      <li>プロジェクト概要</li>
-      <li>機能要件</li>
-      <li>画面設計</li>
-      <li>データベース設計</li>
-      <li>API 設計</li>
-    </ul>
-    <hr>
-    <h2 id="基本情報">基本情報 </h2>
-    <ul>
-      <li><strong>使用言語：</strong> JavaScript（TypeScript ではない）</li>
-      <li><strong>フロントエンド：</strong> React Native (Expo)</li>
-      <li><strong>バックエンド：</strong> Supabase</li>
-      <li><strong>その他：</strong> Google Apps Script</li>
-    </ul>
-    <hr>
-    <h2 id="ファイル構造">ファイル構造 </h2>
-    <pre data-role="codeBlock" data-info="" class="language-text"><code>project-root/
-├── docs/
-│   ├── プロジェクト仕様書.md
-│   ├── 開発ルール.md
-│   ├── GitHubルール.md
-│   └── AI用プロンプト/
-│
-├── src/
-│   ├── features/              # 機能ごとにまとめる
-│   │   └── 機能名/           # 例：auth, event, user など
-│   │       ├── components/  # UI部品
-│   │       ├── screens/     # 画面
-│   │       ├── services/    # API通信
-│   │       ├── hooks/       # カスタムフック
-│   │       └── constants.js
-│   │
-│   ├── shared/              # 共通で使うもの
-│   │   ├── components/     # 汎用コンポーネント
-│   │   ├── hooks/          # 汎用フック
-│   │   ├── utils/          # ヘルパー関数
-│   │   ├── constants/      # 全体の定数
-│   │   └── contexts/       # Context API
-│   │
-│   ├── navigation/         # ナビゲーション
-│   ├── services/           # 共通サービス
-│   │   ├── supabase/
-│   │   │   └── client.js
-│   │   └── gas/
-│   │       └── gasApi.js
-│   └── assets/             # 静的ファイル
-│
-├── .env.example
-├── .gitignore
-├── app.json
-└── package.json
-</code></pre>
-    <hr>
-    <h2 id="コーディング規約">コーディング規約 </h2>
-    <h3 id="ファイル命名">ファイル命名 </h3>
-    <table>
-      <thead>
-        <tr>
-          <th>種類</th>
-          <th>形式</th>
-          <th>拡張子</th>
-          <th>例</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>コンポーネント</td>
-          <td>PascalCase</td>
-          <td>.jsx</td>
-          <td><code>EventCard.jsx</code></td>
-        </tr>
-        <tr>
-          <td>サービス</td>
-          <td>camelCase</td>
-          <td>.js</td>
-          <td><code>eventService.js</code></td>
-        </tr>
-        <tr>
-          <td>フック</td>
-          <td>useCamelCase</td>
-          <td>.js</td>
-          <td><code>useEvents.js</code></td>
-        </tr>
-        <tr>
-          <td>ユーティリティ</td>
-          <td>camelCase</td>
-          <td>.js</td>
-          <td><code>validation.js</code></td>
-        </tr>
-      </tbody>
-    </table>
-    <h3 id="コメント規則">コメント規則 </h3>
-    <p><strong>全ての関数に JSDoc 形式の日本語コメントを書く</strong></p>
-    <p><strong>変数にもコメントを書く</strong></p>
-    <h3 id="命名規則">命名規則 </h3>
-    <p><strong>Supabase API に合わせる：</strong></p>
-    <ul>
-      <li>データ取得：<code>selectEvents</code>, <code>selectEventById</code></li>
-      <li>データ挿入：<code>insertEvent</code></li>
-      <li>データ更新：<code>updateUser</code></li>
-      <li>データ削除：<code>deleteEvent</code></li>
-    </ul>
-    <p><strong>変数：</strong></p>
-    <ul>
-      <li>通常の変数：camelCase（例：<code>userName</code>, <code>eventList</code>）</li>
-      <li>定数：UPPER_SNAKE_CASE（例：<code>MAX_RETRY_COUNT</code>）</li>
-      <li>ブール：is, has, can, should で始める（例：<code>isLoading</code>, <code>hasError</code>）</li>
-    </ul>
-    <hr>
-    <h2 id="開発の基本原則">開発の基本原則 </h2>
-    <h3 id="コード品質">コード品質 </h3>
-    <ul>
-      <li>DRY 原則：重複を避ける</li>
-      <li>意味のある変数名・関数名を使う</li>
-      <li>小さな問題も放置せず、発見次第修正</li>
-      <li>コメントは「なぜ」を説明、「何を」はコードで表現</li>
-      <li>ボーイスカウトルール：コードを見つけた時よりも良い状態で残す</li>
-    </ul>
-    <h3 id="エラーハンドリング">エラーハンドリング </h3>
-    <ul>
-      <li>エラーは必ず解決する（抑制しない）</li>
-      <li>早期にエラーを検出し、明確なエラーメッセージを提供</li>
-      <li>外部 API やネットワーク通信は必ず失敗する可能性を考慮</li>
-      <li>try-catch でエラーを握りつぶさない</li>
-    </ul>
-    <h3 id="セキュリティ">セキュリティ </h3>
-    <ul>
-      <li>API キー、パスワードは環境変数で管理（ハードコード禁止）</li>
-      <li>すべての外部入力を検証</li>
-      <li>必要最小限の権限で動作</li>
-      <li>不要な依存関係を避ける</li>
-    </ul>
-    <h3 id="パフォーマンス">パフォーマンス </h3>
-    <ul>
-      <li>推測ではなく計測に基づいて最適化</li>
-      <li>必要になるまでリソースの読み込みを遅延</li>
-      <li>N+1 問題やオーバーフェッチを避ける</li>
-    </ul>
-    <h3 id="保守性">保守性 </h3>
-    <ul>
-      <li>機能追加と同時に既存コードの改善を検討</li>
-      <li>使用されていないコードは積極的に削除</li>
-      <li>技術的負債は明示的にコメントに記録</li>
-    </ul>
-    <hr>
-    <h2 id="git-運用">Git 運用 </h2>
-    <h3 id="コミットメッセージ-1">コミットメッセージ </h3>
-    <ul>
-      <li>コンベンショナルコミット形式を使用</li>
-      <li>形式：<code>[種類] 変更内容</code></li>
-      <li>種類：<code>add</code>, <code>fix</code>, <code>update</code>, <code>remove</code>, <code>docs</code></li>
-    </ul>
-    <h3 id="コミットの原則">コミットの原則 </h3>
-    <ul>
-      <li>コミットは原子的で、単一の変更に焦点を当てる</li>
-      <li>明確で説明的なメッセージを書く</li>
-      <li>main/develop ブランチへの直接コミットは避ける</li>
-    </ul>
-    <hr>
-    <h2 id="禁止事項-1">禁止事項 </h2>
-    <ol>
-      <li>コメントなしのコード</li>
-      <li>命名規則を無視</li>
-      <li>仕様書を読まずに実装</li>
-      <li>エラーハンドリング省略</li>
-      <li><code>var</code>の使用（<code>const</code>/<code>let</code>を使う）</li>
-      <li>マジックナンバー（定数化する）</li>
-      <li>TypeScript で書く（JavaScript のみ）</li>
-      <li>API キーやパスワードのハードコード</li>
-      <li>エラーの抑制（@ts-ignore や try-catch で握りつぶす）</li>
-      <li>使用されていないコードの放置</li>
-    </ol>
-    <hr>
-    <h2 id="依存関係の管理">依存関係の管理 </h2>
-    <ul>
-      <li>本当に必要な依存関係のみを追加</li>
-      <li>package-lock.json を必ずコミット</li>
-      <li>新しい依存関係追加前にライセンス、サイズ、メンテナンス状況を確認</li>
-      <li>セキュリティパッチのため定期的に更新</li>
-    </ul>
-    <hr>
-    <h2 id="デバッグ">デバッグ </h2>
-    <ul>
-      <li>問題を確実に再現できる手順を確立</li>
-      <li>最近の変更から調査を開始</li>
-      <li>適切なツールを活用</li>
-      <li>調査結果と解決策を記録</li>
-    </ul>
-    <hr>
-    <p><strong>必ずプロジェクト仕様書を読んでから実装してください。</strong></p>
-    <hr>
+    <h1 id="ai-ルール">AI 開発について </h1>
+    <p>このテンプレートには AI 開発ツール向けの設定ファイルが含まれています。</p>
     <h2 id="ai-用プロンプトファイルの配置">AI 用プロンプトファイルの配置 </h2>
-    <p>この AI ルールを以下のファイル名・配置場所でコピーして使用してください：</p>
-    <h3 id="claude-code">Claude Code </h3>
     <ul>
-      <li><strong>ファイル名：</strong> <code>claude.md</code></li>
-      <li><strong>配置場所：</strong> <code>docs/AI用プロンプト/claude.md</code></li>
+      <li><strong>Claude Code:</strong> <code>.claude/CLAUDE.md</code></li>
+      <li><strong>開発ルール・コーディング規約:</strong> <code>docs/開発ルール.md</code></li>
     </ul>
-    <h3 id="cursor">Cursor </h3>
-    <ul>
-      <li><strong>ファイル名：</strong> <code>AGENTS.md</code></li>
-      <li><strong>配置場所：</strong> プロジェクトルート <code>/AGENTS.md</code></li>
-    </ul>
-    <h3 id="gemini">Gemini </h3>
-    <ul>
-      <li><strong>ファイル名：</strong> <code>Gemini.md</code></li>
-      <li><strong>配置場所：</strong> <code>docs/AI用プロンプト/Gemini.md</code></li>
-    </ul>
-    <h3 id="github-copilot">GitHub Copilot </h3>
-    <ul>
-      <li><strong>ファイル名：</strong> <code>copilot-instructions.md</code></li>
-      <li><strong>配置場所：</strong> <code>.github/copilot-instructions.md</code></li>
-    </ul>
-    <p><strong>全て同じ内容をコピペして、ファイル名と配置場所だけ変えれば OK です！</strong></p>
+    <p>これらのファイルにはプロジェクトの開発ルール、コーディング規約、禁止事項などが記載されています。</p>
     <hr>
     <h1 id="開発ルール">開発ルール </h1>
     <h2 id="用語解説-1">用語解説 </h2>
@@ -2316,7 +2119,8 @@ node_modules/
       <li><strong>Supabase との通信を担当</strong>：画面から直接 Supabase を呼ばず、service を経由する</li>
       <li><strong>エラーハンドリング</strong>：エラーが起きたらコンソールに表示して、エラーを投げる</li>
       <li><strong>Supabase の命名に合わせる</strong>：<code>select</code>, <code>insert</code>, <code>update</code>,
-        <code>delete</code>を使う</li>
+        <code>delete</code>を使う
+      </li>
     </ul>
     <hr>
     <h3 id="4-hooks-カスタムフック">4. hooks/ （カスタムフック） </h3>
@@ -2807,463 +2611,6 @@ node_modules/
 <span class="token keyword keyword-const">const</span> canEdit <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
 <span class="token keyword keyword-const">const</span> shouldShowModal <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
 </code></pre>
-    <hr>
-    <h1 id="プロジェクト仕様書テンプレート">プロジェクト仕様書（テンプレート） </h1>
-    <pre data-role="codeBlock" data-info="markdown" class="language-markdown markdown"><code><span class="token title important"><span class="token punctuation">#</span> プロジェクト仕様書</span>
-
-最終更新日: YYYY/MM/DD
-
-<span class="token hr punctuation">---</span>
-
-<span class="token title important"><span class="token punctuation">##</span> 目次</span>
-
-<span class="token list punctuation">1.</span> <span class="token url">[<span class="token content">プロジェクト概要</span>](<span class="token url">#プロジェクト概要</span>)</span>
-<span class="token list punctuation">2.</span> <span class="token url">[<span class="token content">対象ユーザー</span>](<span class="token url">#対象ユーザー</span>)</span>
-<span class="token list punctuation">3.</span> <span class="token url">[<span class="token content">機能要件</span>](<span class="token url">#機能要件</span>)</span>
-<span class="token list punctuation">4.</span> <span class="token url">[<span class="token content">画面設計</span>](<span class="token url">#画面設計</span>)</span>
-<span class="token list punctuation">5.</span> <span class="token url">[<span class="token content">データベース設計</span>](<span class="token url">#データベース設計</span>)</span>
-<span class="token list punctuation">6.</span> <span class="token url">[<span class="token content">API 設計</span>](<span class="token url">#api設計</span>)</span>
-<span class="token list punctuation">7.</span> <span class="token url">[<span class="token content">非機能要件</span>](<span class="token url">#非機能要件</span>)</span>
-<span class="token list punctuation">8.</span> <span class="token url">[<span class="token content">使用技術</span>](<span class="token url">#使用技術</span>)</span>
-<span class="token list punctuation">9.</span> <span class="token url">[<span class="token content">セキュリティ設計</span>](<span class="token url">#セキュリティ設計</span>)</span>
-
-<span class="token hr punctuation">---</span>
-
-<span class="token title important"><span class="token punctuation">##</span> プロジェクト概要</span>
-
-<span class="token title important"><span class="token punctuation">###</span> 目的</span>
-
-（このシステムを作る目的・背景）
-
-<span class="token title important"><span class="token punctuation">###</span> スケジュール</span>
-
-<span class="token list punctuation">-</span> 開発開始：YYYY/MM/DD
-<span class="token list punctuation">-</span> リリース予定：YYYY/MM/DD
-
-<span class="token hr punctuation">---</span>
-
-<span class="token title important"><span class="token punctuation">##</span> 対象ユーザー</span>
-
-<span class="token title important"><span class="token punctuation">###</span> ○○ 部</span>
-
-<span class="token list punctuation">-</span> <span class="token bold"><span class="token punctuation">**</span><span class="token content">いつ使うか：</span><span class="token punctuation">**</span></span> （例：大学祭当日、準備期間中など）
-<span class="token list punctuation">-</span> <span class="token bold"><span class="token punctuation">**</span><span class="token content">どういうときに使うか：</span><span class="token punctuation">**</span></span> （例：イベント情報を確認したいとき、チケットを購入するときなど）
-
-<span class="token title important"><span class="token punctuation">###</span> △△ 部</span>
-
-<span class="token list punctuation">-</span> <span class="token bold"><span class="token punctuation">**</span><span class="token content">いつ使うか：</span><span class="token punctuation">**</span></span>
-<span class="token list punctuation">-</span> <span class="token bold"><span class="token punctuation">**</span><span class="token content">どういうときに使うか：</span><span class="token punctuation">**</span></span>
-
-<span class="token hr punctuation">---</span>
-
-<span class="token title important"><span class="token punctuation">##</span> 機能要件</span>
-
-<span class="token title important"><span class="token punctuation">###</span> 1. ○○ 機能</span>
-
-<span class="token bold"><span class="token punctuation">**</span><span class="token content">概要：</span><span class="token punctuation">**</span></span>
-（この機能で何ができるか）
-
-<span class="token bold"><span class="token punctuation">**</span><span class="token content">詳細仕様：</span><span class="token punctuation">**</span></span>
-
-<span class="token list punctuation">-</span> 〜の場合、〜となる
-<span class="token list punctuation">-</span> 〜ボタンを押すと〜する
-
-<span class="token hr punctuation">---</span>
-
-<span class="token title important"><span class="token punctuation">###</span> 2. △△ 機能</span>
-
-（同様に記載）
-
-<span class="token hr punctuation">---</span>
-
-<span class="token title important"><span class="token punctuation">##</span> 画面設計</span>
-
-<span class="token title important"><span class="token punctuation">###</span> 1. ○○ 画面</span>
-
-<span class="token bold"><span class="token punctuation">**</span><span class="token content">画面名:</span><span class="token punctuation">**</span></span> ScreenName  
-<span class="token bold"><span class="token punctuation">**</span><span class="token content">パス/識別子:</span><span class="token punctuation">**</span></span> <span class="token code-snippet code keyword">`/path`</span>
-
-<span class="token bold"><span class="token punctuation">**</span><span class="token content">表示項目:</span><span class="token punctuation">**</span></span>
-
-<span class="token list punctuation">-</span> 項目 1（UI 要素の種類）
-<span class="token list punctuation">-</span> 項目 2（UI 要素の種類）
-
-<span class="token bold"><span class="token punctuation">**</span><span class="token content">動作:</span><span class="token punctuation">**</span></span>
-
-<span class="token list punctuation">1.</span> ユーザーが〜を入力
-<span class="token list punctuation">2.</span> 〜ボタンをタップ
-<span class="token list punctuation">3.</span> 〜を実行
-<span class="token list punctuation">4.</span> 成功 → 〜画面へ遷移
-<span class="token list punctuation">5.</span> 失敗 → エラーメッセージを表示
-
-<span class="token hr punctuation">---</span>
-
-<span class="token title important"><span class="token punctuation">###</span> 2. △△ 画面</span>
-
-（同様に記載）
-
-<span class="token hr punctuation">---</span>
-
-<span class="token title important"><span class="token punctuation">##</span> データベース設計</span>
-
-<span class="token title important"><span class="token punctuation">###</span> テーブル一覧</span>
-
-<span class="token table"><span class="token table-header-row"><span class="token punctuation">|</span><span class="token table-header important"> テーブル名 </span><span class="token punctuation">|</span><span class="token table-header important"> 説明         </span><span class="token punctuation">|</span>
-</span><span class="token table-line"><span class="token punctuation">|</span> <span class="token punctuation">----------</span> <span class="token punctuation">|</span> <span class="token punctuation">------------</span> <span class="token punctuation">|</span>
-</span><span class="token table-data-rows"><span class="token punctuation">|</span><span class="token table-data"> users      </span><span class="token punctuation">|</span><span class="token table-data"> ユーザー情報 </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> events     </span><span class="token punctuation">|</span><span class="token table-data"> イベント情報 </span><span class="token punctuation">|</span>
-</span></span>
-<span class="token hr punctuation">---</span>
-
-<span class="token title important"><span class="token punctuation">###</span> users テーブル</span>
-
-<span class="token bold"><span class="token punctuation">**</span><span class="token content">説明:</span><span class="token punctuation">**</span></span> ユーザーアカウント情報を管理
-
-<span class="token table"><span class="token table-header-row"><span class="token punctuation">|</span><span class="token table-header important"> カラム名   </span><span class="token punctuation">|</span><span class="token table-header important"> 型          </span><span class="token punctuation">|</span><span class="token table-header important"> 制約             </span><span class="token punctuation">|</span><span class="token table-header important"> 説明           </span><span class="token punctuation">|</span>
-</span><span class="token table-line"><span class="token punctuation">|</span> <span class="token punctuation">----------</span> <span class="token punctuation">|</span> <span class="token punctuation">-----------</span> <span class="token punctuation">|</span> <span class="token punctuation">----------------</span> <span class="token punctuation">|</span> <span class="token punctuation">--------------</span> <span class="token punctuation">|</span>
-</span><span class="token table-data-rows"><span class="token punctuation">|</span><span class="token table-data"> id         </span><span class="token punctuation">|</span><span class="token table-data"> uuid        </span><span class="token punctuation">|</span><span class="token table-data"> PK               </span><span class="token punctuation">|</span><span class="token table-data"> ユーザー ID    </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> email      </span><span class="token punctuation">|</span><span class="token table-data"> text        </span><span class="token punctuation">|</span><span class="token table-data"> NOT NULL, UNIQUE </span><span class="token punctuation">|</span><span class="token table-data"> メールアドレス </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> name       </span><span class="token punctuation">|</span><span class="token table-data"> text        </span><span class="token punctuation">|</span><span class="token table-data"> NOT NULL         </span><span class="token punctuation">|</span><span class="token table-data"> ユーザー名     </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> created_at </span><span class="token punctuation">|</span><span class="token table-data"> timestamptz </span><span class="token punctuation">|</span><span class="token table-data"> NOT NULL         </span><span class="token punctuation">|</span><span class="token table-data"> 作成日時       </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> updated_at </span><span class="token punctuation">|</span><span class="token table-data"> timestamptz </span><span class="token punctuation">|</span><span class="token table-data"> NOT NULL         </span><span class="token punctuation">|</span><span class="token table-data"> 更新日時       </span><span class="token punctuation">|</span>
-</span></span>
-<span class="token bold"><span class="token punctuation">**</span><span class="token content">リレーション:</span><span class="token punctuation">**</span></span>
-
-<span class="token list punctuation">-</span> （他のテーブルとの関係）
-
-<span class="token hr punctuation">---</span>
-
-<span class="token title important"><span class="token punctuation">###</span> events テーブル</span>
-
-<span class="token bold"><span class="token punctuation">**</span><span class="token content">説明:</span><span class="token punctuation">**</span></span> イベント情報を管理
-
-<span class="token table"><span class="token table-header-row"><span class="token punctuation">|</span><span class="token table-header important"> カラム名   </span><span class="token punctuation">|</span><span class="token table-header important"> 型          </span><span class="token punctuation">|</span><span class="token table-header important"> 制約     </span><span class="token punctuation">|</span><span class="token table-header important"> 説明             </span><span class="token punctuation">|</span>
-</span><span class="token table-line"><span class="token punctuation">|</span> <span class="token punctuation">----------</span> <span class="token punctuation">|</span> <span class="token punctuation">-----------</span> <span class="token punctuation">|</span> <span class="token punctuation">--------</span> <span class="token punctuation">|</span> <span class="token punctuation">----------------</span> <span class="token punctuation">|</span>
-</span><span class="token table-data-rows"><span class="token punctuation">|</span><span class="token table-data"> id         </span><span class="token punctuation">|</span><span class="token table-data"> integer     </span><span class="token punctuation">|</span><span class="token table-data"> PK       </span><span class="token punctuation">|</span><span class="token table-data"> イベント ID      </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> title      </span><span class="token punctuation">|</span><span class="token table-data"> text        </span><span class="token punctuation">|</span><span class="token table-data"> NOT NULL </span><span class="token punctuation">|</span><span class="token table-data"> イベントタイトル </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> event_date </span><span class="token punctuation">|</span><span class="token table-data"> date        </span><span class="token punctuation">|</span><span class="token table-data"> NOT NULL </span><span class="token punctuation">|</span><span class="token table-data"> 開催日           </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> location   </span><span class="token punctuation">|</span><span class="token table-data"> text        </span><span class="token punctuation">|</span><span class="token table-data">          </span><span class="token punctuation">|</span><span class="token table-data"> 開催場所         </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> created_at </span><span class="token punctuation">|</span><span class="token table-data"> timestamptz </span><span class="token punctuation">|</span><span class="token table-data"> NOT NULL </span><span class="token punctuation">|</span><span class="token table-data"> 作成日時         </span><span class="token punctuation">|</span>
-<span class="token punctuation">|</span><span class="token table-data"> updated_at </span><span class="token punctuation">|</span><span class="token table-data"> timestamptz </span><span class="token punctuation">|</span><span class="token table-data"> NOT NULL </span><span class="token punctuation">|</span><span class="token table-data"> 更新日時         </span><span class="token punctuation">|</span>
-</span></span>
-<span class="token bold"><span class="token punctuation">**</span><span class="token content">リレーション:</span><span class="token punctuation">**</span></span>
-
-<span class="token list punctuation">-</span> （他のテーブルとの関係）
-
-<span class="token hr punctuation">---</span>
-
-<span class="token title important"><span class="token punctuation">##</span> API 設計</span>
-
-<span class="token title important"><span class="token punctuation">###</span> 1. Supabase REST API</span>
-
-<span class="token bold"><span class="token punctuation">**</span><span class="token content">アクセス方法:</span><span class="token punctuation">**</span></span>
-
-ERP や外部システムが Supabase に直接アクセスする場合
-
-<span class="token bold"><span class="token punctuation">**</span><span class="token content">ベース URL:</span><span class="token punctuation">**</span></span>
-</code></pre>
-    <p>https://{PROJECT_ID}.supabase.co/rest/v1</p>
-    <pre data-role="codeBlock" data-info="" class="language-text"><code>**認証方法:**
-
-以下のHTTPヘッダーを付ける
-</code></pre>
-    <p>apikey: {SUPABASE_ANON_KEY}<br>
-      Authorization: Bearer {SUPABASE_ANON_KEY}<br>
-      Content-Type: application/json</p>
-    <pre data-role="codeBlock" data-info="" class="language-text"><code>**必要な情報:**
-- `PROJECT_ID`: Supabaseプロジェクト設定から取得
-- `SUPABASE_ANON_KEY`: Supabaseプロジェクト設定 &gt; API &gt; Project API keys から取得
-
----
-
-#### イベント一覧取得
-
-</code></pre>
-    <p>GET /events?select=*</p>
-    <pre data-role="codeBlock" data-info="" class="language-text"><code>**リクエスト例:**
-```bash
-curl -X GET 'https://abcdefg.supabase.co/rest/v1/events?select=*' \
-  -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-</code></pre>
-    <p><strong>レスポンス:</strong></p>
-    <pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">[</span>
-  <span class="token punctuation">{</span>
-    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
-    <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"模擬店"</span><span class="token punctuation">,</span>
-    <span class="token property">"event_date"</span><span class="token operator">:</span> <span class="token string">"2024-11-01"</span><span class="token punctuation">,</span>
-    <span class="token property">"location"</span><span class="token operator">:</span> <span class="token string">"A棟"</span><span class="token punctuation">,</span>
-    <span class="token property">"created_at"</span><span class="token operator">:</span> <span class="token string">"2024-01-01T00:00:00Z"</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">]</span>
-</code></pre>
-    <hr>
-    <h4 id="特定イベント取得">特定イベント取得 </h4>
-    <pre data-role="codeBlock" data-info="" class="language-text"><code>GET /events?id=eq.{EVENT_ID}&amp;select=*
-</code></pre>
-    <p><strong>リクエスト例:</strong></p>
-    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">curl</span> <span class="token parameter variable">-X</span> GET <span class="token string">'https://abcdefg.supabase.co/rest/v1/events?id=eq.1&amp;select=*'</span> <span class="token punctuation">\</span>
-  <span class="token parameter variable">-H</span> <span class="token string">"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</span> <span class="token punctuation">\</span>
-  <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</span>
-</code></pre>
-    <p><strong>レスポンス:</strong></p>
-    <pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">[</span>
-  <span class="token punctuation">{</span>
-    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
-    <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"模擬店"</span><span class="token punctuation">,</span>
-    <span class="token property">"event_date"</span><span class="token operator">:</span> <span class="token string">"2024-11-01"</span><span class="token punctuation">,</span>
-    <span class="token property">"location"</span><span class="token operator">:</span> <span class="token string">"A棟"</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">]</span>
-</code></pre>
-    <hr>
-    <h4 id="イベント作成">イベント作成 </h4>
-    <pre data-role="codeBlock" data-info="" class="language-text"><code>POST /events
-</code></pre>
-    <p><strong>リクエスト例:</strong></p>
-    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token string">'https://abcdefg.supabase.co/rest/v1/events'</span> <span class="token punctuation">\</span>
-  <span class="token parameter variable">-H</span> <span class="token string">"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</span> <span class="token punctuation">\</span>
-  <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."</span> <span class="token punctuation">\</span>
-  <span class="token parameter variable">-H</span> <span class="token string">"Content-Type: application/json"</span> <span class="token punctuation">\</span>
-  <span class="token parameter variable">-d</span> <span class="token string">'{
-    "title": "新しいイベント",
-    "event_date": "2024-11-01",
-    "location": "B棟"
-  }'</span>
-</code></pre>
-    <p><strong>レスポンス:</strong></p>
-    <pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
-  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
-  <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"新しいイベント"</span><span class="token punctuation">,</span>
-  <span class="token property">"event_date"</span><span class="token operator">:</span> <span class="token string">"2024-11-01"</span><span class="token punctuation">,</span>
-  <span class="token property">"location"</span><span class="token operator">:</span> <span class="token string">"B棟"</span><span class="token punctuation">,</span>
-  <span class="token property">"created_at"</span><span class="token operator">:</span> <span class="token string">"2024-01-01T00:00:00Z"</span>
-<span class="token punctuation">}</span>
-</code></pre>
-    <hr>
-    <h3 id="2-gas-api">2. GAS API </h3>
-    <p><strong>アクセス方法:</strong></p>
-    <p>GAS（Google Apps Script）がデータを加工して ERP や外部システムに提供する場合</p>
-    <p><strong>ベース URL:</strong></p>
-    <pre data-role="codeBlock" data-info="" class="language-text"><code>https://script.google.com/macros/s/{DEPLOY_ID}/exec
-</code></pre>
-    <p><strong>認証方法:</strong></p>
-    <p>クエリパラメータ<code>key</code>に API キーを指定</p>
-    <pre data-role="codeBlock" data-info="" class="language-text"><code>?key={API_KEY}
-</code></pre>
-    <p><strong>必要な情報:</strong></p>
-    <ul>
-      <li><code>DEPLOY_ID</code>: GAS をデプロイした後に発行される ID</li>
-      <li><code>API_KEY</code>: GAS のスクリプトプロパティで設定した API キー</li>
-    </ul>
-    <p><strong>GAS のデプロイ方法:</strong></p>
-    <ol>
-      <li>Google Apps Script エディタで「デプロイ」→「新しいデプロイ」</li>
-      <li>種類：「ウェブアプリ」</li>
-      <li>アクセス権限：「全員」</li>
-      <li>デプロイ後に表示される「ウェブアプリの URL」が<code>DEPLOY_ID</code>を含む URL</li>
-    </ol>
-    <hr>
-    <h4 id="鍵の貸し出し状況取得">鍵の貸し出し状況取得 </h4>
-    <p><strong>説明:</strong><br>
-      Google スプレッドシートから鍵の貸し出し状況を取得</p>
-    <pre data-role="codeBlock" data-info="" class="language-text"><code>GET /exec?key={API_KEY}&amp;action=getKeys&amp;date={YYYY-MM-DD}
-</code></pre>
-    <p><strong>パラメータ:</strong></p>
-    <table>
-      <thead>
-        <tr>
-          <th>名前</th>
-          <th>型</th>
-          <th>必須</th>
-          <th>説明</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>key</td>
-          <td>string</td>
-          <td>Yes</td>
-          <td>API キー</td>
-        </tr>
-        <tr>
-          <td>action</td>
-          <td>string</td>
-          <td>Yes</td>
-          <td><code>getKeys</code>固定</td>
-        </tr>
-        <tr>
-          <td>date</td>
-          <td>string</td>
-          <td>Yes</td>
-          <td>取得する日付（YYYY-MM-DD 形式）</td>
-        </tr>
-      </tbody>
-    </table>
-    <p><strong>リクエスト例:</strong></p>
-    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">curl</span> <span class="token string">'https://script.google.com/macros/s/ABC123.../exec?key=your-api-key&amp;action=getKeys&amp;date=2024-11-01'</span>
-</code></pre>
-    <p><strong>レスポンス（成功時）:</strong></p>
-    <pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
-  <span class="token property">"data"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-    <span class="token punctuation">{</span>
-      <span class="token property">"date"</span><span class="token operator">:</span> <span class="token string">"2024-11-01"</span><span class="token punctuation">,</span>
-      <span class="token property">"key_id"</span><span class="token operator">:</span> <span class="token string">"K001"</span><span class="token punctuation">,</span>
-      <span class="token property">"room_number"</span><span class="token operator">:</span> <span class="token string">"A101"</span><span class="token punctuation">,</span>
-      <span class="token property">"borrower"</span><span class="token operator">:</span> <span class="token string">"山田太郎"</span><span class="token punctuation">,</span>
-      <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"貸出中"</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">]</span>
-<span class="token punctuation">}</span>
-</code></pre>
-    <p><strong>レスポンス（エラー時）:</strong></p>
-    <pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
-  <span class="token property">"error"</span><span class="token operator">:</span> <span class="token string">"Invalid API key"</span>
-<span class="token punctuation">}</span>
-</code></pre>
-    <hr>
-    <h4 id="イベント集計データ取得">イベント集計データ取得 </h4>
-    <p><strong>説明:</strong><br>
-      Supabase と Google スプレッドシートのデータを集計して提供</p>
-    <pre data-role="codeBlock" data-info="" class="language-text"><code>GET /exec?key={API_KEY}&amp;action=getEventSummary&amp;date={YYYY-MM-DD}
-</code></pre>
-    <p><strong>パラメータ:</strong></p>
-    <table>
-      <thead>
-        <tr>
-          <th>名前</th>
-          <th>型</th>
-          <th>必須</th>
-          <th>説明</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>key</td>
-          <td>string</td>
-          <td>Yes</td>
-          <td>API キー</td>
-        </tr>
-        <tr>
-          <td>action</td>
-          <td>string</td>
-          <td>Yes</td>
-          <td><code>getEventSummary</code>固定</td>
-        </tr>
-        <tr>
-          <td>date</td>
-          <td>string</td>
-          <td>Yes</td>
-          <td>集計する日付（YYYY-MM-DD 形式）</td>
-        </tr>
-      </tbody>
-    </table>
-    <p><strong>リクエスト例:</strong></p>
-    <pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">curl</span> <span class="token string">'https://script.google.com/macros/s/ABC123.../exec?key=your-api-key&amp;action=getEventSummary&amp;date=2024-11-01'</span>
-</code></pre>
-    <p><strong>レスポンス（成功時）:</strong></p>
-    <pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
-  <span class="token property">"data"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"date"</span><span class="token operator">:</span> <span class="token string">"2024-11-01"</span><span class="token punctuation">,</span>
-    <span class="token property">"total_events"</span><span class="token operator">:</span> <span class="token number">15</span><span class="token punctuation">,</span>
-    <span class="token property">"total_participants"</span><span class="token operator">:</span> <span class="token number">1200</span><span class="token punctuation">,</span>
-    <span class="token property">"events"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"模擬店"</span><span class="token punctuation">,</span>
-        <span class="token property">"participants"</span><span class="token operator">:</span> <span class="token number">500</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">]</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-    <hr>
-    <h2 id="非機能要件">非機能要件 </h2>
-    <h3 id="パフォーマンス-1">パフォーマンス </h3>
-    <ul>
-      <li>画面遷移は 3 秒以内</li>
-      <li>API 応答時間は 1 秒以内</li>
-    </ul>
-    <h3 id="可用性">可用性 </h3>
-    <ul>
-      <li>イベント期間中は稼働率 99%以上</li>
-    </ul>
-    <h3 id="スケーラビリティ">スケーラビリティ </h3>
-    <ul>
-      <li>同時アクセス数：○○ 人程度を想定</li>
-    </ul>
-    <h3 id="対応環境">対応環境 </h3>
-    <ul>
-      <li><strong>iOS:</strong> 15.0 以上</li>
-      <li><strong>Android:</strong> Android 10 以上</li>
-    </ul>
-    <hr>
-    <h2 id="使用技術">使用技術 </h2>
-    <h3 id="フロントエンド">フロントエンド </h3>
-    <ul>
-      <li><strong>React Native (Expo SDK XX)</strong>
-        <ul>
-          <li>理由：iOS/Android アプリを一つのコードで開発</li>
-        </ul>
-      </li>
-    </ul>
-    <h3 id="バックエンド">バックエンド </h3>
-    <ul>
-      <li><strong>Supabase</strong>
-        <ul>
-          <li>PostgreSQL データベース</li>
-          <li>認証機能</li>
-          <li>ストレージ</li>
-        </ul>
-      </li>
-    </ul>
-    <h3 id="その他">その他 </h3>
-    <ul>
-      <li><strong>GAS (Google Apps Script)</strong>
-        <ul>
-          <li>用途：外部システム（ERP）との連携、Google スプレッドシートとの連携</li>
-        </ul>
-      </li>
-    </ul>
-    <h3 id="開発ツール">開発ツール </h3>
-    <ul>
-      <li>Git/GitHub</li>
-      <li>Visual Studio Code</li>
-      <li>Expo Go</li>
-    </ul>
-    <hr>
-    <h2 id="セキュリティ設計">セキュリティ設計 </h2>
-    <h3 id="認証認可">認証・認可 </h3>
-    <ul>
-      <li><strong>認証方式:</strong> Supabase Auth（JWT）</li>
-      <li><strong>セッション管理:</strong> トークンベース</li>
-    </ul>
-    <h3 id="データ保護">データ保護 </h3>
-    <ul>
-      <li><strong>通信:</strong> HTTPS 通信のみ</li>
-      <li><strong>API キー管理:</strong> 環境変数で管理（<code>.env</code>）</li>
-      <li><strong>Supabase RLS:</strong> Row Level Security (RLS)を設定し、ユーザーは自分のデータのみ閲覧・更新可能</li>
-    </ul>
-    <hr>
-    <h2 id="更新履歴">更新履歴 </h2>
-    <table>
-      <thead>
-        <tr>
-          <th>日付</th>
-          <th>バージョン</th>
-          <th>更新内容</th>
-          <th>更新者</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>2024/01/01</td>
-          <td>1.0</td>
-          <td>初版作成</td>
-          <td>名前</td>
-        </tr>
-      </tbody>
-    </table>
-    <hr>
 
   </div>
 
